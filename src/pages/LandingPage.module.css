@@ -34,6 +34,7 @@
     margin: 20px 0; /* Espaçamento entre seções */
   }
 
+
 @media screen and (min-width: 700px) {
   .nav {
     display: block;
@@ -81,5 +82,8 @@
       color: #FFFFFF;
       outline: none; /* Remove a borda padrão do foco */
   }
+.main{
+  margin-top: 5rem;
+}
 
 }
