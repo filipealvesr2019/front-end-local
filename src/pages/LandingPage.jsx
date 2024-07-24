@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import styles from "./LandingPage.module.css";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -28,16 +29,19 @@ const LandingPage = () => {
               </li>
             </ul>
             <ul className={styles.ul}>
+              <Link to={'/login'}>
               <li className={styles.li}>
                 <button href="#Login" className={styles.button}>
                   Login
                 </button>
               </li>
+              </Link>
               <li className={styles.li}>
                 <button href="#Cadastro" className={styles.button}>
                   Cadastro
                 </button>
               </li>
+           
             </ul>
           </nav>
         </div>

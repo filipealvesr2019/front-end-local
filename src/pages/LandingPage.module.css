@@ -95,8 +95,9 @@ section {
     background-color: #ffffff;
     padding: 0.5rem;
     width: 10vw;
-    color: #333333;
+    color: hsl(0, 0%, 20%);
     border: 0;
+    cursor: pointer;
   }
   .button:hover,
   .button:focus {
