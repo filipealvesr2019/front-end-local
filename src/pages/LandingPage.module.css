@@ -1,0 +1,65 @@
+.nav {
+  display: none;
+}
+
+.img {
+  width: 10vw;
+}
+.header {
+    display: flex;
+
+    background-color: black;
+    position: fixed;
+    top: 0; /* Garante que o cabeçalho fique no topo */
+    width: 100%; /* Garante que o cabeçalho ocupe toda a largura da página */
+    z-index: 1000; /* Garante que o cabeçalho fique acima do conteúdo */
+  }
+@media screen and (min-width: 700px) {
+  .nav {
+    display: block;
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Adiciona alinhamento vertical ao centro */
+    background-color:black;
+    
+  }
+
+  .navContainer nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    color: white;
+    padding: 2rem;
+  }
+
+  
+  .ul{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+  }
+  .img {
+    width: 5vw;
+  }
+  .button{
+    background-color: #FFFFFF;
+    padding: .5rem;
+    width: 10vw;
+    color: #9966CC;
+    border: 0;
+  }
+  .button:hover,
+  .button:focus {
+      background-color: #D1B3FF;
+      color: #FFFFFF;
+      outline: none; /* Remove a borda padrão do foco */
+  }
+
+}
