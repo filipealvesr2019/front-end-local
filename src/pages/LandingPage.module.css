@@ -14,6 +14,26 @@
     width: 100%; /* Garante que o cabeçalho ocupe toda a largura da página */
     z-index: 1000; /* Garante que o cabeçalho fique acima do conteúdo */
   }
+
+  .container{
+    width: 100vw;
+
+  }
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center;
+    padding-top: 60px; /* Espaço para o cabeçalho fixo */
+    
+  }
+  
+  section {
+    width: 80%; /* Ajusta conforme necessário */
+    text-align: center; /* Centraliza o texto */
+    margin: 20px 0; /* Espaçamento entre seções */
+  }
+
 @media screen and (min-width: 700px) {
   .nav {
     display: block;
