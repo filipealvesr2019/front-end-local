@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Login from "./pages/Login.jsx";
-import { AuthProvider } from "./context/AuthContext.jsx";
+import { AuthProvider } from "../context/AuthContext.jsx";
 
 const Root = () => (
   <Routes>

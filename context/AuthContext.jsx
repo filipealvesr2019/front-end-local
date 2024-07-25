@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAtom } from 'jotai';
-import { isAdminAtom, loggedInAtom } from '../../store/store';
+import { isAdminAtom, loggedInAtom } from '../store/store';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const AuthContext = createContext();
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/login', {
+      const response = await axios.post('http://localhost:3002/api/login', {
         email: email,
         password: password
       });
@@ -39,15 +39,7 @@ export const AuthProvider = ({ children }) => {
       if (response.data.user.role === 'administrador') {
         setLoggedIn(true);
         setIsAdmin(true);
-        setIsManager(false);
-      } else if (response.data.user.role === 'funcionario') {
-        setLoggedIn(true);
-        setIsAdmin(false);
-        setIsManager(false);
-      } else if (response.data.user.role === 'Gerente') {
-        setLoggedIn(true);
-        setIsAdmin(false);
-        setIsManager(true);
+     
       } else {
         alert('Credenciais inválidas');
       }

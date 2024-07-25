@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+
 import AdminPage from '../pages/AdminPage';
 import EmployeePage from '../pages/EmployeePage';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -7,6 +7,8 @@ import './Login.css';
 import ManagerPage from '../pages/ManagerPage';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import App from '../App';
+import { useAuth } from '../../context/AuthContext';
 const Login = () => {
   const { loggedIn, isAdmin, isManager, login, logout, error } = useAuth();
   const [email, setEmail] = useState('');
@@ -40,7 +42,7 @@ const Login = () => {
   if (loggedIn) {
     return (
       <div className='logout-container'>
-        {isAdmin ? <AdminPage /> : (isManager ? <ManagerPage /> : <EmployeePage />)}
+        {isAdmin ? <AdminPage /> :  <App />}
         <div className='button' onClick={logout}>
           <LogoutIcon />
           <span>Sair</span>
