@@ -20,10 +20,10 @@ const LandingPage = () => {
                 />
               </a>
               <li className={styles.li}>
-                <a href="#sobre">Sobre</a>
+                <a href="#planos">Planos</a>
               </li>
               <li className={styles.li}>
-                <a href="#servicos">Serviços</a>
+                <a href="#servicos">Sobre</a>
               </li>
               <li className={styles.li}>
                 <a href="#contato">Contato</a>
@@ -102,7 +102,10 @@ const LandingPage = () => {
             ajudá-lo em cada etapa do caminho.
           </p>
         </section>
+        <section id="planos">
+
 <SubscriptionPlans />
+        </section>
         <section id="contato" className={styles.contato}>
           <h2 className={styles.h2}>Contato</h2>
 

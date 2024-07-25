@@ -126,4 +126,8 @@ section {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 font-weight: 400;
   }
+
+  .li a{
+    color: white;
+  }
 }
