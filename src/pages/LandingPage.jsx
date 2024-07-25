@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import styles from "./LandingPage.module.css";
 import { Link } from "react-router-dom";
+import SubscriptionPlans from "../components/SubscriptionPlans";
 
 const LandingPage = () => {
   return (
@@ -101,7 +102,7 @@ const LandingPage = () => {
             ajudá-lo em cada etapa do caminho.
           </p>
         </section>
-
+<SubscriptionPlans />
         <section id="contato" className={styles.contato}>
           <h2 className={styles.h2}>Contato</h2>
 
