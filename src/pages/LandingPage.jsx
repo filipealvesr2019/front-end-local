@@ -12,12 +12,15 @@ const LandingPage = () => {
         <div className={styles.navContainer}>
           <nav className={styles.nav}>
             <ul className={styles.ul}>
-              <a href="https://imgur.com/eIsbYKG">
+              <a >
+              <Link to={'/'}>
                 <img
                   src="https://i.imgur.com/eIsbYKG.jpg"
                   title="source: imgur.com"
                   className={styles.img}
                 />
+              </Link>
+              
               </a>
               <li className={styles.li}>
                 <a href="#planos">Planos</a>

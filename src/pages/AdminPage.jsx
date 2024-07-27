@@ -1,9 +1,9 @@
+import Sidebar from '../components/Sidebar'
+import styles from './AdminPage.module.css'
 export default function admin(){
     return (
         <>
-        admin
-
-        Transforme Seu Delivery com Nossa Solução Completa
+        <Sidebar/>
         </>
     )
 }
