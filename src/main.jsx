@@ -9,7 +9,8 @@ import AuthProvider from "../context/AuthContext.jsx";
 import RegisterLink from "./pages/RegisterLink.jsx";
 import Register from "./pages/Register.jsx";
 
-
+import PasswordResetRequest from "./pages/PasswordResetRequest.jsx";
+import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
 
 const Root = () => (
   <Routes>
@@ -18,7 +19,8 @@ const Root = () => (
     <Route path="/register" element={<RegisterLink/>} />
     
     <Route path="/register/:token" element={<Register/>} />
-
+    <Route path="/forgotPassword" element={<PasswordResetRequest/>} />
+    <Route path="/reset-password/:token" element={<ResetPasswordPage/>} />
   </Routes>
 );
 
