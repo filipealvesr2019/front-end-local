@@ -1,13 +1,6 @@
 import { atom } from 'jotai';
+import Cookies from 'js-cookie';
 
-// Atoms for authentication
-export const tokenAtom = atom(null);
-export const roleAtom = atom(null);
-export const loggedInAtom = atom(false);
-export const isAdminAtom = atom(false);
-
-// Other atoms for your application state can be added here
-// ...
-
-// Example of creating an atom for another state
-// export const exampleAtom = atom(initialValue);
+export const loggedInAtom = atom(Boolean(Cookies.get('token')));
+export const isAdminAtom = atom(Cookies.get('role') === 'administrador');
+export const authErrorAtom = atom(null); // Novo átomo para armazenar erros de autenticação

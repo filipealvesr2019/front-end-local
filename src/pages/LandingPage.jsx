@@ -37,11 +37,14 @@ const LandingPage = () => {
                 </button>
               </li>
               </Link>
+              <Link to={'/register'}>
               <li className={styles.li}>
                 <button href="#Cadastro" className={styles.button}>
                   Cadastro
                 </button>
               </li>
+
+            </Link>
            
             </ul>
           </nav>
