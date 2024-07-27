@@ -28,7 +28,7 @@ const ResetPasswordPage = () => {
       }
 
       // Enviar a solicitação para redefinir a senha
-      const response = await axios.post('http://localhost:3002/api/reset-password/:token', {
+      const response = await axios.post(`http://localhost:3002/api/reset-password/${token}`, {
         token,
         newPassword,
         confirmPassword,
