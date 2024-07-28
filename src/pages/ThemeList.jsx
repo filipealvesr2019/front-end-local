@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './ThemeList.module.css'
+import { Link } from 'react-router-dom';
 const ThemeList = () => {
   const [themes, setThemes] = useState([]);
   const [error, setError] = useState(null);
@@ -33,19 +34,12 @@ const ThemeList = () => {
       <ul>
         {themes.map((theme) => (
           <li key={theme._id} style={{ marginBottom: '20px' }}>
+            <Link to={`/theme/${theme._id}`}>
             <h2>{theme.name}</h2>
             <p><strong>Categoria:</strong> {theme.category}</p>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <div style={{ backgroundColor: theme.theme.header.backgroundColor, color: theme.theme.header.color, padding: '10px' }}>
-                <p>Header</p>
-              </div>
-              <div style={{ backgroundColor: theme.theme.footer.backgroundColor, color: theme.theme.footer.color, padding: '10px' }}>
-                <p>Footer</p>
-              </div>
-              <div style={{ backgroundColor: theme.theme.main.backgroundColor, color: theme.theme.main.color, padding: '10px' }}>
-                <p>Main</p>
-              </div>
-            </div>
+           
+            
+            </Link>
           </li>
         ))}
       </ul>

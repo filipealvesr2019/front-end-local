@@ -1,0 +1,7 @@
+.HeaderSidebar{
+    width: 100vw;
+    background-color: #2980B9;
+    position: fixed;
+    top: 0;
+    z-index: 7;
+}
