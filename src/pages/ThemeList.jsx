@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import styles from './ThemeList.module.css'
 const ThemeList = () => {
   const [themes, setThemes] = useState([]);
   const [error, setError] = useState(null);
@@ -26,8 +26,9 @@ const ThemeList = () => {
     return <div>Loading...</div>;
   }
 
+  
   return (
-    <div>
+    <div className={styles.themesContainer}>
       <h1>Lista de Temas</h1>
       <ul>
         {themes.map((theme) => (
