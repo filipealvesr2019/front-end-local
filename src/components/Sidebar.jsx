@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import styles from './Sidebar.module.css';
-
+import ThemeList from '../pages/ThemeList'
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
     <path d="M10 20V14H14V20H19V10H16L10 3.5L4 10H1V20H6V14H10V20Z" />
@@ -41,7 +41,7 @@ const Sidebar = () => {
   return (
     <div className={styles.SidebarContainer}>
     <Box className={styles.sidebar}>
-        sssssssssssss
+
       <Flex className={styles.sidebarItem} onClick={() => setContent('home')}>
         <HomeIcon />
         <Text className={styles.itemText}>Home</Text>
@@ -62,11 +62,16 @@ const Sidebar = () => {
         <SettingsIcon />
         <Text className={styles.itemText}>Configurações</Text>
       </Flex>
+      <Flex className={styles.sidebarItem} onClick={() => setContent('teste')}>
+        <SettingsIcon />
+        <Text className={styles.itemText}>teste</Text>
+      </Flex>
     </Box>
 
     <div  className={styles.content}>
-        {content}
+        {content === 'teste' ? 'test' : content}
     </div>
+    <ThemeList />
     </div>
   );
 };
