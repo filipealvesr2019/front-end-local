@@ -1,31 +1,38 @@
 .SidebarContainer{
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 .sidebar {
     width: 250px;
     height: 100vh;
-    background-color:#2C3E50;
+    background-color:white;
     display: flex;
     flex-direction: column;
     padding: 20px;
+      border-right: 0.5px solid rgb(230, 227, 227);
+    box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
   }
   
   .sidebarItem {
     display: flex;
     align-items: center;
     padding: 10px 0;
-    color: #ecf0f1;
+    color: gray;
     cursor: pointer;
+    
   }
   .itemText{
-    color: #ecf0f1;
+    color: gray;
 
   }
+
   .sidebarItem:hover {
-    background-color: #34495e;
+    background-color: #4763E6;
     border-radius: 4px;
+    color: white;
+
   }
   
   .icon {
@@ -43,6 +50,7 @@
     display: flex;
     justify-content: center;
     width: 100vw;
+    background-color: #FBFAFB;
   }
   .icon{
     margin: 1rem;

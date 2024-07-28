@@ -54,8 +54,11 @@ const Sidebar = () => {
    
       <Box className={styles.sidebar}>
         <Flex className={styles.sidebarItem} onClick={() => setContent('home')}>
+          <div className={styles.HomeIcon}>
+
           <HomeIcon />
-          <Text className={styles.itemText}>Home</Text>
+          </div>
+          <Text className={styles.itemText} >Home</Text>
         </Flex>
         <Flex className={styles.sidebarItem} onClick={() => setContent('Produtos')}>
           <StarIcon />
