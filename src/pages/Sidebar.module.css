@@ -46,4 +46,13 @@
   }
   .icon{
     margin: 1rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  @media screen and (min-width: 700pc) {
+    .iconContainer{
+      display: flex;
+      flex-direction: row;
+    }
   }

@@ -31,11 +31,12 @@ const ThemeList = () => {
   return (
     <div className={styles.themesContainer}>
       <h1>Lista de Temas</h1>
-      <ul>
+      <ul className={styles.ul}>
         {themes.map((theme) => (
-          <li key={theme._id} style={{ marginBottom: '20px' }}>
-            <Link to={`/theme/${theme._id}`}>
-            <h2>{theme.name}</h2>
+          <li key={theme._id} style={{ marginBottom: '20px' }}  className={styles.li}>
+            <Link to={`/theme/${theme._id}`} className={styles.Link}>
+            <img src={'http://localhost:5173/theme/66a59111d33e208e8751f095'} alt="" />
+            <h2 className={styles.h2}>{theme.name}</h2>
             <p><strong>Categoria:</strong> {theme.category}</p>
            
             

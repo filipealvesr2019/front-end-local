@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import styles from './Sidebar.module.css';
-import ThemeList from '../pages/ThemeList';
+import ThemeList from './ThemeList';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import { Link, useParams } from 'react-router-dom';
-import HeaderSidebar from './HeaderSidebar';
+import HeaderSidebar from '../components/HeaderSidebar';
 
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
@@ -82,8 +82,8 @@ const Sidebar = () => {
       <div className={styles.content}>
         {content === 'temas' ? <ThemeList /> : content}
       </div>
-      <div className={styles.icon}>
-        <Link to={`/loja`}>
+      <div className={styles.iconContainer}>
+        <Link to={`/loja`} className={styles.icon}>
           <div>
             <LocalMallOutlinedIcon />
           </div>
