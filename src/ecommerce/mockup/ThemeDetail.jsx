@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Layout1 from "../ecommerce/mockup/Layout1.module.css";
-import Layout2 from "../ecommerce/mockup/Layout2.module.css";
-import Layout3 from "../ecommerce/mockup/Layout3.module.css";
-import Layout4 from "../ecommerce/mockup/Layout4.module.css";
-import Layout5 from "../ecommerce/mockup/Layout5.module.css";
-import Layout6 from "../ecommerce/mockup/Layout6.module.css";
+import Layout1 from "../ecommerce/layout/Layout1.module.css";
+import Layout2 from "../ecommerce/layout/Layout2.module.css";
+import Layout3 from "../ecommerce/layout/Layout3.module.css";
+import Layout4 from "../ecommerce/layout/Layout4.module.css";
+import Layout5 from "../ecommerce/layout/Layout5.module.css";
+import Layout6 from "../ecommerce/layout/Layout6.module.css";
 import Cookies from "js-cookie";
 
 const ThemeDetail = () => {
@@ -114,7 +114,7 @@ const ThemeDetail = () => {
   const handleSaveTheme = async () => {
     try {
       await axios.put(
-        `http://localhost:3003/api/ecommerce/${ecommerceID}/update-theme`,
+        `http://localhost:3002/api/ecommerce/${ecommerceID}/update-theme`,
         {
           theme: {
             header: {

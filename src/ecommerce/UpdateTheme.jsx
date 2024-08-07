@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ColorCircle from "../ecommerce/colors/ColorCircle"; // Import the ColorCircle component
+import NavbarMockup from "../ecommerce/Navbar/NavbarMockup";
 
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import Cookies from "js-cookie";
 import SearchBar from "../ecommerce/SearchBar/SearchBar";
 
-// import Layout1 from "../ecommerce/layout/Layout1.module.css";
-// import Layout2 from "../ecommerce/layout/Layout2.module.css";
-import styles from "./UpdateTheme.module.css";
+import Layout1 from "../ecommerce/mockup/Layout1.module.css";
+import Layout2 from "../ecommerce/mockup/Layout2.module.css";
+import Layout3 from "../ecommerce/mockup/Layout3.module.css";
+import Layout4 from "../ecommerce/mockup/Layout4.module.css";
+import Layout5 from "../ecommerce/mockup/Layout5.module.css";
+import Layout6 from "../ecommerce/mockup/Layout6.module.css";
+// import styles from "./UpdateTheme.module.css";
 const UpdateTheme = () => {
   const { dominio } = useParams();
   const [ecommerce, setEcommerce] = useState(null);
@@ -175,22 +180,32 @@ const UpdateTheme = () => {
         return <></>;
     }
   };
-  // const layoutStyles = () => {
-  //   switch (layout) {
-  //     case "layout1":
-  //       return Layout1;
-  //     case "layout2":
-  //       return Layout2;
-  //     default:
-  //       return {}; // Retorna um objeto vazio se nenhum layout for encontrado
-  //   }
-  // };
+  const layoutStyles = () => {
+    switch (layout) {
+      case "layout1":
+        return Layout1;
+      case "layout2":
+        return Layout2;
+      case "layout3":
+        return Layout3;
+      case "layout4":
+        return Layout4;
+      case "layout5":
+        return Layout5;
+      case "layout6":
+        return Layout6;
+      default:
+        return {}; // Retorna um objeto vazio se nenhum layout for encontrado
+    }
+  };
 
-  // const styles = layoutStyles(); // Chame a função para obter o estilo correto
+  const styles = layoutStyles(); // Chame a função para obter o estilo correto
 
   return (
     <>
       <div className={styles.section}>
+        <button onClick={handleSaveTheme}>Salvar Tema</button>
+
         <span
           style={{
             color: "white",
@@ -395,7 +410,7 @@ const UpdateTheme = () => {
                     }}
                     className={styles.headerMobile}
                   >
-                    {/* <NavbarMockup /> */}
+                    <NavbarMockup />
                     <img style={{ color: "white", width: "5vw" }} src={logo} />
 
                     <div className={styles.header__icons}>
@@ -452,7 +467,6 @@ const UpdateTheme = () => {
           )}
         </div>
       </div>
-      <button onClick={handleSaveTheme}>Salvar Tema</button>
     </>
   );
 };

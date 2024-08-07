@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  background-color: #0D0C0C;
 }
 .button {
   display: flex;
