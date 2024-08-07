@@ -54,6 +54,7 @@ const Sidebar = () => {
 
   const handleClickOpenModal = () => {
     setOpenCartModal(!openCartModal);
+    setContent('temas')
   };
 
   const handleClickCloseModal = () => {
@@ -93,9 +94,9 @@ const Sidebar = () => {
           <StarIcon />
           <Text className={styles.itemText}>Produtos</Text>
         </Flex>
-        <Flex className={styles.sidebarItem} onClick={() => setContent('temas')}>
+        <Flex className={styles.sidebarItem} onClick={handleClickOpenModal}>
           <SettingsIcon />
-          <Text className={styles.itemText} onClick={handleClickOpenModal}>Loja</Text>
+          <Text className={styles.itemText}>Loja</Text>
         </Flex>
         {openCartModal && (
             <div className={styles.cartModal}>
