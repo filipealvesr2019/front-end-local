@@ -120,6 +120,8 @@ const UpdateTheme = () => {
               color={mainBackgroundColor}
               onChange={setMainBackgroundColor}
             />
+
+            
             <label>Cor do Texto do Main:</label>
             <ColorCircle color={mainColor} onChange={setMainColor} />
             <KeyboardArrowLeftOutlinedIcon
