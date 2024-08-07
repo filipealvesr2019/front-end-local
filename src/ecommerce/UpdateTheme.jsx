@@ -363,7 +363,7 @@ const UpdateTheme = () => {
                   >
                     <iframe
                       id="mobile-view"
-                      src="http://localhost:3004/cart" // URL da página mobile
+                      src="http://localhost:5002/cart" // URL da página mobile
                       title="Mobile View"
                       style={{
                         width: "1180px",
@@ -382,7 +382,7 @@ const UpdateTheme = () => {
                   >
                     <iframe
                       id="mobile-view"
-                      src="http://localhost:3004/loja" // URL da página mobile
+                      src="http://localhost:5002/loja" // URL da página mobile
                       title="Mobile View"
                       style={{
                         width: "1180px",
@@ -431,7 +431,7 @@ const UpdateTheme = () => {
                   <div className={styles.div}>
                     <iframe
                       id="mobile-view"
-                      src="http://localhost:3004/loja" // URL da página mobile
+                      src="http://localhost:5002/loja" // URL da página mobile
                       title="Mobile View"
                       style={{
                         width: "375px",
