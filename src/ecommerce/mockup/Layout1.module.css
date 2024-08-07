@@ -87,6 +87,8 @@
   justify-content: left;
   margin: 0 auto;
   width: 25vw;
+  margin-top: -10rem;
+  
 }
 .headerMobile {
   padding: 2rem;
