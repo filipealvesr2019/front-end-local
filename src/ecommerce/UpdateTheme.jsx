@@ -440,6 +440,7 @@ const UpdateTheme = () => {
                         borderRadius: "10px",
                       }} // Exemplo de dimensões de um iPhone X
                     />
+                    
                   </div>
                 </div>
               </div>
