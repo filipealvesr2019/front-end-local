@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import styles from './Sidebar.module.css';
-import ThemeList from './ThemeList';
+
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import { Link, useParams } from 'react-router-dom';
 import HeaderSidebar from '../components/HeaderSidebar';
+import { useAuth } from '../../context/AuthContext';
 
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
@@ -47,7 +48,35 @@ const SettingsIcon = () => (
 const Sidebar = () => {
 
   const [content, setContent] = useState('home');
+  const [openCartModal, setOpenCartModal] = useState(false);
+  const modalRef = useRef(null);
+  const { logout } = useAuth(); // Obtenha a função de logout
 
+  const handleClickOpenModal = () => {
+    setOpenCartModal(!openCartModal);
+  };
+
+  const handleClickCloseModal = () => {
+    setOpenCartModal(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target) &&
+        openCartModal
+      ) {
+        setOpenCartModal(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openCartModal]);
 
   return (
     <div className={styles.SidebarContainer}>
@@ -66,8 +95,23 @@ const Sidebar = () => {
         </Flex>
         <Flex className={styles.sidebarItem} onClick={() => setContent('temas')}>
           <SettingsIcon />
-          <Text className={styles.itemText}>temas</Text>
+          <Text className={styles.itemText} onClick={handleClickOpenModal}>Loja</Text>
         </Flex>
+        {openCartModal && (
+            <div className={styles.cartModal}>
+              <div ref={modalRef} className={styles.cartModalContent}>
+                <Link to={"/looks"}>
+                  <span className={styles.span}>Aparência da Loja</span>
+                </Link>
+                <Link to={"/temas"}>
+
+                <span className={styles.span}>Temas</span>
+                </Link>
+                
+                <span className={styles.span}>option 2</span>
+              </div>
+            </div>
+          )}
         <Flex className={styles.sidebarItem} onClick={() => setContent('Pedidos')}>
           <ShoppingCartIcon />
           <Text className={styles.itemText}>Pedidos</Text>
@@ -83,7 +127,7 @@ const Sidebar = () => {
       </Box>
     
       <div className={styles.content}>
-        {content === 'temas' ? <ThemeList /> : content}
+    
       </div>
       <div className={styles.iconContainer}>
         <Link to={`/loja`} className={styles.icon}>

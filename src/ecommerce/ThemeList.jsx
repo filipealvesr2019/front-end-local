@@ -27,6 +27,12 @@ const ThemeList = () => {
     return <div>Loading...</div>;
   }
 
+
+
+
+
+
+
   
   return (
     <div className={styles.themesContainer}>
