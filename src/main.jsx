@@ -50,7 +50,8 @@ const Root = () => (
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ClerkProvider
-  publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/products"
+  publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/"
+  
  navigate={(to) => window.history.pushState(null, '', to)}
     >
       <AuthProvider>
