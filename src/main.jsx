@@ -13,10 +13,21 @@ import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
 import ThemeDetail from "./ecommerce/ThemeDetail.jsx";
 import LojaPage from "./ecommerce/LojaPage.jsx";
 import UpdateTheme from "./ecommerce/UpdateTheme.jsx";
-
 import Sidebar from "./pages/Sidebar.jsx";
 import ThemeList from "./ecommerce/ThemeList.jsx";
 import CartPage from "./ecommerce/cartPage/Cart.jsx";
+import { ClerkProvider, RedirectToSignIn } from "@clerk/clerk-react";
+import Products from "./components/Products.jsx";
+
+// Import your publishable key
+// Import your publishable key
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
+
+
 const Root = () => (
   <Routes>
     <Route path="/" element={<App />} />
@@ -27,18 +38,21 @@ const Root = () => (
     <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
     <Route path="/loja" element={<LojaPage />} />
     <Route path="/theme/:id" element={<ThemeDetail />} />
-    <Route path="/looks" element={<UpdateTheme />} />~
+    <Route path="/looks" element={<UpdateTheme />} />
     <Route path="/sidebar" element={<Sidebar />} />
     <Route path="/temas" element={<ThemeList />} />
-
     <Route path="/cart" element={<CartPage />} />
+    <Route path="/products" element={<Products />} />
 
   </Routes>
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-
+    <ClerkProvider
+  publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/products"
+ navigate={(to) => window.history.pushState(null, '', to)}
+    >
       <AuthProvider>
         <ChakraProvider>
           <Router>
@@ -46,6 +60,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </Router>
         </ChakraProvider>
       </AuthProvider>
-
+    </ClerkProvider>
   </React.StrictMode>
 );

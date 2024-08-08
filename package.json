@@ -12,6 +12,7 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
+    "@clerk/clerk-react": "^5.4.0",
     "@mui/icons-material": "^5.16.4",
     "axios": "^1.7.2",
     "jotai": "^2.9.1",

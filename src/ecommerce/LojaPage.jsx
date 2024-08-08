@@ -7,6 +7,8 @@ import Tabs from "./tabs/Tabs";
 import SearchBar from "./SearchBar/SearchBar";
 import Layout1 from "../ecommerce/layout/Layout1.module.css";
 import Layout2 from "../ecommerce/layout/Layout2.module.css";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+
 const LojaPage = () => {
   const { dominio } = useParams();
   const [ecommerce, setEcommerce] = useState(null);
@@ -107,6 +109,7 @@ const LojaPage = () => {
 
   return (
     <>
+    
       <div className={styles.container}>
         <div className={styles.screenContainer}>
           <div
@@ -146,6 +149,15 @@ const LojaPage = () => {
                 </a>
 
 </Link>
+
+<SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
+
+     
               </div>
             </header>
             <Tabs />
