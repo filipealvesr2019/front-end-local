@@ -2,10 +2,10 @@
 import React from 'react';
 
 const Login = () => {
-  const handleLogin = () => {
-    window.location.href = 'http://localhost:3002/api/google'; // Endpoint do seu backend para Google Auth
-  };
-
+    const handleLogin = () => {
+        window.location.href = 'http://localhost:3002/api/google'; // Endpoint do seu backend para Google Auth
+      };
+      
   return (
     <div>
       <h1>Login</h1>

@@ -19,6 +19,7 @@ import CartPage from "./ecommerce/cartPage/Cart.jsx";
 import { ClerkProvider, RedirectToSignIn } from "@clerk/clerk-react";
 import Products from "./components/Products.jsx";
 import LoginForm from '../src/ecommerce/login/LoginForm.jsx'
+import Profile from "./ecommerce/Profile/Profile.jsx";
 // Import your publishable key
 // Import your publishable key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -44,6 +45,7 @@ const Root = () => (
     <Route path="/cart" element={<CartPage />} />
     <Route path="/products" element={<Products />} />
     <Route path="/signin" element={<LoginForm />} />
+    <Route path="/profile" element={<Profile />} />
 
   </Routes>
 );
