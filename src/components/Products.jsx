@@ -17,6 +17,7 @@ export default function Products() {
           },
         });
         setData(response.data);
+        console.log(response.data)
       } catch (error) {
         setError('Failed to fetch data.');
       }
@@ -32,7 +33,7 @@ export default function Products() {
       {data ? (
         <div>
           <p>Authorized: {data.message}</p>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+
         </div>
       ) : (
         <p>Loading...</p>

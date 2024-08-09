@@ -7,7 +7,6 @@ import Tabs from "./tabs/Tabs";
 import SearchBar from "./SearchBar/SearchBar";
 import Layout1 from "../ecommerce/layout/Layout1.module.css";
 import Layout2 from "../ecommerce/layout/Layout2.module.css";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 const LojaPage = () => {
   const { dominio } = useParams();
@@ -149,15 +148,12 @@ const LojaPage = () => {
                 </a>
 
 </Link>
+<Link to={'/signin'}>
+<a><img src="https://i.imgur.com/qshOO5Z.png" title="source: imgur.com" style={{ width: "2.5rem" }}/></a>
 
-<SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
 
-     
+</Link>
+
               </div>
             </header>
             <Tabs />

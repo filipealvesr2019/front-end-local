@@ -17,3 +17,5 @@ export const mainBackgroundColorAtom = atom('#ffffff');
 export const mainColorAtom = atom('#000000');
 export const footerBackgroundColorAtom = atom('#ffffff');
 export const footerColorAtom = atom('#000000');
+
+export const authAtom = atom(null); // null significa que não está autenticado
