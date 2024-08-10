@@ -18,4 +18,22 @@ export const mainColorAtom = atom('#000000');
 export const footerBackgroundColorAtom = atom('#ffffff');
 export const footerColorAtom = atom('#000000');
 
-export const authAtom = atom(null); // null significa que não está autenticado
+
+// Átomo para armazenar o token
+export const authTokenAtom = atom(Cookies.get('token') || null);
+
+// Átomo para armazenar o usuário
+export const authAtom = atom(null);
+
+// Átomo para atualizar o estado de autenticação
+export const updateAuthAtom = atom(
+  (get) => get(authAtom),
+  (updateAuth, newUser) => {
+    // Atualize o estado do usuário
+    updateAuth(newUser);
+
+    // Armazene o token em cookies e no estado
+    const token = newUser.token; // Supondo que você recebe o token do login
+    Cookies.set('token', token, { expires: 1 }); // Armazena o token em cookies por 1 dia
+  }
+);

@@ -20,6 +20,12 @@ import { ClerkProvider, RedirectToSignIn } from "@clerk/clerk-react";
 import Products from "./components/Products.jsx";
 import LoginForm from '../src/ecommerce/login/LoginForm.jsx'
 import Profile from "./ecommerce/Profile/Profile.jsx";
+
+
+import RegisterLinkUser from "../src/ecommerce/login/RegisterLinkUser.jsx";
+import RegisterUser from "../src/ecommerce/login/RegisterUser.jsx";
+import PasswordResetRequestUser from "../src/ecommerce/login/PasswordResetRequestUser.jsx";
+import ResetPasswordPageUser from "../src/ecommerce/login/ResetPasswordPageUser.jsx";
 // Import your publishable key
 // Import your publishable key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -47,6 +53,13 @@ const Root = () => (
     <Route path="/signin" element={<LoginForm />} />
     <Route path="/profile" element={<Profile />} />
 
+
+
+    <Route path="/user/register" element={<RegisterLinkUser />} />
+    <Route path="/user/register/:token" element={<RegisterUser />} />
+    <Route path="/user/forgotPassword" element={<PasswordResetRequestUser  />} />
+    <Route path="/user/reset-password/:token" element={<ResetPasswordPageUser  />} />
+   
   </Routes>
 );
 
