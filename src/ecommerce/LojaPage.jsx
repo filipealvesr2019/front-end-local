@@ -108,7 +108,6 @@ const LojaPage = () => {
 
   return (
     <>
-    
       <div className={styles.container}>
         <div className={styles.screenContainer}>
           <div
@@ -138,22 +137,24 @@ const LojaPage = () => {
                     style={{ width: "2.5rem" }}
                   />
                 </a>
-<Link to={'/cart'}>
-                <a>
-                  <img
-                    src="https://i.imgur.com/1XrvJJL.png"
-                    title="source: imgur.com"
-                    style={{ width: "2.5rem" }}
-                  />
-                </a>
-
-</Link>
-<Link to={'/signin'}>
-<a><img src="https://i.imgur.com/qshOO5Z.png" title="source: imgur.com" style={{ width: "2.5rem" }}/></a>
-
-
-</Link>
-
+                <Link to={"/cart"}>
+                  <a>
+                    <img
+                      src="https://i.imgur.com/1XrvJJL.png"
+                      title="source: imgur.com"
+                      style={{ width: "2.5rem" }}
+                    />
+                  </a>
+                </Link>
+                <Link to={"/signin"}>
+                  <a>
+                    <img
+                      src="https://i.imgur.com/qshOO5Z.png"
+                      title="source: imgur.com"
+                      style={{ width: "2.5rem" }}
+                    />
+                  </a>
+                </Link>
               </div>
             </header>
             <Tabs />
