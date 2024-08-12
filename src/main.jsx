@@ -16,7 +16,6 @@ import UpdateTheme from "./ecommerce/UpdateTheme.jsx";
 import Sidebar from "./pages/Sidebar.jsx";
 import ThemeList from "./ecommerce/ThemeList.jsx";
 import CartPage from "./ecommerce/cartPage/Cart.jsx";
-import { ClerkProvider, RedirectToSignIn } from "@clerk/clerk-react";
 import Products from "./components/Products.jsx";
 import LoginForm from '../src/ecommerce/login/LoginForm.jsx'
 import Profile from "./ecommerce/Profile/Profile.jsx";
@@ -27,13 +26,7 @@ import RegisterUser from "../src/ecommerce/login/RegisterUser.jsx";
 import PasswordResetRequestUser from "../src/ecommerce/login/PasswordResetRequestUser.jsx";
 import ResetPasswordPageUser from "../src/ecommerce/login/ResetPasswordPageUser.jsx";
 // Import your publishable key
-// Import your publishable key
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
-}
-
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const Root = () => (
   <Routes>
@@ -65,11 +58,7 @@ const Root = () => (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ClerkProvider
-  publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/"
   
- navigate={(to) => window.history.pushState(null, '', to)}
-    >
       <AuthProvider>
         <ChakraProvider>
           <Router>
@@ -77,6 +66,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </Router>
         </ChakraProvider>
       </AuthProvider>
-    </ClerkProvider>
+
+
   </React.StrictMode>
 );

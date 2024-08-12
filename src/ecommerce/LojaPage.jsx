@@ -7,7 +7,7 @@ import Tabs from "./tabs/Tabs";
 import SearchBar from "./SearchBar/SearchBar";
 import Layout1 from "../ecommerce/layout/Layout1.module.css";
 import Layout2 from "../ecommerce/layout/Layout2.module.css";
-
+import Header from '../ecommerce/header/Header'
 const LojaPage = () => {
   const { dominio } = useParams();
   const [ecommerce, setEcommerce] = useState(null);
@@ -113,50 +113,15 @@ const LojaPage = () => {
           <div
             style={{ backgroundColor: mainBackgroundColor, color: mainColor }}
           >
-            <header
-              style={{
-                backgroundColor: headerColorFrame
-                  ? headerColorFrame
-                  : headerBackgroundColor,
-                color: headerTextColorFrame
-                  ? headerTextColorFrame
-                  : headerColor,
-                cursor: headerBackgroundColor || headerColor ? "pointer" : "",
-              }}
-              className={styles.header}
-            >
-              <Navbar />
-
-              <img style={{ color: "white", width: "5vw" }} src={logo} />
-              <SearchBar />
-              <div className={styles.header__icons}>
-                <a>
-                  <img
-                    src="https://i.imgur.com/ItjKDhc.png"
-                    title="source: imgur.com"
-                    style={{ width: "2.5rem" }}
-                  />
-                </a>
-                <Link to={"/cart"}>
-                  <a>
-                    <img
-                      src="https://i.imgur.com/1XrvJJL.png"
-                      title="source: imgur.com"
-                      style={{ width: "2.5rem" }}
-                    />
-                  </a>
-                </Link>
-                <Link to={"/signin"}>
-                  <a>
-                    <img
-                      src="https://i.imgur.com/qshOO5Z.png"
-                      title="source: imgur.com"
-                      style={{ width: "2.5rem" }}
-                    />
-                  </a>
-                </Link>
-              </div>
-            </header>
+             <Header
+              headerColorFrame={headerColorFrame}
+              headerBackgroundColor={headerBackgroundColor}
+              headerTextColorFrame={headerTextColorFrame}
+              headerColor={headerColor}
+              logo={logo}
+              layout={layout}
+            />
+           
             <Tabs />
             <main
               className={styles.main}

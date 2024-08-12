@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAtom } from 'jotai';
-import { isAdminAtom, loggedInAtom, authErrorAtom, customerIDAtom } from '../../../store/store'; // Adicione o customerIDAtom
+import { isAdminAtom, loggedInAtom, authErrorAtom, customerIDAtom } from '../../../store/store';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
   const [isAdmin, setIsAdmin] = useAtom(isAdminAtom);
-  const [customerID, setCustomerID] = useAtom(customerIDAtom); // Adicione o estado para customerID
+  const [customerID, setCustomerID] = useAtom(customerIDAtom);
 
   useEffect(() => {
     const storedToken = Cookies.get('UserToken');
@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
 
     setLoggedIn(Boolean(storedToken));
     setIsAdmin(storedRole === 'user');
-    setCustomerID(storedCustomerID); // Armazene o customerID
+    setCustomerID(storedCustomerID);
   }, [setLoggedIn, setIsAdmin, setCustomerID]);
 
   return <>{children}</>;
@@ -29,7 +29,7 @@ export default AuthProvider;
 export const useAuth = () => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
   const [isAdmin, setIsAdmin] = useAtom(isAdminAtom);
-  const [customerID, setCustomerID] = useAtom(customerIDAtom); // Adicione o estado para customerID
+  const [customerID, setCustomerID] = useAtom(customerIDAtom);
   const [error, setError] = useAtom(authErrorAtom);
 
   const login = async (email, password) => {
@@ -45,28 +45,24 @@ export const useAuth = () => {
 
       Cookies.set('UserToken', response.data.token);
       Cookies.set('role', response.data.user.role);
-      Cookies.set('customerID', response.data.user._id); // Verifique se o customerID está correto
-      setCustomerID(response.data.user._id); // Atualize o esta
-      console.log(customerID)
+      Cookies.set('customerID', response.data.user._id);
+      setCustomerID(response.data.user._id);
     } catch (error) {
-      setError(error.response.data.error);
-
-      if (error.response && error.response.status === 401) {
-        toast.error('Erro, email ou senha inválidos!', { position: toast.POSITION.TOP_CENTER });
-      } else {
-        console.error('Erro na solicitação de login', error);
-      }
+      setError(error.response?.data?.error || 'Erro desconhecido');
+      console.error('Erro na solicitação de login', error);
     }
   };
+
+
 
   const logout = () => {
     Cookies.remove('UserToken');
     Cookies.remove('role');
-    Cookies.remove('customerID'); // Remova o customerID
+    Cookies.remove('customerID');
     setLoggedIn(false);
     setIsAdmin(false);
-    setCustomerID(null); // Limpe o estado do customerID
+    setCustomerID(null);
   };
 
-  return { loggedIn, isAdmin, customerID, login, logout, error }; // Retorne o customerID
+  return { loggedIn, isAdmin, customerID,  login, logout, error };
 };

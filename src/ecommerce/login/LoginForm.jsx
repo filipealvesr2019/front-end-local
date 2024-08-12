@@ -4,15 +4,24 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import "./LoginForm.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useAuth } from "../context/AuthContext"; // Certifique-se de atualizar o caminho corretamente
+import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { loggedIn, isAdmin, login, logout, error } = useAuth();
+  const { loggedIn, isAdmin, login, logout, loginWithGoogle, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleGoogleLogin = (response) => {
+    console.log('Resposta do Google:', response); // Adicione o log para depuração
+    if (response.credential) {
+      loginWithGoogle(response.credential);
+    } else {
+      console.error('Erro ao obter credenciais do Google');
+    }
+  };
 
   const handleLogin = () => {
     if (validateForm()) {
@@ -111,6 +120,7 @@ const Login = () => {
                 </span>
               </Link>
             </div>
+        
           </div>
           <br />
           <button className="loginButton" onClick={handleLogin}>
