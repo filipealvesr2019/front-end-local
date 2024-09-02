@@ -8,6 +8,7 @@ export default function Products() {
   const [formData, setFormData] = useState({
     name: '',
     price: '',
+    imageUrl: '',
     category: '',
     variations: [] // Inicialmente vazio, será preenchido com variações
   });
@@ -78,6 +79,14 @@ export default function Products() {
           placeholder="Categoria"
           onChange={handleChange}
           value={formData.category}
+          required
+        />
+         <input
+          type="text"
+          name="imageUrl"
+          placeholder="imagem"
+          onChange={handleChange}
+          value={formData.imageUrl }
           required
         />
         <input
