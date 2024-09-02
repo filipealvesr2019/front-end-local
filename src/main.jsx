@@ -25,6 +25,7 @@ import RegisterLinkUser from "../src/ecommerce/login/RegisterLinkUser.jsx";
 import RegisterUser from "../src/ecommerce/login/RegisterUser.jsx";
 import PasswordResetRequestUser from "../src/ecommerce/login/PasswordResetRequestUser.jsx";
 import ResetPasswordPageUser from "../src/ecommerce/login/ResetPasswordPageUser.jsx";
+import { ConfigProvider } from "./ecommerce/context/ConfigContext.jsx";
 // Import your publishable key
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -58,7 +59,8 @@ const Root = () => (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-  
+    <ConfigProvider>
+
       <AuthProvider>
         <ChakraProvider>
           <Router>
@@ -66,6 +68,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </Router>
         </ChakraProvider>
       </AuthProvider>
+
+    </ConfigProvider>
 
 
   </React.StrictMode>
