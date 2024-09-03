@@ -8,6 +8,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from './Register.module.css';
+import { useConfig } from '../ecommerce/context/ConfigContext';
 
 function RegisterUser() {
   const [email, setEmail] = useState('');
@@ -55,11 +56,12 @@ function RegisterUser() {
   };
 
   const role = 'administrador'; // Definindo o papel (role) como 'customer' por padrão
+  const { apiUrl } = useConfig();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:3002/api/register/${token}`, { email, password, role });
+      const response = await axios.post(`${apiUrl}/api/register/${token}`, { email, password, role });
       setMessage(response.data.message);
     } catch (error) {
       setError(error.response.data.error);

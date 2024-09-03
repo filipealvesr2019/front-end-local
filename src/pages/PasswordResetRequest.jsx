@@ -4,18 +4,20 @@ import Header from '../components/Header';
 import styles from './PasswordResetRequest.module.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useConfig } from '../ecommerce/context/ConfigContext';
 const PasswordResetRequest = () => {
   const [email, setEmail] = useState('');
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
+  const { apiUrl } = useConfig();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3002/api/forgot-password', { email });
+      const response = await axios.post(`${apiUrl}/api/forgot-password`, { email });
       toast.success("Email de recuperação enviado com sucesso cheque a sua caixa de email!");
 
     } catch (error) {
