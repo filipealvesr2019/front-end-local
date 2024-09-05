@@ -8,7 +8,7 @@ export default function Products() {
   const [data, setData] = useState([]);
   const [selectedVariations, setSelectedVariations] = useState({});
 
-  const getProducts = useCallback(async () => {
+  async function getProducts() {
     try {
       const response = await axios.get(`${apiUrl}/api/products`);
       setData(response.data || []);
@@ -17,7 +17,7 @@ export default function Products() {
       console.error("Error fetching products:", error);
       setData([]);
     }
-  }, [apiUrl]);
+  }
 
   useEffect(() => {
     getProducts();
