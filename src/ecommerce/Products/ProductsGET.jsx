@@ -19,8 +19,13 @@ export default function Products() {
     }
   }
 
+  let didFetch = false;
+
   useEffect(() => {
-    getProducts();
+    if (!didFetch) {
+      getProducts();
+      didFetch = true;
+    }
   }, [apiUrl]);
 
   const handleVariation = useCallback((productId, variation, index) => {
