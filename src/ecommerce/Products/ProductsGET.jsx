@@ -27,6 +27,12 @@ export default function Products() {
           <div key={product._id}>
             {product.name}
             <img src={product.imageUrl} alt={product.name} />
+{product.variations.map((variation, index) => {
+    <div key={index}>
+        <img src={variation.url} alt={variation.name} />
+    </div>
+})}
+            
           </div>
         ))
       ) : (
