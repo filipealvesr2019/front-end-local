@@ -26,6 +26,7 @@ export default function Products() {
         data.map((product) => (
           <div key={product._id}>
             {product.name}
+            <img src={product.imageUrl} alt={product.name} />
           </div>
         ))
       ) : (
