@@ -12,6 +12,7 @@ export default function Products() {
     try {
       const response = await axios.get(`${apiUrl}/api/products`);
       setData(response.data || []);
+      console.log(response.data )
     } catch (error) {
       console.error("Error fetching products:", error);
       setData([]);
