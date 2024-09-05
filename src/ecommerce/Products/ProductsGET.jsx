@@ -33,6 +33,8 @@ export default function Products() {
                   <div key={index}>
                     <img src={variation.url} alt={variation.name} />
                     <p>{variation.name}</p>
+                    <p>{variation.price}</p>
+
                   </div>
                 ))
               ) : (
