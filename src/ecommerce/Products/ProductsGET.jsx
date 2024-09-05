@@ -1,13 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useConfig } from "../context/ConfigContext";
-import styles from './ProductsGET.module.css'
+import styles from "./ProductsGET.module.css";
 export default function Products() {
   const { apiUrl } = useConfig();
   const [data, setData] = useState([]); // Initialize as an empty array
-  const [priceVariation, setPriceVariation] = useState(null)
-  const [nameVariation, setNameVariation] = useState(null)
-  const [urlVariation, setUrlVariation] = useState(null)
+  const [selectedVariations, setSelectedVariations] = useState({});
 
   async function getProducts() {
     try {
@@ -23,38 +21,67 @@ export default function Products() {
     getProducts();
   }, []);
 
-  const handleVariation = (price, name, url) => {
-    if(priceVariation === price && nameVariation === name && urlVariation === url){
-        setUrlVariation(null);
-        setNameVariation(null);
-        setPriceVariation(null);
-        console.log('variação apagada')
-    } else{
-        setPriceVariation(price)
-        setNameVariation(name)
-        setUrlVariation(url)
-        console.log("price", price)
-        console.log("name", name)
-        console.log("url", url)
-    }
+  const handleVariation = (productId, variation,  index) => {
    
-  }
+
+    const key = `${productId}-${index}`;
+    setSelectedVariations((prevState) => {
+        if(prevState[key]){
+            const {[key]: _, ...rest} = prevState
+            console.log('variação apagada');
+            return rest
+        } else {
+              // Otherwise, add the variation
+        console.log("price", variation.price);
+        console.log("name", variation.name);
+        console.log("url", variation.url);
+
+        return {...prevState, [key]: variation}
+        }
+    });
+  };
 
   return (
     <div style={{ marginTop: "25rem" }}>
       {data.length > 0 ? (
         data.map((product) => (
-          <div key={product._id}>
+          <div
+            key={product._id}
+            style={{
+              marginTop: "10rem",
+            }}
+          >
             {product.name}
-            <img src={product.imageUrl} alt={product.name} />
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              style={{
+                width: "15vw",
+              }}
+            />
             <div>
               {product.variations && product.variations.length > 0 ? (
                 product.variations.map((variation, index) => (
                   <div key={index} className={styles.variationContainer}>
-                    <img src={variation.url} alt={variation.name} />
+                    <img
+                      src={variation.url}
+                      alt={variation.name}
+                      style={{
+                        width: "15vw",
+                      }}
+                    />
                     <p>{variation.name}</p>
                     <p>R${variation.price}</p>
-                    <span onClick={() => handleVariation(variation.price, variation.name, variation.url)}> {priceVariation && nameVariation && urlVariation ? '-' : '+'}</span>
+                    <span
+                      onClick={() =>
+                        handleVariation(product._id, variation, index)
+                      }
+                    >
+                      {" "}
+                      {selectedVariations[`${product._id}-${index}`]
+                        ? "-"
+                        : "+"}
+                    </span>
                   </div>
                 ))
               ) : (

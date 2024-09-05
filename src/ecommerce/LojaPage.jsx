@@ -133,7 +133,6 @@ const LojaPage = () => {
                 color: mainTextColorFrame ? mainTextColorFrame : mainColor,
               }}
             >
-              <span>Conteúdo Principal da Loja</span>
 
               <Products />
             </main>
