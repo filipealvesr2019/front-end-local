@@ -9,6 +9,7 @@ import Layout1 from "../ecommerce/layout/Layout1.module.css";
 import Layout2 from "../ecommerce/layout/Layout2.module.css";
 import Header from '../ecommerce/header/Header'
 import Products from './Products/ProductsGET';
+import { useConfig } from "./context/ConfigContext";
 const LojaPage = () => {
   const { dominio } = useParams();
   const [ecommerce, setEcommerce] = useState(null);
@@ -30,6 +31,7 @@ const LojaPage = () => {
   const [mainTextColorFrame, setMainTextColorFrame] = useState(mainColor);
   const [footerColorFrame, setFooterColorFrame] = useState(mainBackgroundColor);
   const [footerTextColorFrame, setFooterTextColorFrame] = useState(mainColor);
+  const { apiUrl } = useConfig();
 
   const customerID = Cookies.get("customerID"); // Obtenha o ID do cliente do cookie
 
@@ -37,7 +39,7 @@ const LojaPage = () => {
     const fetchEcommerce = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3002/api/ecommerce/user/${customerID}`
+          `${apiUrl}/api/ecommerce/user/${customerID}`
         );
         setEcommerce(response.data);
         setLogo(response.data.theme.header.Logo);

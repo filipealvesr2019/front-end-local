@@ -2,24 +2,24 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAtom } from 'jotai';
-import { isAdminAtom, loggedInAtom, authErrorAtom, AdminIDAtom } from '../store/store'; // Adicione o customerIDAtom
+import { isAdminAtom, loggedInAtom, authErrorAtom, customerIDAtom } from '../store/store'; // Adicione o customerIDAtom
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
   const [isAdmin, setIsAdmin] = useAtom(isAdminAtom);
-  const [adminID, setAdminID] = useAtom(AdminIDAtom); // Adicione o estado para customerID
+  const [customerID, setCustomerID] = useAtom(customerIDAtom); // Adicione o estado para customerID
 
   useEffect(() => {
     const storedToken = Cookies.get('token');
     const storedRole = Cookies.get('role');
-    const storedAdminID= Cookies.get('AdminID');
+    const storedCustomerID = Cookies.get('customerID');
 
     setLoggedIn(Boolean(storedToken));
     setIsAdmin(storedRole === 'administrador');
-    setAdminID(storedAdminID); // Armazene o customerID
-  }, [setLoggedIn, setIsAdmin, setAdminID]);
+    setCustomerID(storedCustomerID); // Armazene o customerID
+  }, [setLoggedIn, setIsAdmin, setCustomerID]);
 
   return <>{children}</>;
 };
@@ -29,7 +29,7 @@ export default AuthProvider;
 export const useAuth = () => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
   const [isAdmin, setIsAdmin] = useAtom(isAdminAtom);
-  const [adminID, setAdminID] = useAtom(AdminIDAtom); // Adicione o estado para customerID
+  const [customerID, setCustomerID] = useAtom(customerIDAtom); // Adicione o estado para customerID
   const [error, setError] = useAtom(authErrorAtom);
 
   const login = async (email, password) => {
@@ -45,9 +45,9 @@ export const useAuth = () => {
 
       Cookies.set('token', response.data.token);
       Cookies.set('role', response.data.user.role);
-      Cookies.set('AdminID', response.data.user._id); // Verifique se o customerID está correto
-      setAdminID(response.data.user._id); // Atualize o esta
-      console.log(adminID)
+      Cookies.set('customerID', response.data.user._id); // Verifique se o customerID está correto
+      setCustomerID(response.data.user._id); // Atualize o esta
+      console.log(customerID)
     } catch (error) {
       setError(error.response.data.error);
 
@@ -65,8 +65,8 @@ export const useAuth = () => {
     Cookies.remove('customerID'); // Remova o customerID
     setLoggedIn(false);
     setIsAdmin(false);
-    setAdminID(null); // Limpe o estado do customerID
+    setCustomerID(null); // Limpe o estado do customerID
   };
 
-  return { loggedIn, isAdmin, setAdminID, login, logout, error }; // Retorne o customerID
+  return { loggedIn, isAdmin, customerID, login, logout, error }; // Retorne o customerID
 };
