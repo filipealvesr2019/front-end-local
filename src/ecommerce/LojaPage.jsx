@@ -33,13 +33,13 @@ const LojaPage = () => {
   const [footerTextColorFrame, setFooterTextColorFrame] = useState(mainColor);
   const { apiUrl } = useConfig();
 
-  const customerID = Cookies.get("customerID"); // Obtenha o ID do cliente do cookie
+  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
 
   useEffect(() => {
     const fetchEcommerce = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/api/ecommerce/user/${customerID}`
+          `${apiUrl}/api/ecommerce/user/${AdminID}`
         );
         setEcommerce(response.data);
         setLogo(response.data.theme.header.Logo);

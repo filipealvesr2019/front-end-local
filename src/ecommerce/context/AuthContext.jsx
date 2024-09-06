@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAtom } from 'jotai';
-import { isAdminAtom, loggedInAtom, authErrorAtom, customerIDAtom } from '../../../store/store';
+import { isCustomerAtom, loggedInCustomerAtom, authErrorAtom, customerIDAtom } from '../../../store/store';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useConfig } from './ConfigContext';
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
-  const [isAdmin, setIsAdmin] = useAtom(isAdminAtom);
+  const [loggedIn, setLoggedIn] = useAtom(loggedInCustomerAtom);
+  const [isUser, setIsUser] = useAtom(isCustomerAtom);
   const [customerID, setCustomerID] = useAtom(customerIDAtom);
 
   useEffect(() => {
@@ -18,9 +18,9 @@ const AuthProvider = ({ children }) => {
     const storedCustomerID = Cookies.get('customerID');
 
     setLoggedIn(Boolean(storedToken));
-    setIsAdmin(storedRole === 'user');
+    setIsUser(storedRole === 'User');
     setCustomerID(storedCustomerID);
-  }, [setLoggedIn, setIsAdmin, setCustomerID]);
+  }, [setLoggedIn, setIsUser, setCustomerID]);
 
   return <>{children}</>;
 };
@@ -28,8 +28,8 @@ const AuthProvider = ({ children }) => {
 export default AuthProvider;
 
 export const useAuth = () => {
-  const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
-  const [isAdmin, setIsAdmin] = useAtom(isAdminAtom);
+  const [loggedIn, setLoggedIn] = useAtom(loggedInCustomerAtom);
+  const [isUser, setIsUser] = useAtom(isCustomerAtom);
   const [customerID, setCustomerID] = useAtom(customerIDAtom);
   const [error, setError] = useAtom(authErrorAtom);
   const { apiUrl } = useConfig();
@@ -38,9 +38,9 @@ export const useAuth = () => {
     try {
       const response = await axios.post(`${apiUrl}/api/loginUser`, { email, password });
 
-      if (response.data.user.role === 'user') {
+      if (response.data.user.role === 'User') {
         setLoggedIn(true);
-        setIsAdmin(true);
+        setIsUser(true);
       } else {
         alert('Credenciais inválidas');
       }
@@ -62,9 +62,9 @@ export const useAuth = () => {
     Cookies.remove('role');
     Cookies.remove('customerID');
     setLoggedIn(false);
-    setIsAdmin(false);
+    setIsUser(false);
     setCustomerID(null);
   };
 
-  return { loggedIn, isAdmin, customerID,  login, logout, error };
+  return { loggedIn, isUser, customerID,  login, logout, error };
 };

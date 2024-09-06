@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { loggedIn, isAdmin, login, logout, loginWithGoogle, error } = useAuth();
+  const { loggedIn, isUser, login, logout, loginWithGoogle, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState({});
@@ -47,7 +47,7 @@ const Login = () => {
   if (loggedIn) {
     return (
       <div className="logout-container">
-        {isAdmin ? <Profile /> : ""}
+        {isUser ? <Profile /> : ""}
         <div className="button" onClick={logout}>
           <LogoutIcon />
           <span>Sair</span>
