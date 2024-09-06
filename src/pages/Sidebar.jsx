@@ -11,6 +11,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useAuth } from "../../context/AuthContext";
+import Signup from "./Signup";
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
     <path d="M10 20V14H14V20H19V10H16L10 3.5L4 10H1V20H6V14H10V20Z" />
@@ -160,11 +161,11 @@ const Sidebar = () => {
 
         <div className={styles.content}>
       
-          {content === "Produtos" && <Products />}
+          {/* {content === "Produtos" && <Products />} */}
           
-          <div style={{marginTop:"10rem"}}>
+          <div style={{marginTop:"-1rem"}}>
 
-     
+     <Signup />
     </div>
         </div>
       </div>
