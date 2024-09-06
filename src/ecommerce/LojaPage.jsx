@@ -39,7 +39,7 @@ const LojaPage = () => {
     const fetchEcommerce = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/api/ecommerce/user/${AdminID}`
+          `${apiUrl}/api/ecommerce/admin/${AdminID}`
         );
         setEcommerce(response.data);
         setLogo(response.data.theme.header.Logo);
