@@ -8,7 +8,7 @@ import SearchBar from "./SearchBar/SearchBar";
 import Layout1 from "../ecommerce/layout/Layout1.module.css";
 import Layout2 from "../ecommerce/layout/Layout2.module.css";
 import Header from '../ecommerce/header/Header'
-import Products from './Products/ProductsGET';
+import Products from './Products/Products';
 import { useConfig } from "./context/ConfigContext";
 const LojaPage = () => {
   const { dominio } = useParams();

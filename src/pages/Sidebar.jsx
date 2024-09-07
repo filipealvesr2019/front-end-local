@@ -161,12 +161,12 @@ const Sidebar = () => {
 
         <div className={styles.content}>
       
-          {/* {content === "Produtos" && <Products />} */}
+          {content === "Produtos" && <Products />}
           
-          <div style={{marginTop:"-1rem"}}>
+          {/* <div style={{marginTop:"-1rem"}}>
 
      <Signup />
-    </div>
+    </div> */}
         </div>
       </div>
     </>

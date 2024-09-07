@@ -26,6 +26,9 @@ import RegisterUser from "../src/ecommerce/login/RegisterUser.jsx";
 import PasswordResetRequestUser from "../src/ecommerce/login/PasswordResetRequestUser.jsx";
 import ResetPasswordPageUser from "../src/ecommerce/login/ResetPasswordPageUser.jsx";
 import { ConfigProvider } from "./ecommerce/context/ConfigContext.jsx";
+import ProductDetails from "./ecommerce/Products/ProductDetails.jsx";
+
+
 // Import your publishable key
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -53,6 +56,9 @@ const Root = () => (
     <Route path="/user/register/:token" element={<RegisterUser />} />
     <Route path="/user/forgotPassword" element={<PasswordResetRequestUser  />} />
     <Route path="/user/reset-password/:token" element={<ResetPasswordPageUser  />} />
+    <Route path="/user/product/:productId" element={<ProductDetails />} />
+
+    
    
   </Routes>
 );

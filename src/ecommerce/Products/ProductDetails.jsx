@@ -1,12 +1,17 @@
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useConfig } from "../context/ConfigContext";
-import styles from "./ProductsGET.module.css";
+import styles from "./ProductDetails.module.css";
+import Cookies from "js-cookie";
+import { useParams } from "react-router-dom";
 
-export default function Products() {
+export default function ProductDetails() {
   const { apiUrl } = useConfig();
   const [data, setData] = useState([]);
   const [selectedVariations, setSelectedVariations] = useState({});
+  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
+ const {productId } = useParams
+  const [message, setMessage] = useState('');
 
   async function getProducts() {
     try {
@@ -44,6 +49,21 @@ useEffect(() => {
     });
   }, [setSelectedVariations]);
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${apiUrl}/api/${AdminID}/${productId}`, formData);
+      setMessage(response.data.message);
+    } catch (error) {
+      if (error.response) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage('Erro ao criar usuário.');
+      }
+    }
+  };
+
   return (
     <div style={{ marginTop: "25rem" }}>
       {data.length > 0 ? (
@@ -67,11 +87,13 @@ useEffect(() => {
                 <p>No variations available</p>
               )}
             </div>
+            <button onClick={handleSubmit}>Finalisar Pedido</button>
           </div>
         ))
       ) : (
         <p>No products available</p>
       )}
+      
     </div>
   );
 }
