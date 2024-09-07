@@ -33,36 +33,6 @@ useEffect(() => {
   }
 }, [apiUrl]);
 
-  const handleVariation = useCallback((productId, variation, index) => {
-    const key = `${productId}-${index}`;
-    setSelectedVariations((prevState) => {
-      if (prevState[key]) {
-        const { [key]: _, ...rest } = prevState;
-        console.log('variação apagada');
-        return rest;
-      } else {
-        console.log("price", variation.price);
-        console.log("name", variation.name);
-        console.log("url", variation.url);
-        return { ...prevState, [key]: variation };
-      }
-    });
-  }, [setSelectedVariations]);
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(`${apiUrl}/api/${AdminID}/66d643b68c1f9eeec30d7ee1`, formData);
-      setMessage(response.data.message);
-    } catch (error) {
-      if (error.response) {
-        setMessage(error.response.data.message);
-      } else {
-        setMessage('Erro ao criar usuário.');
-      }
-    }
-  };
 
   return (
     <div style={{ marginTop: "25rem" }}>

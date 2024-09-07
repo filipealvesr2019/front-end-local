@@ -7,31 +7,26 @@ import { useParams } from "react-router-dom";
 
 export default function ProductDetails() {
   const { apiUrl } = useConfig();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null); // Alterado de [] para null
   const [selectedVariations, setSelectedVariations] = useState({});
-  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
- const {productId } = useParams
+  const AdminID = Cookies.get("AdminID");
+  const { productId } = useParams();
   const [message, setMessage] = useState('');
 
   async function getProducts() {
     try {
-      const response = await axios.get(`${apiUrl}/api/products`);
-      setData(response.data || []);
-      console.log(response.data )
+      const response = await axios.get(`${apiUrl}/api/product/${productId}`);
+      setData(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
-      setData([]);
+      setData(null);
     }
   }
 
-let didFetch = false;
-
-useEffect(() => {
-  if (!didFetch) {
+  useEffect(() => {
     getProducts();
-    didFetch = true;
-  }
-}, [apiUrl]);
+  }, [apiUrl, productId]); // Incluído productId como dependência
 
   const handleVariation = useCallback((productId, variation, index) => {
     const key = `${productId}-${index}`;
@@ -47,53 +42,49 @@ useEffect(() => {
         return { ...prevState, [key]: variation };
       }
     });
-  }, [setSelectedVariations]);
-
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${apiUrl}/api/${AdminID}/${productId}`, formData);
+      const response = await axios.post(`${apiUrl}/api/${AdminID}/${productId}`, selectedVariations);
       setMessage(response.data.message);
     } catch (error) {
       if (error.response) {
         setMessage(error.response.data.message);
       } else {
-        setMessage('Erro ao criar usuário.');
+        setMessage('Erro ao criar pedido.');
       }
     }
   };
 
   return (
-    <div style={{ marginTop: "25rem" }}>
-      {data.length > 0 ? (
-        data.map((product) => (
-          <div key={product._id} style={{ marginTop: "10rem" }}>
-            {product.name}
-            <img src={product.imageUrl} alt={product.name} style={{ width: "15vw" }} />
-            <div>
-              {product.variations && product.variations.length > 0 ? (
-                product.variations.map((variation, index) => (
-                  <div key={index} className={styles.variationContainer}>
-                    <img src={variation.url} alt={variation.name} style={{ width: "15vw" }} />
-                    <p>{variation.name}</p>
-                    <p>R${variation.price}</p>
-                    <span onClick={() => handleVariation(product._id, variation, index)}>
-                      {selectedVariations[`${product._id}-${index}`] ? "-" : "+"}
-                    </span>
-                  </div>
-                ))
-              ) : (
-                <p>No variations available</p>
-              )}
-            </div>
-            <button onClick={handleSubmit}>Finalisar Pedido</button>
+    <div style={{ marginTop: "2rem" }}>
+      {data ? (
+        <div>
+          <h2>{data.name}</h2>
+          <img src={data.imageUrl} alt={data.name} style={{ width: "15vw" }} />
+          <div>
+            {data.variations && data.variations.length > 0 ? (
+              data.variations.map((variation, index) => (
+                <div key={index} className={styles.variationContainer}>
+                  <img src={variation.url} alt={variation.name} style={{ width: "15vw" }} />
+                  <p>{variation.name}</p>
+                  <p>R${variation.price}</p>
+                  <span onClick={() => handleVariation(data._id, variation, index)}>
+                    {selectedVariations[`${data._id}-${index}`] ? "-" : "+"}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <p>No variations available</p>
+            )}
           </div>
-        ))
+          <button onClick={handleSubmit}>Finalizar Pedido</button>
+        </div>
       ) : (
         <p>No products available</p>
       )}
-      
     </div>
   );
 }
