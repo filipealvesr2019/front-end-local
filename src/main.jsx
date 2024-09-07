@@ -17,9 +17,8 @@ import Sidebar from "./pages/Sidebar.jsx";
 import ThemeList from "./ecommerce/ThemeList.jsx";
 import CartPage from "./ecommerce/cartPage/Cart.jsx";
 import Products from "./components/Products.jsx";
-import LoginForm from '../src/ecommerce/login/LoginForm.jsx'
+import LoginForm from "../src/ecommerce/login/LoginForm.jsx";
 import Profile from "./ecommerce/Profile/Profile.jsx";
-
 
 import RegisterLinkUser from "../src/ecommerce/login/RegisterLinkUser.jsx";
 import RegisterUser from "../src/ecommerce/login/RegisterUser.jsx";
@@ -27,7 +26,8 @@ import PasswordResetRequestUser from "../src/ecommerce/login/PasswordResetReques
 import ResetPasswordPageUser from "../src/ecommerce/login/ResetPasswordPageUser.jsx";
 import { ConfigProvider } from "./ecommerce/context/ConfigContext.jsx";
 import ProductDetails from "./ecommerce/Products/ProductDetails.jsx";
-
+import UserAuthProvider from "./ecommerce/context/AuthContext.jsx";
+import AdminAuthProvider from "../context/AuthContext.jsx";
 
 // Import your publishable key
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -50,33 +50,29 @@ const Root = () => (
     <Route path="/signin" element={<LoginForm />} />
     <Route path="/profile" element={<Profile />} />
 
-
-
     <Route path="/user/register" element={<RegisterLinkUser />} />
     <Route path="/user/register/:token" element={<RegisterUser />} />
-    <Route path="/user/forgotPassword" element={<PasswordResetRequestUser  />} />
-    <Route path="/user/reset-password/:token" element={<ResetPasswordPageUser  />} />
+    <Route path="/user/forgotPassword" element={<PasswordResetRequestUser />} />
+    <Route
+      path="/user/reset-password/:token"
+      element={<ResetPasswordPageUser />}
+    />
     <Route path="/user/product/:productId" element={<ProductDetails />} />
-
-    
-   
   </Routes>
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ConfigProvider>
-
-      <AuthProvider>
-        <ChakraProvider>
-          <Router>
-            <Root />
-          </Router>
-        </ChakraProvider>
-      </AuthProvider>
-
+      <AdminAuthProvider >
+        <UserAuthProvider>
+          <ChakraProvider>
+            <Router>
+              <Root />
+            </Router>
+          </ChakraProvider>
+        </UserAuthProvider>
+      </AdminAuthProvider >
     </ConfigProvider>
-
-
   </React.StrictMode>
 );

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useConfig } from './ConfigContext';
 
-const AuthProvider = ({ children }) => {
+const UserAuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInCustomerAtom);
   const [isUser, setIsUser] = useAtom(isCustomerAtom);
   const [customerID, setCustomerID] = useAtom(customerIDAtom);
@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
   return <>{children}</>;
 };
 
-export default AuthProvider;
+export default UserAuthProvider ;
 
 export const useAuth = () => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInCustomerAtom);

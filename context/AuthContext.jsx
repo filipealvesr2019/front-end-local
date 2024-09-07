@@ -6,7 +6,7 @@ import { isAdminAtom, loggedInAtom, authErrorAtom, AdminIDAtom } from '../store/
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AuthProvider = ({ children }) => {
+const AdminAuthProvider  = ({ children }) => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
   const [isAdmin, setIsAdmin] = useAtom(isAdminAtom);
   const [adminID, setAdminID] = useAtom(AdminIDAtom); // Adicione o estado para customerID
@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
   return <>{children}</>;
 };
 
-export default AuthProvider;
+export default AdminAuthProvider ;
 
 export const useAuth = () => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
