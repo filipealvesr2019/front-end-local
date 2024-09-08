@@ -9,6 +9,7 @@ export default function ProductDetails() {
   const { apiUrl } = useConfig();
   const [data, setData] = useState(null); // Alterado de [] para null
   const [selectedVariations, setSelectedVariations] = useState({});
+  const [quantity, setQuantity] = useState(1); // Adicionado campo de quantidade
   const AdminID = Cookies.get("AdminID");
   const { productId } = useParams();
   const [message, setMessage] = useState('');
@@ -26,19 +27,15 @@ export default function ProductDetails() {
 
   useEffect(() => {
     getProducts();
-  }, [apiUrl, productId]); // Incluído productId como dependência
+  }, [apiUrl, productId]);
 
   const handleVariation = useCallback((productId, variation, index) => {
     const key = `${productId}-${index}`;
     setSelectedVariations((prevState) => {
       if (prevState[key]) {
         const { [key]: _, ...rest } = prevState;
-        console.log('variação apagada');
         return rest;
       } else {
-        console.log("price", variation.price);
-        console.log("name", variation.name);
-        console.log("url", variation.url);
         return { ...prevState, [key]: variation };
       }
     });
@@ -46,8 +43,17 @@ export default function ProductDetails() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const variationsArray = Object.values(selectedVariations);
+    
     try {
-      const response = await axios.post(`${apiUrl}/api/${AdminID}/${productId}`, selectedVariations);
+      const response = await axios.post(
+        `${apiUrl}/api/cart/${AdminID}/${productId}`,
+        {
+          variations: variationsArray,
+          quantity,
+        }
+      );
       setMessage(response.data.message);
     } catch (error) {
       if (error.response) {
@@ -80,7 +86,21 @@ export default function ProductDetails() {
               <p>No variations available</p>
             )}
           </div>
-          <button onClick={handleSubmit}>Finalizar Pedido</button>
+          
+          {/* Campo para selecionar a quantidade */}
+          <div>
+            <label htmlFor="quantity">Quantidade:</label>
+            <input
+              type="number"
+              id="quantity"
+              min="1"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            />
+          </div>
+
+          <button onClick={handleSubmit}>Fazer Pedido</button>
+          {message && <p>{message}</p>}
         </div>
       ) : (
         <p>No products available</p>
