@@ -7,25 +7,25 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useConfig } from './ConfigContext';
 
-const UserAuthProvider = ({ children }) => {
+const userAuthProvider  = ({ children }) => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInCustomerAtom);
   const [isUser, setIsUser] = useAtom(isCustomerAtom);
   const [customerID, setCustomerID] = useAtom(customerIDAtom);
-
   useEffect(() => {
-    const storedToken = Cookies.get('UserToken');
-    const storedRole = Cookies.get('role');
-    const storedCustomerID = Cookies.get('customerID');
-
+    const storedToken = Cookies.get('UserToken');  // Use UserToken
+    const storedRole = Cookies.get('UserRole');    // Use UserRole
+    const storedCustomerID = Cookies.get('UserID');
+  
     setLoggedIn(Boolean(storedToken));
     setIsUser(storedRole === 'User');
     setCustomerID(storedCustomerID);
   }, [setLoggedIn, setIsUser, setCustomerID]);
+  
 
   return <>{children}</>;
 };
 
-export default UserAuthProvider ;
+export default userAuthProvider ;
 
 export const useAuth = () => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInCustomerAtom);
@@ -44,11 +44,11 @@ export const useAuth = () => {
       } else {
         alert('Credenciais inválidas');
       }
-
       Cookies.set('UserToken', response.data.token);
-      Cookies.set('role', response.data.user.role);
-      Cookies.set('customerID', response.data.user._id);
+      Cookies.set('UserRole', response.data.user.role);
+      Cookies.set('UserID', response.data.user._id);
       setCustomerID(response.data.user._id);
+      
     } catch (error) {
       setError(error.response?.data?.error || 'Erro desconhecido');
       console.error('Erro na solicitação de login', error);
@@ -59,8 +59,9 @@ export const useAuth = () => {
 
   const logout = () => {
     Cookies.remove('UserToken');
-    Cookies.remove('role');
-    Cookies.remove('customerID');
+    Cookies.remove('UserRole');
+    Cookies.remove('UserID');
+    
     setLoggedIn(false);
     setIsUser(false);
     setCustomerID(null);

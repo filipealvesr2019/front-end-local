@@ -4,11 +4,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import "./Login.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useAuth } from "../../context/AuthContext"; // Certifique-se de atualizar o caminho corretamente
 import { Link } from "react-router-dom";
+import { adminAuth } from "../../context/AdminAuthProvider";
 
 const Login = () => {
-  const { loggedIn, isAdmin, login, logout, error } = useAuth();
+  const { loggedIn, isAdmin, login, logout, error } = adminAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState({});

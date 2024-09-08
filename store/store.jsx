@@ -6,7 +6,7 @@ export const isAdminAtom = atom(Cookies.get('role') === 'administrador');
 export const AdminIDAtom = atom(null); // Defina o AdminIDAtom
 
 export const loggedInCustomerAtom = atom(Boolean(Cookies.get('token')));
-export const isCustomerAtom = atom(Cookies.get('role') === 'user');
+export const isCustomerAtom = atom(Cookies.get('role') === 'User');
 export const customerIDAtom = atom(null); // Defina o AdminIDAt
 export const authErrorAtom = atom(null); // Novo átomo para armazenar erros de autenticação
 

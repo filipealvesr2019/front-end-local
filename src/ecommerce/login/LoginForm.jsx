@@ -4,11 +4,13 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import "./LoginForm.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../ecommerce/context/UserAuthProvider";
+
+
 
 const Login = () => {
-  const { loggedIn, isUser, login, logout, loginWithGoogle, error } = useAuth();
+  const { loggedIn, isUser, login, logout, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState({});

@@ -10,7 +10,7 @@ import NavBarFromSidebar from "../components/NavBarFromSidebar";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { useAuth } from "../../context/AuthContext";
+import { adminAuth } from "../../context/AdminAuthProvider";
 import Signup from "./Signup";
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
@@ -46,7 +46,7 @@ const Sidebar = () => {
   const [openCartModal, setOpenCartModal] = useState(false);
   const modalRef = useRef(null);
   const [content, setContent] = useState("home");
-  const { logout } = useAuth(); // Obtenha a função de logout
+  const { logout } = adminAuth(); // Obtenha a função de logout
 
   const handleClickOpenModal = () => {
     setOpenCartModal(!openCartModal);

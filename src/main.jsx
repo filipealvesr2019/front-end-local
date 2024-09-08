@@ -5,7 +5,7 @@ import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login.jsx";
-import AuthProvider from "../context/AuthContext.jsx";
+import AuthProvider from "../context/AdminAuthProvider.jsx";
 import RegisterLink from "./pages/RegisterLink.jsx";
 import Register from "./pages/Register.jsx";
 import PasswordResetRequest from "./pages/PasswordResetRequest.jsx";
@@ -26,8 +26,8 @@ import PasswordResetRequestUser from "../src/ecommerce/login/PasswordResetReques
 import ResetPasswordPageUser from "../src/ecommerce/login/ResetPasswordPageUser.jsx";
 import { ConfigProvider } from "./ecommerce/context/ConfigContext.jsx";
 import ProductDetails from "./ecommerce/Products/ProductDetails.jsx";
-import UserAuthProvider from "./ecommerce/context/AuthContext.jsx";
-import AdminAuthProvider from "../context/AuthContext.jsx";
+import UserAuthProvider from "./ecommerce/context/UserAuthProvider.jsx";
+import AdminAuthProvider from "../context/AdminAuthProvider.jsx";
 
 // Import your publishable key
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;

@@ -6,27 +6,28 @@ import { isAdminAtom, loggedInAtom, authErrorAtom, AdminIDAtom } from '../store/
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AdminAuthProvider  = ({ children }) => {
+const adminAuthProvider  = ({ children }) => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
   const [isAdmin, setIsAdmin] = useAtom(isAdminAtom);
   const [adminID, setAdminID] = useAtom(AdminIDAtom); // Adicione o estado para customerID
 
   useEffect(() => {
-    const storedToken = Cookies.get('token');
-    const storedRole = Cookies.get('role');
+    const storedToken = Cookies.get('AdminToken');  // Use AdminToken
+    const storedRole = Cookies.get('AdminRole');    // Use AdminRole
     const storedAdminID= Cookies.get('AdminID');
-
+  
     setLoggedIn(Boolean(storedToken));
     setIsAdmin(storedRole === 'administrador');
-    setAdminID(storedAdminID); // Armazene o customerID
+    setAdminID(storedAdminID);
   }, [setLoggedIn, setIsAdmin, setAdminID]);
+  
 
   return <>{children}</>;
 };
 
-export default AdminAuthProvider ;
+export default adminAuthProvider ;
 
-export const useAuth = () => {
+export const adminAuth = () => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
   const [isAdmin, setIsAdmin] = useAtom(isAdminAtom);
   const [adminID, setAdminID] = useAtom(AdminIDAtom); // Adicione o estado para customerID
@@ -43,10 +44,11 @@ export const useAuth = () => {
         alert('Credenciais inválidas');
       }
 
-      Cookies.set('token', response.data.token);
-      Cookies.set('role', response.data.user.role);
-      Cookies.set('AdminID', response.data.user._id); // Verifique se o customerID está correto
-      setAdminID(response.data.user._id); // Atualize o esta
+      Cookies.set('AdminToken', response.data.token);
+      Cookies.set('AdminRole', response.data.user.role);
+      Cookies.set('AdminID', response.data.user._id);
+      setAdminID(response.data.user._id);
+      
       console.log(adminID)
     } catch (error) {
       setError(error.response.data.error);
@@ -60,9 +62,10 @@ export const useAuth = () => {
   };
 
   const logout = () => {
-    Cookies.remove('token');
-    Cookies.remove('role');
-    Cookies.remove('customerID'); // Remova o customerID
+    Cookies.remove('AdminToken');
+    Cookies.remove('AdminRole');
+    Cookies.remove('AdminID');
+    
     setLoggedIn(false);
     setIsAdmin(false);
     setAdminID(null); // Limpe o estado do customerID
