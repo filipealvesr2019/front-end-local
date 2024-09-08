@@ -13,6 +13,7 @@ export default function ProductDetails() {
   const AdminID = Cookies.get("AdminID");
   const { productId } = useParams();
   const [message, setMessage] = useState('');
+  const customerID = Cookies.get("customerID"); // Obtenha o ID do cliente do cookie
 
   async function getProducts() {
     try {
@@ -48,7 +49,7 @@ export default function ProductDetails() {
     
     try {
       const response = await axios.post(
-        `${apiUrl}/api/cart/${AdminID}/${productId}`,
+        `${apiUrl}/api/cart/${customerID}/${productId}`,
         {
           variations: variationsArray,
           quantity,
