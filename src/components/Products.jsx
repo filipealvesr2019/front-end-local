@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useConfig } from '../ecommerce/context/ConfigContext';
+import Cookies from "js-cookie";
 
 export default function Products() {
   const { apiUrl } = useConfig();
+  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
 
   const [formData, setFormData] = useState({
+    adminID: AdminID,
     name: '',
     price: '',
     imageUrl: '',
@@ -64,7 +67,7 @@ export default function Products() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} style={{ marginTop: '15rem' }}>
+      <form onSubmit={handleSubmit} style={{ marginTop: '5rem' }}>
         <input
           type="text"
           name="name"
