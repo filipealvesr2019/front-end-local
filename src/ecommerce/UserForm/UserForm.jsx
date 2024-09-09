@@ -6,8 +6,10 @@ import { useConfig } from '../context/ConfigContext';
 const Signup = () => {
   const { apiUrl } = useConfig();
   const customerID = Cookies.get("customerID"); // Obtenha o ID do cliente do cookie
+  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
 
   const [formData, setFormData] = useState({
+    adminID: AdminID, 
     userID: customerID, // Corrigido
     name: '',
 
