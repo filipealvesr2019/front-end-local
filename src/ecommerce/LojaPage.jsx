@@ -11,7 +11,6 @@ import Header from '../ecommerce/header/Header'
 import ProductsList from './Products/ProductsList';
 import { useConfig } from "./context/ConfigContext";
 const LojaPage = () => {
-  const { dominio } = useParams();
   const [ecommerce, setEcommerce] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editingSection, setEditingSection] = useState(null);
@@ -34,12 +33,12 @@ const LojaPage = () => {
   const { apiUrl } = useConfig();
 
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
-console.log("AdminID", AdminID)
+  const { subdomain } = useParams();
   useEffect(() => {
     const fetchEcommerce = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/api/ecommerce/admin/${AdminID}`
+          `${apiUrl}/api/loja/${subdomain}`
         );
         setEcommerce(response.data);
         setLogo(response.data.theme.header.Logo);
@@ -56,7 +55,7 @@ console.log("AdminID", AdminID)
     };
 
     fetchEcommerce();
-  }, [dominio]);
+  }, []);
 
   const layoutStyles = () => {
     switch (layout) {

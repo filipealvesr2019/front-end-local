@@ -41,7 +41,7 @@ const Root = () => (
     <Route path="/register/:token" element={<Register />} />
     <Route path="/forgotPassword" element={<PasswordResetRequest />} />
     <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-    <Route path="/loja" element={<LojaPage />} />
+    <Route path="/loja/:subdomain" element={<LojaPage />} />
     <Route path="/theme/:id" element={<ThemeDetail />} />
     <Route path="/looks" element={<UpdateTheme />} />
     <Route path="/sidebar" element={<Sidebar />} />

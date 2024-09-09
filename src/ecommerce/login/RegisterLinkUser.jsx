@@ -12,7 +12,7 @@ const RegisterLink = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const role = 'user'; // Definindo o papel (role) como 'customer' por padrão
+    const role = 'User'; // Definindo o papel (role) como 'customer' por padrão
 
     try {
       const newUser = { email, password, role };

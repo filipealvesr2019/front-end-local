@@ -11,6 +11,9 @@ import styles from './Register.module.css';
 import { useConfig } from '../ecommerce/context/ConfigContext';
 
 function RegisterUser() {
+  
+  const [subdomain, setSubdomain] = useState('');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -61,7 +64,7 @@ function RegisterUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${apiUrl}/api/admin/register/${token}`, { email, password, role });
+      const response = await axios.post(`${apiUrl}/api/admin/register/${token}`, {subdomain, email, password, role });
       setMessage(response.data.message);
     } catch (error) {
       setError(error.response.data.error);
@@ -74,7 +77,14 @@ function RegisterUser() {
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.formContainer}>
           <h2 className={styles.h2}>Cadastro</h2>
+
+          
           {message && <p>{message}</p>}
+
+          <div className={styles.specs}>
+            <label className={styles.label}>Nome da Loja:</label>
+            <input type="text" value={subdomain} onChange={(e) => setSubdomain(e.target.value)} required className={styles.input} />
+          </div>
           <div className={styles.specs}>
             <label className={styles.label}>Email:</label>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className={styles.input} />
