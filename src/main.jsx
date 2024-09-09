@@ -28,6 +28,7 @@ import { ConfigProvider } from "./ecommerce/context/ConfigContext.jsx";
 import ProductDetails from "./ecommerce/Products/ProductDetails.jsx";
 import UserAuthProvider from "./ecommerce/context/UserAuthProvider.jsx";
 import AdminAuthProvider from "../context/AdminAuthProvider.jsx";
+import PixQRCode from "./ecommerce/Payments/PixQRCode.jsx";
 
 // Import your publishable key
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -58,6 +59,8 @@ const Root = () => (
       element={<ResetPasswordPageUser />}
     />
     <Route path="/user/product/:productId" element={<ProductDetails />} />
+    <Route path="/qrcode" element={<PixQRCode />} />
+
   </Routes>
 );
 

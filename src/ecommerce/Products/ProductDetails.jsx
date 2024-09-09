@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useConfig } from "../context/ConfigContext";
 import styles from "./ProductDetails.module.css";
 import Cookies from "js-cookie";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ProductDetails() {
   const { apiUrl } = useConfig();
@@ -14,6 +14,7 @@ export default function ProductDetails() {
   const { productId } = useParams();
   const [message, setMessage] = useState('');
   const UserID = Cookies.get("UserID"); // Obtenha o ID do cliente do cookie
+  const navigate = useNavigate();
 
 
   async function getProducts() {
@@ -56,6 +57,10 @@ export default function ProductDetails() {
         }
       );
       setMessage(response.data.message);
+      if(response.data){
+        navigate('/qrcode')
+      }
+    
     } catch (error) {
       if (error.response) {
         setMessage(error.response.data.message);
