@@ -35,7 +35,6 @@ const LojaPage = () => {
   const { apiUrl } = useConfig();
   const setId = useSetAtom(idAdminEccommerceAtom);
 
-  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
   const { subdomain } = useParams();
   useEffect(() => {
     const fetchEcommerce = async () => {
