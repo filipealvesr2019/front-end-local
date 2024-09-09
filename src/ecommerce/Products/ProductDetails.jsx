@@ -13,7 +13,8 @@ export default function ProductDetails() {
   const AdminID = Cookies.get("AdminID");
   const { productId } = useParams();
   const [message, setMessage] = useState('');
-  const customerID = Cookies.get("customerID"); // Obtenha o ID do cliente do cookie
+  const UserID = Cookies.get("UserID"); // Obtenha o ID do cliente do cookie
+
 
   async function getProducts() {
     try {
@@ -46,10 +47,9 @@ export default function ProductDetails() {
     e.preventDefault();
     
     const variationsArray = Object.values(selectedVariations);
-    
     try {
       const response = await axios.post(
-        `${apiUrl}/api/cart/${customerID}/${productId}`,
+        `${apiUrl}/api/cart/${UserID}/${productId}`,
         {
           variations: variationsArray,
           quantity,
