@@ -10,6 +10,8 @@ import Layout2 from "../ecommerce/layout/Layout2.module.css";
 import Header from '../ecommerce/header/Header'
 import ProductsList from './Products/ProductsList';
 import { useConfig } from "./context/ConfigContext";
+import { idAdminEccommerceAtom } from "../../store/store";
+import { useSetAtom } from "jotai";
 const LojaPage = () => {
   const [ecommerce, setEcommerce] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -31,6 +33,7 @@ const LojaPage = () => {
   const [footerColorFrame, setFooterColorFrame] = useState(mainBackgroundColor);
   const [footerTextColorFrame, setFooterTextColorFrame] = useState(mainColor);
   const { apiUrl } = useConfig();
+  const setId = useSetAtom(idAdminEccommerceAtom);
 
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
   const { subdomain } = useParams();
@@ -49,13 +52,14 @@ const LojaPage = () => {
         setFooterBackgroundColor(response.data.theme.footer.backgroundColor);
         setLayout(response.data.layout);
         setFooterColor(response.data.theme.footer.color);
+        setId(response.data.adminID)
       } catch (error) {
         console.error("Erro ao buscar o e-commerce:", error);
       }
     };
 
     fetchEcommerce();
-  }, []);
+  }, [setId]);
 
   const layoutStyles = () => {
     switch (layout) {

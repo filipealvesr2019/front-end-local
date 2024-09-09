@@ -4,18 +4,20 @@ import { useConfig } from "../context/ConfigContext";
 import styles from "./ProductDetails.module.css";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
+import { idAdminEccommerceAtom } from "../../../store/store";
+import { useAtom } from "jotai";
 
 export default function Products() {
   const { apiUrl } = useConfig();
   const [data, setData] = useState([]);
   const [selectedVariations, setSelectedVariations] = useState({});
-  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
+  const [adminEccommerceID] = useAtom(idAdminEccommerceAtom);
 
   const [message, setMessage] = useState('');
 
   async function getProducts() {
     try {
-      const response = await axios.get(`${apiUrl}/api/products`);
+      const response = await axios.get(`${apiUrl}/api/products/${adminEccommerceID}`);
       setData(response.data || []);
       console.log(response.data )
     } catch (error) {
