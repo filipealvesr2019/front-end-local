@@ -34,7 +34,7 @@ const LojaPage = () => {
   const { apiUrl } = useConfig();
 
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
-
+console.log("AdminID", AdminID)
   useEffect(() => {
     const fetchEcommerce = async () => {
       try {

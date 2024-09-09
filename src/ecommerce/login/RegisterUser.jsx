@@ -54,7 +54,7 @@ function RegisterUser() {
     setContainsLowerCase(OneLowerCase.test(newPassword));
   };
 
-  const role = 'user'; // Definindo o papel (role) como 'customer' por padrão
+  const role = 'User'; // Definindo o papel (role) como 'customer' por padrão
 
   const handleSubmit = async (e) => {
     e.preventDefault();

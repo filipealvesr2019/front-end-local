@@ -61,7 +61,7 @@ function RegisterUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${apiUrl}/api/register/${token}`, { email, password, role });
+      const response = await axios.post(`${apiUrl}/api/admin/register/${token}`, { email, password, role });
       setMessage(response.data.message);
     } catch (error) {
       setError(error.response.data.error);

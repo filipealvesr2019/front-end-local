@@ -18,7 +18,7 @@ const RegisterLink = () => {
 
     try {
       const newUser = { email, password, role };
-      await axios.post(`${apiUrl}/api/register/request`, newUser);
+      await axios.post(`${apiUrl}/api/admin/register/request`, newUser);
       // Limpar o formulário após o envio bem-sucedido
       setEmail("");
       setPassword("");
