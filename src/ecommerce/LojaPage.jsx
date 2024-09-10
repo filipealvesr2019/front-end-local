@@ -33,7 +33,7 @@ const LojaPage = () => {
   const [footerColorFrame, setFooterColorFrame] = useState(mainBackgroundColor);
   const [footerTextColorFrame, setFooterTextColorFrame] = useState(mainColor);
   const { apiUrl } = useConfig();
-  const setId = useSetAtom(idAdminEccommerceAtom);
+  const setAdminEccommerceId = useSetAtom(idAdminEccommerceAtom);
 
   const { subdomain } = useParams();
   useEffect(() => {
@@ -51,14 +51,14 @@ const LojaPage = () => {
         setFooterBackgroundColor(response.data.theme.footer.backgroundColor);
         setLayout(response.data.layout);
         setFooterColor(response.data.theme.footer.color);
-        setId(response.data.adminID)
+        setAdminEccommerceId(response.data.adminID);
       } catch (error) {
         console.error("Erro ao buscar o e-commerce:", error);
       }
     };
 
     fetchEcommerce();
-  }, [setId]);
+  }, [setAdminEccommerceId]);
 
   const layoutStyles = () => {
     switch (layout) {

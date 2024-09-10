@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from "js-cookie";
 import { useConfig } from '../context/ConfigContext';
+import { useAtom } from 'jotai';
+import { idAdminEccommerceAtom } from '../../../store/store';
 
 const Signup = () => {
   const { apiUrl } = useConfig();
-  const customerID = Cookies.get("customerID"); // Obtenha o ID do cliente do cookie
-  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
-
+  const UserID = Cookies.get("UserID"); // Obtenha o ID do cliente do cookie
+  const [adminEccommerceID] = useAtom(idAdminEccommerceAtom);
+console.log(adminEccommerceID, UserID)
   const [formData, setFormData] = useState({
-    adminID: AdminID, 
-    userID: customerID, // Corrigido
+    adminID: adminEccommerceID, 
+    userID: UserID, // Corrigido
     name: '',
 
     mobilePhone: '',
