@@ -4,8 +4,8 @@ import { useConfig } from "../context/ConfigContext";
 import styles from "./ProductDetails.module.css";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
-import { idAdminEccommerceAtom } from "../../../store/store";
 import { useAtom } from "jotai";
+import { idAdminEccommerceAtom } from "../../../store/store";
 
 export default function Products() {
   const { apiUrl } = useConfig();
@@ -13,6 +13,7 @@ export default function Products() {
   const [selectedVariations, setSelectedVariations] = useState({});
   const [adminEccommerceID] = useAtom(idAdminEccommerceAtom);
 
+  console.log("ID do Admin do Ecommerce:", adminEccommerceID);
   const [message, setMessage] = useState('');
 // console.log("adminEccommerceID", adminEccommerceID)
   async function getProducts() {
@@ -25,15 +26,15 @@ export default function Products() {
       setData([]);
     }
   }
-
-let didFetch = false;
-
-useEffect(() => {
-  if (!didFetch) {
-    getProducts();
-    didFetch = true;
-  }
-}, [apiUrl]);
+  useEffect(() => {
+    if (adminEccommerceID) {
+      console.log("ID do Admin do Ecommerce (Products):", adminEccommerceID);
+      getProducts();
+    } else {
+      console.log("adminEccommerceID ainda não disponível");
+    }
+  }, [adminEccommerceID]);
+  
 
 
   return (

@@ -51,7 +51,13 @@ const LojaPage = () => {
         setFooterBackgroundColor(response.data.theme.footer.backgroundColor);
         setLayout(response.data.layout);
         setFooterColor(response.data.theme.footer.color);
-        setAdminEccommerceId(response.data.adminID);
+        if (response.data.adminID) {
+          setAdminEccommerceId(response.data.adminID); // Atualiza o átomo
+          console.log("Admin ID atualizado:", response.data.adminID); // Verifica se o ID está sendo retornado
+        } else {
+          console.warn("adminID não encontrado na resposta da API.");
+        }
+
       } catch (error) {
         console.error("Erro ao buscar o e-commerce:", error);
       }
@@ -59,7 +65,6 @@ const LojaPage = () => {
 
     fetchEcommerce();
   }, [setAdminEccommerceId]);
-
   const layoutStyles = () => {
     switch (layout) {
       case "layout1":
