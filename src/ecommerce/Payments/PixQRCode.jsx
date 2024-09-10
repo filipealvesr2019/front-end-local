@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useConfig } from "../context/ConfigContext";
-import Cookies from "js-cookie";
 import axios from "axios";
 import { idAdminEccommerceAtom } from "../../../store/store";
 import { useAtom } from "jotai";
