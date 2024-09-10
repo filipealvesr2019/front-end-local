@@ -14,7 +14,7 @@ export default function Products() {
   const [adminEccommerceID] = useAtom(idAdminEccommerceAtom);
 
   const [message, setMessage] = useState('');
-console.log("adminEccommerceID", adminEccommerceID)
+// console.log("adminEccommerceID", adminEccommerceID)
   async function getProducts() {
     try {
       const response = await axios.get(`${apiUrl}/api/products/${adminEccommerceID}`);
