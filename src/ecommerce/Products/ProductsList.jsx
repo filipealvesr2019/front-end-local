@@ -20,7 +20,7 @@ export default function Products() {
     try {
       const response = await axios.get(`${apiUrl}/api/products/${adminEccommerceID}`);
       setData(response.data || []);
-      console.log(response.data )
+      console.log("adminID", response.data[0].adminID )
     } catch (error) {
       console.error("Error fetching products:", error);
       setData([]);

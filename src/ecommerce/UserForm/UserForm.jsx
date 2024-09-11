@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from "js-cookie";
 import { useConfig } from '../context/ConfigContext';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { idAdminEccommerceAtom } from '../../../store/store';
 import styles from "./SignUpForm.module.css"
 
@@ -10,9 +10,21 @@ const Signup = () => {
   const { apiUrl } = useConfig();
   const UserID = Cookies.get("UserID"); // Obtenha o ID do cliente do cookie
   const [adminEccommerceId] = useAtom(idAdminEccommerceAtom);
+  const setAdminEccommerceId = useSetAtom(idAdminEccommerceAtom);
 
   // Use the adminEccommerceId value here
-  console.log(adminEccommerceId);
+  console.log("adminEccommerceId", adminEccommerceId);
+  useEffect(() => {
+    if (adminEccommerceId) {
+      Cookies.set("adminEccommerceId", adminEccommerceId);
+    }
+  }, [adminEccommerceId]);
+  
+  // Para recuperar:
+  const savedAdminID = Cookies.get("adminEccommerceId");
+  if (savedAdminID) {
+    setAdminEccommerceId(savedAdminID);
+  }
 const [showCEP, setShowCEP] = useState(false);
 
   const [formData, setFormData] = useState({
