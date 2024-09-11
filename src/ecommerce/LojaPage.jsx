@@ -78,40 +78,7 @@ const LojaPage = () => {
 
   const styles = layoutStyles(); // Chame a função para obter o estilo correto
 
-  useEffect(() => {
-    const handleMessage = (event) => {
-      if (event.data.type === "CHANGE_HEADER_COLOR") {
-        setHeaderColorFrame(event.data.color);
-      }
-      if (event.data.type === "CHANGE_HEADER_TEXT_COLOR") {
-        setHeaderTextColorFrame(event.data.color);
-      }
-      if (event.data.type === "CHANGE_MAIN_COLOR") {
-        setMainColorFrame(event.data.color);
-      }
-      if (event.data.type === "CHANGE_MAIN_TEXT_COLOR") {
-        setMainTextColorFrame(event.data.color);
-      }
-      if (event.data.type === "CHANGE_FOOTER_COLOR") {
-        setFooterColorFrame(event.data.color);
-      }
-      if (event.data.type === "CHANGE_FOOTER_TEXT_COLOR") {
-        setFooterTextColorFrame(event.data.color);
-      }
-      if (event.data.type === "SCROLL_TO_CAROUSEL") {
-        document
-          .getElementById("carrosel")
-          .scrollIntoView({ behavior: "smooth" });
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-
-    return () => {
-      window.removeEventListener("message", handleMessage);
-    };
-  }, []);
-
+ 
   if (!ecommerce) {
     return <div>Carregando...</div>;
   }
@@ -177,3 +144,4 @@ const LojaPage = () => {
 };
 
 export default LojaPage;
+

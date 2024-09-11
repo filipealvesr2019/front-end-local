@@ -34,7 +34,7 @@ export default function  Sales(){
         <>
              {data.length > 0 ? (
         data.map((product) => (
-            <Link to={`/user/product/${product._id}`}>
+            <Link to={`/admin/sales/${product._id}`}>
           <div key={product._id} style={{ marginTop: "10rem" }}>
             {product.name}
             <img src={product.imageUrl} alt={product.name} style={{ width: "15vw" }} />

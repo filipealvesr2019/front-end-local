@@ -30,6 +30,8 @@ import UserAuthProvider from "./ecommerce/context/UserAuthProvider.jsx";
 import AdminAuthProvider from "../context/AdminAuthProvider.jsx";
 import PixQRCode from "./ecommerce/Payments/PixQRCode.jsx";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import SalesDetails from "./pages/Sales/SalesDetails.jsx";
+import { AdminProvider } from "./ecommerce/context/AdminContext.jsx";
 
 
 const theme = createTheme();
@@ -60,6 +62,8 @@ const Root = () => (
       element={<ResetPasswordPageUser />}
     />
     <Route path="/user/product/:productId" element={<ProductDetails />} />
+    <Route path="/admin/sales/:productId" element={<SalesDetails />} />
+
     <Route path="/qrcode" element={<PixQRCode />} />
 
   </Routes>
@@ -67,6 +71,8 @@ const Root = () => (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    
+
      <ThemeProvider theme={theme}>
      <ConfigProvider>
       <AdminAuthProvider >
@@ -81,5 +87,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </ConfigProvider>
      </ThemeProvider>
   
+
+
   </React.StrictMode>
 );
