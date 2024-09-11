@@ -16,9 +16,9 @@ export default function  Sales(){
   // console.log("adminEccommerceID", adminEccommerceID)
     async function getProducts() {
       try {
-        const response = await axios.get(`${apiUrl}/api/products/${AdminID}`);
+        const response = await axios.get(`${apiUrl}/api/sales/${AdminID}`);
         setData(response.data || []);
-        console.log(response.data )
+        console.log("sales",response.data )
       } catch (error) {
         console.error("Error fetching products:", error);
         setData([]);

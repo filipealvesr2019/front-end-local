@@ -47,7 +47,7 @@ export default function InitialFocus() {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Crie um QRcode</ModalHeader>
+          <ModalHeader>Cadastrar Produto</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
