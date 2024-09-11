@@ -13,6 +13,7 @@ import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { adminAuth } from "../../context/AdminAuthProvider";
 import Signup from "./Signup";
 import PIX from "./Payments/PIX";
+
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
     <path d="M10 20V14H14V20H19V10H16L10 3.5L4 10H1V20H6V14H10V20Z" />

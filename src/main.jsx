@@ -29,9 +29,10 @@ import ProductDetails from "./ecommerce/Products/ProductDetails.jsx";
 import UserAuthProvider from "./ecommerce/context/UserAuthProvider.jsx";
 import AdminAuthProvider from "../context/AdminAuthProvider.jsx";
 import PixQRCode from "./ecommerce/Payments/PixQRCode.jsx";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-// Import your publishable key
-const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+const theme = createTheme();
 
 const Root = () => (
   <Routes>
@@ -66,7 +67,8 @@ const Root = () => (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ConfigProvider>
+     <ThemeProvider theme={theme}>
+     <ConfigProvider>
       <AdminAuthProvider >
         <UserAuthProvider>
           <ChakraProvider>
@@ -77,5 +79,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </UserAuthProvider>
       </AdminAuthProvider >
     </ConfigProvider>
+     </ThemeProvider>
+  
   </React.StrictMode>
 );
