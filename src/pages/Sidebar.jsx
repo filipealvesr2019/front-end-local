@@ -5,7 +5,7 @@ import ThemeList from "../ecommerce/ThemeList";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import { Link, useParams } from "react-router-dom";
 import HeaderSidebar from "../components/HeaderSidebar";
-import Products from "../components/Products";
+import Products from "./Products/Products";
 import NavBarFromSidebar from "../components/NavBarFromSidebar";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -13,6 +13,7 @@ import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { adminAuth } from "../../context/AdminAuthProvider";
 import Signup from "./Signup";
 import PIX from "./Payments/PIX";
+import Sales from "./Sales/Sales";
 
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
@@ -166,7 +167,9 @@ const Sidebar = () => {
           {content === "Produtos" && <Products />}
           
           {content === "Pagamentos" && <PIX />}
+          {content === "Pedidos" && <Sales />}
 
+          
           
           {/* <div style={{marginTop:"-1rem"}}>
 

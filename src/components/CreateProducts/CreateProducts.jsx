@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useConfig } from '../ecommerce/context/ConfigContext';
+import { useConfig } from '../../ecommerce/context/ConfigContext';
 import Cookies from "js-cookie";
 
 export default function Products() {

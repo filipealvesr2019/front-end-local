@@ -16,7 +16,7 @@ import UpdateTheme from "./ecommerce/UpdateTheme.jsx";
 import Sidebar from "./pages/Sidebar.jsx";
 import ThemeList from "./ecommerce/ThemeList.jsx";
 import CartPage from "./ecommerce/cartPage/Cart.jsx";
-import Products from "./components/Products.jsx";
+import Products from "./components/CreateProducts/CreateProducts.jsx";
 import LoginForm from "../src/ecommerce/login/LoginForm.jsx";
 import Profile from "./ecommerce/Profile/Profile.jsx";
 
