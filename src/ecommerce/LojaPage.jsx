@@ -65,7 +65,6 @@ const LojaPage = () => {
 
     fetchEcommerce();
   }, [setAdminEccommerceId]);
-
   
   const layoutStyles = () => {
     switch (layout) {

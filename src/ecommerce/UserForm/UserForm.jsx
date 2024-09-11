@@ -16,12 +16,12 @@ const Signup = () => {
   console.log("adminEccommerceId", adminEccommerceId);
   useEffect(() => {
     if (adminEccommerceId) {
-      Cookies.set("adminEccommerceId", adminEccommerceId);
+      Cookies.set("adminEccommerceId", adminEccommerceId, { sameSite: 'None', secure: true });
     }
   }, [adminEccommerceId]);
   
   // Para recuperar:
-  const savedAdminID = Cookies.get("adminEccommerceId");
+  const savedAdminID = Cookies.get("adminEccommerceId",);
   if (savedAdminID) {
     setAdminEccommerceId(savedAdminID);
   }

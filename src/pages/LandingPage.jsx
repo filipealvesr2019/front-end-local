@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import SubscriptionPlans from "../components/SubscriptionPlans";
 
 const LandingPage = () => {
+  
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -57,7 +58,7 @@ const LandingPage = () => {
         <section id="sobre">
           <h2 className={styles.h2}>
           Transforme Seu Delivery com Nossa Solução Completa
-adminIDAtom
+
 
           </h2>
           <p className={styles.p}>

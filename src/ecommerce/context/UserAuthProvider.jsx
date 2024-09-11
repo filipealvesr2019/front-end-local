@@ -44,9 +44,10 @@ export const useAuth = () => {
       } else {
         alert('Credenciais inválidas');
       }
-      Cookies.set('UserToken', response.data.token);
-      Cookies.set('UserRole', response.data.user.role);
-      Cookies.set('UserID', response.data.user._id);
+      Cookies.set('UserToken', response.data.token, { sameSite: 'None', secure: true });
+      Cookies.set('UserRole', response.data.user.role, { sameSite: 'None', secure: true });
+      Cookies.set('UserID', response.data.user._id, { sameSite: 'None', secure: true });
+      
       setCustomerID(response.data.user._id);
       
     } catch (error) {
