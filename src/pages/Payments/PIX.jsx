@@ -12,7 +12,8 @@ export default function PIX(){
     useEffect(() => {
         async function getPix() {
           try {
-            const response = await axios.get(`${apiUrl}/api/qr-code/${AdminID}`);
+            
+            const response = await axios.get(`${apiUrl}/api/pix/admin/${AdminID}`);
             setQrcode(response.data);
             console.log("qrcode", response.data);
           } catch (error) {
@@ -29,17 +30,6 @@ export default function PIX(){
 
 
 
-      async function PostPix() {
-        try {
-          const response = await axios.get(`${apiUrl}/api/qr-code/${AdminID}`);
-          setQrcode(response.data);
-          console.log("qrcode", response.data);
-        } catch (error) {
-          console.error("Error fetching products:", error);
-          setQrcode(null);
-        }
-      }
-      
     return (
         <>
         <span style={{
@@ -50,8 +40,8 @@ export default function PIX(){
             {qrcode && (
         <>
           {" "}
-          <img src={qrcode.qrCode.qrCodeUrl} alt="" />
-          <span>{qrcode.qrCode.pixKey}</span>
+          <img src={qrcode.qrCodeUrl} alt="" />
+          <span>{qrcode.pixKey}</span>
         </>
       )}
         </span>

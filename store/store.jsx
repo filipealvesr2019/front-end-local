@@ -23,7 +23,7 @@ export const mainColorAtom = atom('#000000');
 export const footerBackgroundColorAtom = atom('#ffffff');
 export const footerColorAtom = atom('#000000');
 
-export const idAdminEccommerceAtom = atom(null); // Inicialmente, o ID é nulo
+export const storeID = atom(null); // Inicialmente, o ID é nulo
 
 // Átomo para armazenar o token
 export const authTokenAtom = atom(Cookies.get('token') || null);

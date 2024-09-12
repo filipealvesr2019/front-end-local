@@ -10,31 +10,6 @@ export default function InitialFocus() {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
-  const [pixKey, setPixKey] = useState("");
-  const [qrcode, setQrcode] = useState("");
-
-  const { apiUrl } = useConfig();
-  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
-
-  async function handleCreateQRcode() {
-    if (!pixKey) {
-      alert('Chave Pix é obrigatória!');
-      return;
-    }
-
-    try {
-      const response = await axios.post(`${apiUrl}/api/qr-code/`, {
-        pixKey,
-        adminID: AdminID,
-      });
-      setQrcode(response.data.qrCodeUrl);
-      console.log("qrcode", response.data.qrCodeUrl);
-    } catch (error) {
-      console.error("Error creating QR code:", error);
-      setQrcode(null);
-    }
-  }
-
   return (
     <>
       <Button onClick={onOpen}>Cadastrar Produto</Button>
@@ -57,7 +32,7 @@ export default function InitialFocus() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={handleCreateQRcode}>
+            <Button colorScheme='blue' mr={3}>
               Salvar
             </Button>
             <Button onClick={onClose}>Cancelar</Button>

@@ -10,8 +10,8 @@ import Layout2 from "../ecommerce/layout/Layout2.module.css";
 import Header from '../ecommerce/header/Header'
 import ProductsList from './Products/ProductsList';
 import { useConfig } from "./context/ConfigContext";
-import { idAdminEccommerceAtom } from "../../store/store";
 import { useSetAtom } from "jotai";
+import { storeID } from "../../store/store";
 const LojaPage = () => {
   const [ecommerce, setEcommerce] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -33,7 +33,7 @@ const LojaPage = () => {
   const [footerColorFrame, setFooterColorFrame] = useState(mainBackgroundColor);
   const [footerTextColorFrame, setFooterTextColorFrame] = useState(mainColor);
   const { apiUrl } = useConfig();
-  const setAdminEccommerceId = useSetAtom(idAdminEccommerceAtom);
+  const setStoreID = useSetAtom(storeID);
 
   const { subdomain } = useParams();
   useEffect(() => {
@@ -51,16 +51,17 @@ const LojaPage = () => {
         setFooterBackgroundColor(response.data.theme.footer.backgroundColor);
         setLayout(response.data.layout);
         setFooterColor(response.data.theme.footer.color);
+        console.log('store',response.data._id)
      // Resetando o adminID sempre que a loja mudar
-     if (response.data.adminID) {
-      setAdminEccommerceId(response.data.adminID); // Atualiza o átomo com o novo ID
-      Cookies.set("adminEccommerceId", response.data.adminID, {
+     if (response.data._id) {
+      setStoreID(response.data._id); // Atualiza o átomo com o novo ID
+      Cookies.set("storeID", response.data._id, {
         sameSite: "None",
         secure: true,
       }); // Persiste o adminID no cookie
-      console.log("Admin ID atualizado e salvo:", response.data.adminID);
+      console.log("storeID atualizado e salvo:", response.data._id);
     } else {
-      console.warn("adminID não encontrado na resposta da API.");
+      console.warn("storeID não encontrado na resposta da API.");
     }
       } catch (error) {
         console.error("Erro ao buscar o e-commerce:", error);
@@ -68,7 +69,7 @@ const LojaPage = () => {
     };
 
     fetchEcommerce();
-  }, [setAdminEccommerceId]);
+  }, [setStoreID]);
   
   const layoutStyles = () => {
     switch (layout) {

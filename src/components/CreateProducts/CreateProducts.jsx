@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useConfig } from '../../ecommerce/context/ConfigContext';
 import Cookies from "js-cookie";
@@ -6,15 +6,37 @@ import Cookies from "js-cookie";
 export default function Products() {
   const { apiUrl } = useConfig();
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
+ 
+  const [storeID, setStoreID] = useState(null);
 
   const [formData, setFormData] = useState({
     adminID: AdminID,
+    storeID: null, // Inicialmente null, será atualizado quando o storeID for recuperado
     name: '',
     price: '',
     imageUrl: '',
     category: '',
     variations: [] // Inicialmente vazio, será preenchido com variações
   });
+
+  async function handleGetEcommerce() {
+    try {
+      const response = await axios.get(`${apiUrl}/api/loja/admin/${AdminID}`);
+      setStoreID(response.data._id);
+
+      // Atualize o formData com o storeID assim que ele for recuperado
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        storeID: response.data._id,
+      }));
+    } catch (error) {
+      console.error("Error showing ecommerce:", error);
+    }
+  }
+
+  useEffect(() => {
+    handleGetEcommerce();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,6 +78,12 @@ export default function Products() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.storeID) {
+      alert('Store ID ainda não foi carregado.');
+      return;
+    }
+
     try {
       const response = await axios.post(`${apiUrl}/api/products`, formData);
       alert(response.data.message);

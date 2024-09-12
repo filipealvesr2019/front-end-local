@@ -3,17 +3,17 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 import { useConfig } from '../context/ConfigContext';
 import { useAtom } from 'jotai';
-import { idAdminEccommerceAtom } from '../../../store/store';
+import {  storeID } from '../../../store/store';
 import styles from "./SignUpForm.module.css"
 
 const Signup = () => {
   const { apiUrl } = useConfig();
   const UserID = Cookies.get("UserID"); // Obtenha o ID do cliente do cookie
-  const [adminEccommerceId, setAdminEccommerceId] = useAtom(idAdminEccommerceAtom);
-  console.log('UserForm', adminEccommerceId)
+  const [storeID, setStoreID] = useAtom(storeID);
+  console.log('setStoreID', storeID)
   const [showCEP, setShowCEP] = useState(false);
   const [formData, setFormData] = useState({
-    adminID: adminEccommerceId, 
+    storeID: storeID, 
     userID: UserID, 
     name: '',
     mobilePhone: '',
@@ -29,17 +29,17 @@ const Signup = () => {
   
   const [message, setMessage] = useState('');
 
-  // Recuperar adminEccommerceId do cookie
+  // Recuperar storeID do cookie
   useEffect(() => {
-    const savedAdminID = Cookies.get("adminEccommerceId");
+    const savedStoreID = Cookies.get("storeID");
 
-    if (savedAdminID && !adminEccommerceId) {
-      setAdminEccommerceId(savedAdminID);
-      setFormData(prevState => ({ ...prevState, adminID: savedAdminID }));
+    if (savedStoreID && !storeID) {
+      setStoreID(savedStoreID);
+      setFormData(prevState => ({ ...prevState, storeID: savedStoreID }));
     } else if (adminEccommerceId) {
-      setFormData(prevState => ({ ...prevState, adminID: adminEccommerceId }));
+      setFormData(prevState => ({ ...prevState, storeID: storeID }));
     }
-  }, [adminEccommerceId, setAdminEccommerceId]);
+  }, [storeID, setStoreID]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
