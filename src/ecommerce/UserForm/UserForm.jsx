@@ -3,17 +3,20 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 import { useConfig } from '../context/ConfigContext';
 import { useAtom } from 'jotai';
-import {  storeID } from '../../../store/store';
+import { storeID } from '../../../store/store';
 import styles from "./SignUpForm.module.css"
 
 const Signup = () => {
   const { apiUrl } = useConfig();
+  const [storeIDAtom, setStoreID] = useAtom(storeID);
   const UserID = Cookies.get("UserID"); // Obtenha o ID do cliente do cookie
-  const [storeID, setStoreID] = useAtom(storeID);
-  console.log('setStoreID', storeID)
+
+  console.log('storeIDAtom', storeIDAtom);
+  console.log('UserID', UserID);
+
   const [showCEP, setShowCEP] = useState(false);
   const [formData, setFormData] = useState({
-    storeID: storeID, 
+    storeID: storeIDAtom, 
     userID: UserID, 
     name: '',
     mobilePhone: '',
@@ -26,20 +29,25 @@ const Signup = () => {
     city: '',
     state: '',
   });
-  
+
   const [message, setMessage] = useState('');
 
-  // Recuperar storeID do cookie
+  // Recuperar storeID e userID do cookie
   useEffect(() => {
     const savedStoreID = Cookies.get("storeID");
+    const savedUserID = Cookies.get("UserID");
 
-    if (savedStoreID && !storeID) {
+    if (savedStoreID && !storeIDAtom) {
       setStoreID(savedStoreID);
       setFormData(prevState => ({ ...prevState, storeID: savedStoreID }));
-    } else if (adminEccommerceId) {
-      setFormData(prevState => ({ ...prevState, storeID: storeID }));
+    } else if (storeIDAtom) {
+      setFormData(prevState => ({ ...prevState, storeID: storeIDAtom }));
     }
-  }, [storeID, setStoreID]);
+
+    if (savedUserID) {
+      setFormData(prevState => ({ ...prevState, userID: savedUserID }));
+    }
+  }, [storeIDAtom, setStoreID]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,6 +59,13 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Certifique-se de que o userID e o storeID estão presentes antes de enviar o formulário
+    if (!formData.userID || !formData.storeID) {
+      setMessage('Erro: ID de usuário ou loja ausente.');
+      return;
+    }
+
     try {
       const response = await axios.post(`${apiUrl}/api/signupUser`, formData);
       setMessage(response.data.message);
