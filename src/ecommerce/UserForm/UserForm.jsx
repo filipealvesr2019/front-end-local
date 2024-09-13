@@ -13,7 +13,7 @@ const Signup = () => {
 
   console.log('storeIDAtom', storeIDAtom);
   console.log('UserID', UserID);
-
+    const savedUserID = Cookies.get("UserID");
   const [showCEP, setShowCEP] = useState(false);
   const [formData, setFormData] = useState({
     storeID: storeIDAtom, 
