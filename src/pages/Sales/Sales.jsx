@@ -51,14 +51,14 @@ export default function Sales({ storeID }) {
             </Thead>
             <Tbody>
               {data.map((product) => (
-                <Tr key={product._id}>
+                <Tr key={product._id}   >
                   
-                  <Td>
-                  <Link to={`/admin/sales/${product._id}`}>
+                  <Td >
+                  <Link to={`/admin/sales/${product._id}`} >
                     <img
                       src={product.imageUrl}
                       alt={product.name}
-                      style={{ width: "15vw"}}
+                      style={{ width: "15vw", }}
                     />
                   
                   </Link>
