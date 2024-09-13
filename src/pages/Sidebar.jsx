@@ -14,6 +14,7 @@ import { adminAuth } from "../../context/AdminAuthProvider";
 import Signup from "./Signup";
 import PIX from "./Payments/PIX";
 import Sales from "./Sales/Sales";
+import StoreContainer from "./container/storeContainer";
 
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
@@ -167,7 +168,7 @@ const Sidebar = () => {
           {content === "Produtos" && <Products />}
           
           {content === "Pagamentos" && <PIX />}
-          {content === "Pedidos" && <Sales />}
+          {content === "Pedidos" && <StoreContainer />}
 
           
           
