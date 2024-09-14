@@ -147,6 +147,13 @@ const Sidebar = () => {
               </div>
             </div>
           )}
+              <Flex
+            className={styles.sidebarItem}
+            onClick={() => setContent("Relatorios")}
+          >
+            <SettingsIcon />
+            <Text className={styles.itemText}>Relatórios</Text>
+          </Flex>
           <Flex
             className={styles.sidebarItem}
             onClick={() => setContent("Email")}
@@ -155,13 +162,7 @@ const Sidebar = () => {
             <Text className={styles.itemText}>Email Marketing</Text>
           </Flex>
 
-          <Flex
-            className={styles.sidebarItem}
-            onClick={() => setContent("Relatorios")}
-          >
-            <SettingsIcon />
-            <Text className={styles.itemText}>Relatórios</Text>
-          </Flex>
+      
           <Button
             className={styles.sidebarItem}
             onClick={logout}
