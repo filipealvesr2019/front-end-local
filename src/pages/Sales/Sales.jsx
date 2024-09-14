@@ -98,15 +98,14 @@ export default function Sales({ storeID }) {
                     </Link>
                   </Td>
                   <Td>
-  <div className="custom-checkbox">
-    <input
-      type="checkbox"
-      checked={product.status === "RECEIVED"}
-      readOnly
-    />
-  </div>
-</Td>
-
+                    <div className="custom-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={product.status === "RECEIVED"}
+                        readOnly
+                      />
+                    </div>
+                  </Td>
                 </Tr>
               ))}
               {openTabModal && "aberto"}
