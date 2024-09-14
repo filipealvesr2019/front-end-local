@@ -79,6 +79,8 @@
     justify-content: center;
     width: 100vw;
     background-color: #F4F4F4;
+    overflow-y: auto; /* Permitir rolagem vertical */
+    height: 100vh; /* Garante que o conteúdo tenha a altura total da viewport */
   }
   
   .icon {

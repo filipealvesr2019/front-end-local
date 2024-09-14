@@ -15,6 +15,7 @@ import Signup from "./Signup";
 import PIX from "./Payments/PIX";
 import Sales from "./Sales/Sales";
 import StoreContainer from "./container/storeContainer";
+import Home from "./Home/Home";
 
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
@@ -164,7 +165,7 @@ const Sidebar = () => {
         </Box>
 
         <div className={styles.content}>
-      
+        {content === "home" && <Home />}
           {content === "Produtos" && <Products />}
           
           {content === "Pagamentos" && <PIX />}

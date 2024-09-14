@@ -1,4 +1,4 @@
-import Cookies from "js-cookie";
+
 import { useConfig } from "../../ecommerce/context/ConfigContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -38,7 +38,7 @@ export default function Sales({ storeID }) {
   }, [storeID]);
 
   return (
-    <>
+    <div>
       {data.length > 0 ? (
         <TableContainer className={styles.TableContainer}>
           <Table variant="simple">
@@ -46,6 +46,8 @@ export default function Sales({ storeID }) {
               <Tr>
                 <Th>Produto</Th>
                 <Th>Nome</Th>
+                <Th>Data</Th>
+                <Th>Status</Th>
                 <Th isNumeric>Preço</Th>
               </Tr>
             </Thead>
@@ -68,7 +70,8 @@ export default function Sales({ storeID }) {
                       {product.name}
                     </Link>
                   </Td>
-                
+                  <Td>data</Td>
+                  <Td>status</Td>
                   <Td isNumeric>
                   <Link to={`/admin/sales/${product._id}`}>
                     R${product.price}
@@ -84,6 +87,6 @@ export default function Sales({ storeID }) {
       ) : (
         <p>No products available</p>
       )}
-    </>
+    </div>
   );
 }
