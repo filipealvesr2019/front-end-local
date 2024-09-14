@@ -141,8 +141,8 @@ export default function Sales({ storeID }) {
         <ModalContent>
           <ModalHeader>Marcar venda</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <p>Tem certeza que quer marcar essa venda como {selectedSale?.status === "RECEIVED" ? "pendente" : "paga"}?</p>
+          <ModalBody >
+            <p>Tem certeza que quer marcar essa venda como <b>{selectedSale?.status === "RECEIVED" ? "pendente" : "paga"}</b> ?</p>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={handleSaveStatus}>
