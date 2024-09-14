@@ -56,7 +56,7 @@ export default function Sales({ storeID }) {
                 <Th isNumeric>Preço</Th>
               </Tr>
             </Thead>
-            <Tbody>
+            <Tbody  className={styles.Tbody}>
               {data.map((product) => (
                 <Tr key={product._id}>
                   <Td>

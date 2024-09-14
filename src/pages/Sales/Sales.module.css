@@ -2,6 +2,10 @@
     background-color: #fff;
     border-radius: 10px;
     margin-top: 10rem;
+  
+}
+
+.Tbody{
     overflow-y: auto; /* Garante que o conteúdo possa rolar */
     height: 100vh; /* Faz com que o conteúdo ocupe toda a altura da viewport */
 }
