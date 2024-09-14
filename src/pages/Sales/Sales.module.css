@@ -12,6 +12,7 @@
 .received{
     color: #239B22;
     font-weight: 600;
+    cursor: pointer;
     /* background-color: #E9F8E9; */
 }
 .pending{
@@ -19,4 +20,91 @@
 font-weight: 600;
 color: #D69D52;
 width: 10vw;
+cursor: pointer;
+
 }
+
+
+
+.Modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+  }
+  
+  .ModalContent {
+    background-color: #fefefe;
+
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 40vw;
+    height: 30vh;
+  
+    margin-top: 10rem;
+  
+    font-family: "poppins", sans-serif;
+  }
+  
+  .Close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .Close:hover,
+  .Close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .cartModalContent__p{
+    width: 40vw;
+  }
+
+  .buttonContainer{
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .cancel{
+    background-color: #14337c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 40vw;
+    padding: .5rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-family: 'poppins', sans-serif;
+    font-weight: 500;
+  }
+  .confirmButton{
+    background-color: #14337c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 40vw;
+    padding: .5rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-family: 'poppins', sans-serif;
+    font-weight: 500;
+  }
+
+  .confirmButton:hover{
+    background-color: red;
+  }
+  
