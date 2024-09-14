@@ -9,3 +9,14 @@
     overflow-y: auto; /* Garante que o conteúdo possa rolar */
     height: 100vh; /* Faz com que o conteúdo ocupe toda a altura da viewport */
 }
+.received{
+    color: #239B22;
+    font-weight: 600;
+    /* background-color: #E9F8E9; */
+}
+.pending{
+/* background-color: #FFF5E7; */
+font-weight: 600;
+color: #D69D52;
+width: 10vw;
+}

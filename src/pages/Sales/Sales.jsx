@@ -1,5 +1,5 @@
 import { useConfig } from "../../ecommerce/context/ConfigContext";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
@@ -12,12 +12,13 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import styles from "./Sales.module.css";
+import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
 
 export default function Sales({ storeID }) {
   const { apiUrl } = useConfig();
   const [data, setData] = useState([]);
   console.log("storeID", storeID);
-
+  const [openTabModal, setOpenTabModal] = useState(false);
   async function getProducts() {
     try {
       const response = await axios.get(`${apiUrl}/api/admin/vendas/${storeID}`);
@@ -42,6 +43,11 @@ export default function Sales({ storeID }) {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
+
+  const handlOpenTabModal = () => {
+    setOpenTabModal(true);
+  };
+
   return (
     <div>
       {data.length > 0 ? (
@@ -56,7 +62,7 @@ export default function Sales({ storeID }) {
                 <Th isNumeric>Preço</Th>
               </Tr>
             </Thead>
-            <Tbody  className={styles.Tbody}>
+            <Tbody className={styles.Tbody}>
               {data.map((product) => (
                 <Tr key={product._id}>
                   <Td>
@@ -74,17 +80,36 @@ export default function Sales({ storeID }) {
                     </Link>
                   </Td>
                   <Td>{formatDate(product.purchaseDate)}</Td>
-                  <Td>
+                  <Td
+                    className={
+                      product.status === "RECEIVED"
+                        ? styles.received
+                        : styles.pending
+                    }
+                    onClick={handlOpenTabModal}
+                  >
                     {" "}
                     {product.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
                   </Td>
+
                   <Td isNumeric>
                     <Link to={`/admin/sales/${product._id}`}>
                       R${product.totalAmount}
                     </Link>
                   </Td>
+                  <Td>
+  <div className="custom-checkbox">
+    <input
+      type="checkbox"
+      checked={product.status === "RECEIVED"}
+      readOnly
+    />
+  </div>
+</Td>
+
                 </Tr>
               ))}
+              {openTabModal && "aberto"}
             </Tbody>
           </Table>
         </TableContainer>
