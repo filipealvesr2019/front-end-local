@@ -1,4 +1,3 @@
-
 import { useConfig } from "../../ecommerce/context/ConfigContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -36,7 +35,13 @@ export default function Sales({ storeID }) {
       getProducts();
     }
   }, [storeID]);
-
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Os meses são baseados em zero
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
   return (
     <div>
       {data.length > 0 ? (
@@ -53,32 +58,31 @@ export default function Sales({ storeID }) {
             </Thead>
             <Tbody>
               {data.map((product) => (
-                <Tr key={product._id}   >
-                  
-                  <Td >
-                  <Link to={`/admin/sales/${product._id}`} >
-                    <img
-                      src={product.imageUrl}
-                      alt={product.name}
-                      style={{ width: "15vw", }}
-                    />
-                  
-                  </Link>
+                <Tr key={product._id}>
+                  <Td>
+                    <Link to={`/admin/sales/${product._id}`}>
+                      <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        style={{ width: "15vw" }}
+                      />
+                    </Link>
                   </Td>
                   <Td>
                     <Link to={`/admin/sales/${product._id}`}>
                       {product.name}
                     </Link>
                   </Td>
-                  <Td>data</Td>
-                  <Td>status</Td>
-                  <Td isNumeric>
-                  <Link to={`/admin/sales/${product._id}`}>
-                    R${product.price}
-                    </Link>
-
+                  <Td>{formatDate(product.purchaseDate)}</Td>
+                  <Td>
+                    {" "}
+                    {product.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
                   </Td>
-                  
+                  <Td isNumeric>
+                    <Link to={`/admin/sales/${product._id}`}>
+                      R${product.totalAmount}
+                    </Link>
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
