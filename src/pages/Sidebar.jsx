@@ -16,6 +16,7 @@ import PIX from "./Payments/PIX";
 import Sales from "./Sales/Sales";
 import StoreContainer from "./container/storeContainer";
 import Home from "./Home/Home";
+import Email from "./Email/Email";
 
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
@@ -148,10 +149,18 @@ const Sidebar = () => {
           )}
           <Flex
             className={styles.sidebarItem}
-            onClick={() => setContent("Configurações")}
+            onClick={() => setContent("Email")}
           >
             <SettingsIcon />
-            <Text className={styles.itemText}>Configurações</Text>
+            <Text className={styles.itemText}>Email Marketing</Text>
+          </Flex>
+
+          <Flex
+            className={styles.sidebarItem}
+            onClick={() => setContent("Relatorios")}
+          >
+            <SettingsIcon />
+            <Text className={styles.itemText}>Relatórios</Text>
           </Flex>
           <Button
             className={styles.sidebarItem}
@@ -170,6 +179,7 @@ const Sidebar = () => {
           
           {content === "Pagamentos" && <PIX />}
           {content === "Pedidos" && <StoreContainer />}
+          {content === "Email" && <Email />}
 
           
           
