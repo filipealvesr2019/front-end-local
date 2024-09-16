@@ -118,7 +118,7 @@ const LojaPage = () => {
             >
 
               <ProductsList />
-              <Chat />
+              <Chat />fffffffff
             </main>
             <footer
               style={{
