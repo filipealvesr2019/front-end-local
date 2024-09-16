@@ -118,7 +118,6 @@ const LojaPage = () => {
             >
 
               <ProductsList />
-              <Chat />fffffffff
             </main>
             <footer
               style={{
@@ -132,6 +131,7 @@ const LojaPage = () => {
               className={styles.footer}
             >
               <span>Footer da Loja</span>
+              
             </footer>
 
             <div
@@ -143,6 +143,8 @@ const LojaPage = () => {
             >
               {/* Carrossel content here */}
               carrosel loja
+              <Chat />fffffffff
+
             </div>
           </div>
         </div>
