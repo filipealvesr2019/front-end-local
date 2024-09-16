@@ -1,7 +1,7 @@
 // ConfigContext.js
 import React, { createContext, useState } from 'react';
 const localhost = 'http://localhost:3002'
-const ngrok = " https://1ebb-2804-1a04-804f-e800-ccba-cd15-961b-6945.ngrok-free.app"
+const ngrok = "https://1ebb-2804-1a04-804f-e800-ccba-cd15-961b-6945.ngrok-free.app"
 export const ConfigContext = createContext();
 
 export const ConfigProvider = ({ children }) => {

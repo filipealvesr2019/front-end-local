@@ -12,6 +12,7 @@ import ProductsList from './Products/ProductsList';
 import { useConfig } from "../../context/ConfigContext";
 import { useSetAtom } from "jotai";
 import { storeID } from "../../store/store";
+import { Chat } from "@mui/icons-material";
 const LojaPage = () => {
   const [ecommerce, setEcommerce] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -117,6 +118,7 @@ const LojaPage = () => {
             >
 
               <ProductsList />
+              <Chat />
             </main>
             <footer
               style={{
