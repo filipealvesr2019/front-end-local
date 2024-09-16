@@ -157,13 +157,19 @@ const Sidebar = () => {
           </Flex>
           <Flex
             className={styles.sidebarItem}
+            onClick={() => setContent("Relatorio")}
+          >
+            <SettingsIcon />
+            <Text className={styles.itemText}>Relatórios</Text>
+          </Flex>
+          <Flex
+            className={styles.sidebarItem}
             onClick={() => setContent("Email")}
           >
             <SettingsIcon />
             <Text className={styles.itemText}>Email Marketing</Text>
           </Flex>
-
-      
+        
           <Button
             className={styles.sidebarItem}
             onClick={logout}
@@ -183,9 +189,10 @@ const Sidebar = () => {
           {content === "Pedidos" && <StoreContainer />}
           {content === "Email" && <Email />}
           {content === "Finaceiro" && <Finaceiro />}
+          {content === "Relatório" && <Finaceiro />}
 
           
-          
+           
           
           {/* <div style={{marginTop:"-1rem"}}>
 
