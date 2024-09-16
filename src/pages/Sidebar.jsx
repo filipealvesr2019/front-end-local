@@ -17,6 +17,7 @@ import Sales from "./Sales/Sales";
 import StoreContainer from "./container/storeContainer";
 import Home from "./Home/Home";
 import Email from "./Email/Email";
+import Finaceiro from "./Finaceiro/Finaceiro";
 
 const HomeIcon = () => (
   <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
@@ -149,10 +150,10 @@ const Sidebar = () => {
           )}
               <Flex
             className={styles.sidebarItem}
-            onClick={() => setContent("Relatorios")}
+            onClick={() => setContent("Finaceiro")}
           >
             <SettingsIcon />
-            <Text className={styles.itemText}>Relatórios</Text>
+            <Text className={styles.itemText}>Finaceiro</Text>
           </Flex>
           <Flex
             className={styles.sidebarItem}
@@ -181,7 +182,9 @@ const Sidebar = () => {
           {content === "Pagamentos" && <PIX />}
           {content === "Pedidos" && <StoreContainer />}
           {content === "Email" && <Email />}
+          {content === "Finaceiro" && <Finaceiro />}
 
+          
           
           
           {/* <div style={{marginTop:"-1rem"}}>
