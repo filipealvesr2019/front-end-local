@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import styles from "./RegisterLink.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useConfig } from "../ecommerce/context/ConfigContext";
+import { useConfig } from "../../context/ConfigContext";
 const RegisterLink = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

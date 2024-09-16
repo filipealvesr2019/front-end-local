@@ -24,7 +24,7 @@ import RegisterLinkUser from "../src/ecommerce/login/RegisterLinkUser.jsx";
 import RegisterUser from "../src/ecommerce/login/RegisterUser.jsx";
 import PasswordResetRequestUser from "../src/ecommerce/login/PasswordResetRequestUser.jsx";
 import ResetPasswordPageUser from "../src/ecommerce/login/ResetPasswordPageUser.jsx";
-import { ConfigProvider } from "./ecommerce/context/ConfigContext.jsx";
+import { ConfigProvider } from "../context/ConfigContext.jsx";
 import ProductDetails from "./ecommerce/Products/ProductDetails.jsx";
 import UserAuthProvider from "./ecommerce/context/UserAuthProvider.jsx";
 import AdminAuthProvider from "../context/AdminAuthProvider.jsx";

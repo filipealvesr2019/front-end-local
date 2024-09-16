@@ -5,7 +5,7 @@ import { useAtom } from 'jotai';
 import { isCustomerAtom, loggedInCustomerAtom, authErrorAtom, customerIDAtom } from '../../../store/store';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useConfig } from './ConfigContext';
+import { useConfig } from '../../../context/ConfigContext';
 
 const userAuthProvider  = ({ children }) => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInCustomerAtom);

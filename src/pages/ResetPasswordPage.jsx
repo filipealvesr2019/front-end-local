@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import style from "./ResetPasswordPage.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useConfig } from '../ecommerce/context/ConfigContext';
+import { useConfig } from '../../context/ConfigContext';
 const ResetPasswordPage = () => {
   const { token } = useParams(); // Extrai o token da URL
 

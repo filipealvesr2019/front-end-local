@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useConfig } from "../../ecommerce/context/ConfigContext";
+import { useConfig } from "../../../context/ConfigContext";
 
 import Cookies from "js-cookie";
 import ModalPix from '../../components/ModalPix/ModalPix'

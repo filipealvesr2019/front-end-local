@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useConfig } from "../context/ConfigContext";
+import { useConfig } from "../../../context/ConfigContext";
 import styles from "./ProductDetails.module.css";
 import { Link } from "react-router-dom";
 import { useAtom } from "jotai";

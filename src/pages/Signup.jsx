@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from "js-cookie";
-import { useConfig } from '../ecommerce/context/ConfigContext';
+import { useConfig } from '../../context/ConfigContext';
 
 const Signup = () => {
   const { apiUrl } = useConfig();

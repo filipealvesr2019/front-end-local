@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
-import { useConfig } from "../context/ConfigContext";
+import { useConfig } from "../../../context/ConfigContext";
 import styles from "./ProductDetails.module.css";
 import Cookies from "js-cookie";
 import { useNavigate, useParams } from "react-router-dom";

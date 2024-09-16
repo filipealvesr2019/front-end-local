@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import styles from './PasswordResetRequest.module.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useConfig } from '../ecommerce/context/ConfigContext';
+import { useConfig } from '../../context/ConfigContext';
 const PasswordResetRequest = () => {
   const [email, setEmail] = useState('');
 

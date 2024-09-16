@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import styles from "./SalesDetails.module.css";
 import Cookies from "js-cookie";
 import { useNavigate, useParams } from "react-router-dom";
-import { useConfig } from "../../ecommerce/context/ConfigContext";
+import { useConfig } from "../../../context/ConfigContext";
 
 export default function SalesDetails() {
   const { apiUrl } = useConfig();

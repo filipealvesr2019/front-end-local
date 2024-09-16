@@ -2,7 +2,7 @@ import "./Total.css";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Cookies from "js-cookie";
-import { useConfig } from "../../ecommerce/context/ConfigContext";
+import { useConfig } from "../../../context/ConfigContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";

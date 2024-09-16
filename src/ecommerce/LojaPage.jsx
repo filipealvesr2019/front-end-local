@@ -9,7 +9,7 @@ import Layout1 from "../ecommerce/layout/Layout1.module.css";
 import Layout2 from "../ecommerce/layout/Layout2.module.css";
 import Header from '../ecommerce/header/Header'
 import ProductsList from './Products/ProductsList';
-import { useConfig } from "./context/ConfigContext";
+import { useConfig } from "../../context/ConfigContext";
 import { useSetAtom } from "jotai";
 import { storeID } from "../../store/store";
 const LojaPage = () => {

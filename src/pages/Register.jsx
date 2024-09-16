@@ -8,7 +8,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from './Register.module.css';
-import { useConfig } from '../ecommerce/context/ConfigContext';
+import { useConfig } from '../../context/ConfigContext';
 
 function RegisterUser() {
   

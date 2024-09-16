@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useConfig } from "../context/ConfigContext";
+import { useConfig } from "../../../context/ConfigContext";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { storeID } from "../../../store/store";
