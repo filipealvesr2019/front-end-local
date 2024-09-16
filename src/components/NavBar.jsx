@@ -10,10 +10,7 @@ import {
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
-  EmailIcon,
-  ExternalLinkIcon,
-  AtSignIcon,
-  CalendarIcon,
+
 } from "@chakra-ui/icons";
 
 const ExemploMenu = () => {
