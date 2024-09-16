@@ -8,6 +8,9 @@ export const ConfigProvider = ({ children }) => {
   const [config, setConfig] = useState({
     apiUrl: ngrok,
   });
+
+
+  
   return (
     <ConfigContext.Provider value={config}>
       {children}
