@@ -9,10 +9,35 @@ import {
     TableCaption,
     TableContainer,
   } from "@chakra-ui/react";
-  
+  import Cookies from "js-cookie";
+  import CriarDespesaModal from './CriarDespesaModal/CriarDespesaModal'
+import { useConfig } from "../../../../context/ConfigContext";
+import { useEffect, useState } from "react";
   export default function Despesas() {
+    
+    const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
+
+    const { apiUrl } = useConfig();
+    const [data, setData] = useState([]);
+  
+    // console.log("adminEccommerceID", adminEccommerceID)
+    async function getDespesas() {
+      try {
+        const response = await axios.get(`${apiUrl}/api/despesas/${AdminID}`);
+        setData(response.data || []);
+        console.log("getDespesas", response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setData([]);
+      }
+    }
+    useEffect(() => {
+      getDespesas();
+    }, []);
+  
     return (
       <>
+      <CriarDespesaModal />
         <TableContainer
           style={{
             border: "1px solid #edf2f7",
