@@ -1,9 +1,21 @@
-
-import React, { useEffect, useState } from 'react';
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, FormControl, FormLabel, Input, useDisclosure } from '@chakra-ui/react';
-import { useConfig } from '../../../../../context/ConfigContext';
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  FormControl,
+  FormLabel,
+  Input,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { useConfig } from "../../../../../context/ConfigContext";
 import Cookies from "js-cookie"; // Certifique-se de importar isso
-import axios from 'axios';
+import axios from "axios";
 
 export default function InitialFocus() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,32 +43,28 @@ export default function InitialFocus() {
   const [formData, setFormData] = useState({
     adminID: AdminID,
     type: "receita",
-    description: '',
-    amount: '',
+    description: "",
+    amount: "",
     category: "",
-    });
-
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     try {
       const response = await axios.post(`${apiUrl}/api/despesas`, formData);
       alert(response.data.message);
     } catch (error) {
-      console.error('Error creating product:', error);
-      alert('Erro ao criar produto.');
+      console.error("Error creating product:", error);
+      alert("Erro ao criar produto.");
     }
   };
   return (
@@ -76,49 +84,46 @@ export default function InitialFocus() {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Chave Pix</FormLabel>
-              <form onSubmit={handleSubmit} style={{ marginTop: '5rem' }}>
-    
-    <input
-      type="text"
-      name="description"
-      placeholder="description"
-      onChange={handleChange}
-      value={formData.description}
-      required
-    />
-  
-     <input
-      type="number"
-      name="amount"
-      placeholder="amount"
-      onChange={handleChange}
-      value={formData.amount }
-      required
-    />
+              <form onSubmit={handleSubmit} style={{ marginTop: "5rem" }}>
+                <input
+                  type="text"
+                  name="description"
+                  placeholder="description"
+                  onChange={handleChange}
+                  value={formData.description}
+                  required
+                />
 
-    
-  
-<select
+                <input
+                  type="number"
+                  name="amount"
+                  placeholder="amount"
+                  onChange={handleChange}
+                  value={formData.amount}
+                  required
+                />
+
+                <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
                   required
                 >
-                  <option value="" disabled>Selecione uma categoria</option>
+                  <option value="" disabled>
+                    Selecione uma categoria
+                  </option>
                   {categories.map((category) => (
                     <option key={category._id} value={category._id}>
                       {category.name}
                     </option>
                   ))}
                 </select>
-
- 
-  </form>
+              </form>
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={handleSubmit}>
+            <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
               Salvar
             </Button>
             <Button onClick={onClose}>Cancelar</Button>
