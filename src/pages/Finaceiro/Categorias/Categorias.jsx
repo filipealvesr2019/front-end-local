@@ -9,10 +9,37 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
+import CriarCategoriasModal from './CriarDespesaModal/CriarCategoriasModal'
+import { useConfig } from "../../../../context/ConfigContext";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 export default function Categorias() {
+
+  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
+
+  const { apiUrl } = useConfig();
+  const [data, setData] = useState([]);
+
+  // console.log("adminEccommerceID", adminEccommerceID)
+  async function getCategorias() {
+    try {
+      const response = await axios.get(`${apiUrl}/api/despesas/${AdminID}`);
+      setData(response.data || []);
+      console.log("getCategorias", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
+  useEffect(() => {
+    getCategorias();
+  }, []);
+
   return (
     <>
+    <CriarCategoriasModal />
       <TableContainer
         style={{
           border: "1px solid #edf2f7",

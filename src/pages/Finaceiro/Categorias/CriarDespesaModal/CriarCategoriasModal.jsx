@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import Cookies from "js-cookie";
+
 import {
   Button,
   Modal,
@@ -14,9 +15,8 @@ import {
   Input,
   useDisclosure,
 } from "@chakra-ui/react";
-import Cookies from "js-cookie"; // Certifique-se de importar isso
 import { useConfig } from "../../../../../context/ConfigContext";
-
+import axios from "axios";
 export default function InitialFocus() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
@@ -26,27 +26,9 @@ export default function InitialFocus() {
 
   const [formData, setFormData] = useState({
     adminID: AdminID,
-    type: "receita",
-    description: "",
-    amount: "",
-    category: "",
+    type: "receita", // Valor padrão
+    name: "",
   });
-
-  const [categories, setCategories] = useState([]);
-
-  // Buscar as categorias do adminID
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/api/categories/${AdminID}`);
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar categorias:", error);
-      }
-    };
-
-    fetchCategories();
-  }, [apiUrl, AdminID]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,19 +40,17 @@ export default function InitialFocus() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post(`${apiUrl}/api/receitas`, formData);
+      const response = await axios.post(`${apiUrl}/api/categories`, formData);
       alert(response.data.message);
     } catch (error) {
-      console.error("Erro ao criar receita:", error);
-      alert("Erro ao criar receita.");
+      console.error("Error creating product:", error);
+      alert("Erro ao criar categoria.");
     }
   };
-
   return (
     <>
-      <Button onClick={onOpen}>Cadastrar Receita</Button>
+      <Button onClick={onOpen}>Cadastrar Categoria</Button>
 
       <Modal
         initialFocusRef={initialRef}
@@ -80,7 +60,7 @@ export default function InitialFocus() {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Cadastrar Receita</ModalHeader>
+          <ModalHeader>Cadastrar Produto</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
@@ -88,37 +68,23 @@ export default function InitialFocus() {
               <form onSubmit={handleSubmit} style={{ marginTop: "5rem" }}>
                 <input
                   type="text"
-                  name="description"
-                  placeholder="Descrição"
+                  name="name"
+                  placeholder="Nome da categoria"
                   onChange={handleChange}
-                  value={formData.description}
+                  value={formData.name}
                   required
                 />
-                
-                {/* Select de categorias */}
-               
-                <input
-                  type="number"
-                  name="amount"
-                  placeholder="Valor"
-                  onChange={handleChange}
-                  value={formData.amount}
-                  required
-                />
- <select
-                  name="category"
-                  value={formData.category}
+
+                {/* Select para escolher tipo de categoria */}
+                <select
+                  name="type"
+                  value={formData.type}
                   onChange={handleChange}
                   required
                 >
-                  <option value="" disabled>Selecione uma categoria</option>
-                  {categories.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.name}
-                    </option>
-                  ))}
+                  <option value="receita">Receita</option>
+                  <option value="despesa">Despesa</option>
                 </select>
-
               </form>
             </FormControl>
           </ModalBody>

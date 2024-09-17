@@ -13,6 +13,7 @@ import {
   import CriarDespesaModal from './CriarDespesaModal/CriarDespesaModal'
 import { useConfig } from "../../../../context/ConfigContext";
 import { useEffect, useState } from "react";
+import axios from "axios";
   export default function Despesas() {
     
     const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
