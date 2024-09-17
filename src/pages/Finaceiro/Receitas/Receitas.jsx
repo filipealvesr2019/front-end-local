@@ -9,10 +9,37 @@ import {
     TableCaption,
     TableContainer,
   } from "@chakra-ui/react";
-  
+  import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { useConfig } from "../../../../context/ConfigContext";
+import CriarReceitaModal from './CriarReceitaModal/CriarReceitaModal'
   export default function Receitas() {
+
+    const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
+
+    const { apiUrl } = useConfig();
+    const [data, setData] = useState([]);
+  
+    // console.log("adminEccommerceID", adminEccommerceID)
+    async function getProducts() {
+      try {
+        const response = await axios.get(`${apiUrl}/api/products/${AdminID}`);
+        setData(response.data || []);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setData([]);
+      }
+    }
+    useEffect(() => {
+      getProducts();
+    }, []);
+  
     return (
       <>
+      <CriarReceitaModal />
         <TableContainer
           style={{
             border: "1px solid #edf2f7",
