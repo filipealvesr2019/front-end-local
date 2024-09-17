@@ -7,7 +7,6 @@ export default function Products() {
   const { apiUrl } = useConfig();
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
  
-  const [storeID, setStoreID] = useState(null);
 
   const [formData, setFormData] = useState({
     adminID: AdminID,
@@ -26,35 +25,7 @@ export default function Products() {
     });
   };
 
-  const handleVariationChange = (index, e) => {
-    const { name, value } = e.target;
-    const newVariations = [...formData.variations];
-    newVariations[index] = {
-      ...newVariations[index],
-      [name]: value
-    };
-    setFormData({
-      ...formData,
-      variations: newVariations
-    });
-  };
 
-  const handleAddField = () => {
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      variations: [...prevFormData.variations, { url: '', price: '', name: '' }] // Adiciona um novo campo vazio
-    }));
-  };
-
-  const handleRemoveField = (index) => {
-    setFormData(prevFormData => {
-      const newVariations = prevFormData.variations.filter((_, i) => i !== index);
-      return {
-        ...prevFormData,
-        variations: newVariations
-      };
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

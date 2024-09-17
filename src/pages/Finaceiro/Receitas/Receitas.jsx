@@ -23,18 +23,18 @@ import CriarReceitaModal from './CriarReceitaModal/CriarReceitaModal'
     const [data, setData] = useState([]);
   
     // console.log("adminEccommerceID", adminEccommerceID)
-    async function getProducts() {
+    async function getReceitas() {
       try {
-        const response = await axios.get(`${apiUrl}/api/products/${AdminID}`);
+        const response = await axios.get(`${apiUrl}/api/receitas/${AdminID}`);
         setData(response.data || []);
-        console.log(response.data);
+        console.log("getReceitas", response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
         setData([]);
       }
     }
     useEffect(() => {
-      getProducts();
+      getReceitas();
     }, []);
   
     return (
