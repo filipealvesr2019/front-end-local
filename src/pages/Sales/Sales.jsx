@@ -24,11 +24,15 @@ import {
   Button,
 } from '@chakra-ui/react';
 
+
+import Cookies from "js-cookie";
+
 export default function Sales({ storeID }) {
   const { apiUrl } = useConfig();
   const [data, setData] = useState([]);
   const [selectedSale, setSelectedSale] = useState(null); // Armazena a venda selecionada para alterar o status
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
 
   // Função para buscar as vendas
   async function getProducts() {
@@ -66,7 +70,8 @@ export default function Sales({ storeID }) {
     if (selectedSale) {
       try {
         const updatedStatus = selectedSale.status === "RECEIVED" ? "PENDING" : "RECEIVED";
-        const response = await axios.put(`${apiUrl}/api/compras/${selectedSale._id}/status`, { status: updatedStatus });
+        const response = await axios.put(`${apiUrl}/api/compras/${selectedSale._id}/status`, { status: updatedStatus,         adminID: AdminID // Adiciona adminID na requisição
+        });
         
         // Atualiza o estado local com o novo status
         setData((prevData) =>
