@@ -79,11 +79,10 @@ export default function InitialFocus() {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Cadastrar Produto</ModalHeader>
+          <ModalHeader>Cadastrar Despesa</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Chave Pix</FormLabel>
               <form onSubmit={handleSubmit} style={{ marginTop: "5rem" }}>
                 <input
                   type="text"
