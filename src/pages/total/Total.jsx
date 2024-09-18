@@ -23,7 +23,7 @@ export default function Total({ storeID }) {
     try {
       const response = await axios.get(`${apiUrl}/api/lucro/dia/${AdminID}`);
       setDay(response.data.lucroHoje);
-      setDayPercentageChange(response.data.percentageChange);
+      setDayPercentageChange(response.data.lucroOntem);
       console.log("getTotalDay", response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -37,7 +37,7 @@ export default function Total({ storeID }) {
       );
       setMonth(response.data.currentMonthProfit);
       console.log(response.data.percentageChange);
-      setMonthPercentageChange(response.data.percentageChange);
+      setMonthPercentageChange(response.data.previousMonthProfit);
     } catch (error) {
       console.error("Error fetching products:", error);
       setData([]);
@@ -73,23 +73,22 @@ export default function Total({ storeID }) {
           <span className="featuredMoney">R$ {day}</span>
 
           <span className="featuredMoneyRate">
-  {day === 0 ? (
-    <>
-      N/A {/* Exibe "N/A" quando o lucro do dia é zero */}
-    </>
-  ) : dayPercentageChange >= 0 ? (
-    <>
-      {dayPercentageChange.toString().substring(0, 5)}% {/* Mantém a substring */}
-      <ArrowUpwardIcon className="featuredIcon" />
-    </>
-  ) : (
-    <>
-      {dayPercentageChange.toString().substring(0, 5)}% {/* Mantém a substring */}
-      <ArrowDownwardIcon className="featuredIcon negative" />
-    </>
-  )}
-</span>
-
+            {day === 0 ? (
+              <>N/A {/* Exibe "N/A" quando o lucro do dia é zero */}</>
+            ) : dayPercentageChange >= 0 ? (
+              <>
+                R${dayPercentageChange}{" "}
+                {/* Mantém a substring */}
+                <ArrowUpwardIcon className="featuredIcon" />
+              </>
+            ) : (
+              <>
+                R${dayPercentageChange}{" "}
+                {/* Mantém a substring */}
+                <ArrowDownwardIcon className="featuredIcon negative" />
+              </>
+            )}
+          </span>
         </div>
         <span className="featuredSub">Comparado ao dia anterior</span>
       </div>
@@ -98,33 +97,23 @@ export default function Total({ storeID }) {
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">R$ {month}</span>
           <span className="featuredMoneyRate">
-
-
-
-
-
-
-          <span className="featuredMoneyRate">
-  {day === 0 ? (
-    <>
-      N/A {/* Exibe "N/A" quando o lucro do dia é zero */}
-    </>
-  ) : dayPercentageChange >= 0 ? (
-    <>
-    {monthPercentageChange.toString().substring(0, 5)}%{" "}
-                {/* Limita a 5 caracteres */}
-                <ArrowUpwardIcon className="featuredIcon" />
-    </>
-  ) : (
-    <>
-  {monthPercentageChange.toString().substring(0, 5)}%{" "}
-                {/* Limita a 5 caracteres */}
-                <ArrowDownwardIcon className="featuredIcon negative" />
-    </>
-  )}
-</span>
-
-         
+            <span className="featuredMoneyRate">
+              {day === 0 ? (
+                <>N/A {/* Exibe "N/A" quando o lucro do dia é zero */}</>
+              ) : dayPercentageChange >= 0 ? (
+                <>
+                  R$ {monthPercentageChange}{" "}
+                  {/* Limita a 5 caracteres */}
+                  <ArrowUpwardIcon className="featuredIcon" />
+                </>
+              ) : (
+                <>
+                  R$ {monthPercentageChange}{" "}
+                  {/* Limita a 5 caracteres */}
+                  <ArrowDownwardIcon className="featuredIcon negative" />
+                </>
+              )}
+            </span>
           </span>
         </div>
         <span className="featuredSub">Comparado ao ultimo mes</span>
