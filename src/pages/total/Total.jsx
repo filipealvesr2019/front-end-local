@@ -67,7 +67,7 @@ export default function Total({ storeID }) {
   return (
     <div className="featured">
       <div className="featuredItem">
-        <span className="featuredTitle">Dia</span>
+        <span className="featuredTitle">Lucro do Dia</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">R$ {day}</span>
           <span className="featuredMoneyRate">
@@ -78,7 +78,7 @@ export default function Total({ storeID }) {
         <span className="featuredSub">Compared to last month</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Mês</span>
+        <span className="featuredTitle">Lucro do Mês</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">R$ {month}</span>
           <span className="featuredMoneyRate">
@@ -98,7 +98,7 @@ export default function Total({ storeID }) {
         <span className="featuredSub">Comparado ao ultimo mes</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Ano</span>
+        <span className="featuredTitle">Lucro do  Ano</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">R$ {year}</span>
           <span className="featuredMoneyRate">
