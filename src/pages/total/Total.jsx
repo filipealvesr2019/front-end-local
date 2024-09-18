@@ -32,7 +32,7 @@ export default function Total({ storeID }) {
   async function getTotalMonth() {
     try {
       const response = await axios.get(
-        `${apiUrl}/api/profit-percentage/${AdminID}`
+        `${apiUrl}/api/profit-percentage/mes/${AdminID}`
       );
       setMonth(response.data.currentMonthProfit);
       console.log(response.data.percentageChange);
