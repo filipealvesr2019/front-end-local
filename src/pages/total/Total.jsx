@@ -11,8 +11,8 @@ export default function Total({ storeID }) {
   const { apiUrl } = useConfig();
   const [day, setDay] = useState(0);
   const [month, setMonth] = useState(0);
-  const [monthPercentageChange, setMonthPercentageChange] = useState(0);
-  const [dayPercentageChange, setDayPercentageChange] = useState(0);
+  const [monthProfitChange, setMonthProfitChange] = useState(0);
+  const [dayProfitChange, setDayProfitChange] = useState(0);
 
   const [year, setYear] = useState(0);
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
@@ -23,7 +23,7 @@ export default function Total({ storeID }) {
     try {
       const response = await axios.get(`${apiUrl}/api/lucro/dia/${AdminID}`);
       setDay(response.data.lucroHoje);
-      setDayPercentageChange(response.data.lucroOntem);
+      setDayProfitChange(response.data.lucroOntem);
       console.log("getTotalDay", response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -37,7 +37,7 @@ export default function Total({ storeID }) {
       );
       setMonth(response.data.currentMonthProfit);
       console.log(response.data.percentageChange);
-      setMonthPercentageChange(response.data.previousMonthProfit);
+      setMonthProfitChange(response.data.previousMonthProfit);
     } catch (error) {
       console.error("Error fetching products:", error);
       setData([]);
@@ -75,15 +75,15 @@ export default function Total({ storeID }) {
           <span className="featuredMoneyRate">
             {day === 0 ? (
               <>N/A {/* Exibe "N/A" quando o lucro do dia é zero */}</>
-            ) : dayPercentageChange >= 0 ? (
+            ) : dayProfitChange >= 0 ? (
               <>
-                R${dayPercentageChange}{" "}
+                R${dayProfitChange}{" "}
                 {/* Mantém a substring */}
                 <ArrowUpwardIcon className="featuredIcon" />
               </>
             ) : (
               <>
-                R${dayPercentageChange}{" "}
+                R${dayProfitChange}{" "}
                 {/* Mantém a substring */}
                 <ArrowDownwardIcon className="featuredIcon negative" />
               </>
@@ -100,15 +100,15 @@ export default function Total({ storeID }) {
             <span className="featuredMoneyRate">
               {day === 0 ? (
                 <>N/A {/* Exibe "N/A" quando o lucro do dia é zero */}</>
-              ) : dayPercentageChange >= 0 ? (
+              ) : monthProfitChange >= 0 ? (
                 <>
-                  R$ {monthPercentageChange}{" "}
+                  R$ {monthProfitChange}{" "}
                   {/* Limita a 5 caracteres */}
                   <ArrowUpwardIcon className="featuredIcon" />
                 </>
               ) : (
                 <>
-                  R$ {monthPercentageChange}{" "}
+                  R$ {monthProfitChange}{" "}
                   {/* Limita a 5 caracteres */}
                   <ArrowDownwardIcon className="featuredIcon negative" />
                 </>
