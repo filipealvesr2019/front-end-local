@@ -1,4 +1,15 @@
 import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+} from '@chakra-ui/react';
+import {
   Table,
   Thead,
   Tbody,
@@ -9,6 +20,7 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
+
 import Cookies from "js-cookie";
 import CriarDespesaModal from "./CriarDespesaModal/CriarDespesaModal";
 import { useConfig } from "../../../../context/ConfigContext";
@@ -17,6 +29,9 @@ import axios from "axios";
 import styles from "./Despesas.module.css";
 export default function Despesas() {
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
+  const [selectedExpense, setSelectedExpense] = useState(null);
+  const [newStatus, setNewStatus] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { apiUrl } = useConfig();
   const [data, setData] = useState([]);
@@ -42,6 +57,28 @@ export default function Despesas() {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
+
+
+  const openStatusModal = (revenue) => {
+    setSelectedExpense(revenue);
+    setNewStatus(revenue.status === 'PENDING' ? 'RECEIVED' : 'PENDING');
+    onOpen();
+  };
+
+
+  
+
+  const handleStatusChange = async () => {
+    try {
+      await axios.put(`${apiUrl}/api/transactions/status/${AdminID}/${selectedExpense._id}`, { status: newStatus });
+      // Atualize a lista de receitas após a alteração
+      await getDespesas();
+      onClose();
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
   return (
     <>
       <CriarDespesaModal />
@@ -74,6 +111,8 @@ export default function Despesas() {
                         ? styles.received
                         : styles.pending
                     }
+                    onClick={() => openStatusModal(revenue)}
+
                   >
                     {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
                   </Td>
@@ -88,6 +127,25 @@ export default function Despesas() {
       ) : (
         <p>No products available</p>
       )}
+
+      
+      {/* Modal para confirmar a alteração de status */}
+      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Alterar Status</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <p>Tem certeza que deseja marcar esta despesa como <b>{newStatus === 'RECEIVED' ? "paga" : "pendente"}</b>?</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={handleStatusChange}>
+              Salvar
+            </Button>
+            <Button onClick={onClose}>Cancelar</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
