@@ -12,6 +12,7 @@ export default function Total({ storeID }) {
   const [day, setDay] = useState(0);
   const [month, setMonth] = useState(0);
   const [monthPercentageChange, setMonthPercentageChange] = useState(0);
+  const [dayPercentageChange, setDayPercentageChange] = useState(0);
 
   const [year, setYear] = useState(0);
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
@@ -20,10 +21,10 @@ export default function Total({ storeID }) {
 
   async function getTotalDay() {
     try {
-      const response = await axios.get(
-        `${apiUrl}/api//admin/vendas/total-dia/${storeID}`
-      );
-      setDay(response.data.totalGanho);
+      const response = await axios.get(`${apiUrl}/api/lucro/dia/${AdminID}`);
+      setDay(response.data.lucroHoje);
+      setDayPercentageChange(response.data.percentageChange);
+      console.log("getTotalDay", response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
       setData([]);
@@ -70,35 +71,66 @@ export default function Total({ storeID }) {
         <span className="featuredTitle">Lucro do Dia</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">R$ {day}</span>
+
           <span className="featuredMoneyRate">
-            percentageChange{" "}
-            <ArrowDownwardIcon className="featuredIcon negative" />
-          </span>
+  {day === 0 ? (
+    <>
+      N/A {/* Exibe "N/A" quando o lucro do dia é zero */}
+    </>
+  ) : dayPercentageChange >= 0 ? (
+    <>
+      {dayPercentageChange.toString().substring(0, 5)}% {/* Mantém a substring */}
+      <ArrowUpwardIcon className="featuredIcon" />
+    </>
+  ) : (
+    <>
+      {dayPercentageChange.toString().substring(0, 5)}% {/* Mantém a substring */}
+      <ArrowDownwardIcon className="featuredIcon negative" />
+    </>
+  )}
+</span>
+
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">Comparado ao dia anterior</span>
       </div>
       <div className="featuredItem">
         <span className="featuredTitle">Lucro do Mês</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">R$ {month}</span>
           <span className="featuredMoneyRate">
-            {monthPercentageChange >= 0 ? (
-              <>
-                {monthPercentageChange.toFixed(2)}%
+
+
+
+
+
+
+          <span className="featuredMoneyRate">
+  {day === 0 ? (
+    <>
+      N/A {/* Exibe "N/A" quando o lucro do dia é zero */}
+    </>
+  ) : dayPercentageChange >= 0 ? (
+    <>
+    {monthPercentageChange.toString().substring(0, 5)}%{" "}
+                {/* Limita a 5 caracteres */}
                 <ArrowUpwardIcon className="featuredIcon" />
-              </>
-            ) : (
-              <>
-                {monthPercentageChange.toFixed(2)}%
+    </>
+  ) : (
+    <>
+  {monthPercentageChange.toString().substring(0, 5)}%{" "}
+                {/* Limita a 5 caracteres */}
                 <ArrowDownwardIcon className="featuredIcon negative" />
-              </>
-            )}
+    </>
+  )}
+</span>
+
+         
           </span>
         </div>
         <span className="featuredSub">Comparado ao ultimo mes</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Lucro do  Ano</span>
+        <span className="featuredTitle">Lucro do Ano</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">R$ {year}</span>
           <span className="featuredMoneyRate">
