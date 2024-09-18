@@ -14,7 +14,10 @@ export default function Total({ storeID }) {
   const [monthProfitChange, setMonthProfitChange] = useState(0);
   const [dayProfitChange, setDayProfitChange] = useState(0);
 
-  const [year, setYear] = useState(0);
+  const [expenses, setExpenses] = useState(0);
+  const [previousMonthExpenses, setPreviousMonthExpenses] = useState(0);
+
+
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
 
   console.log("storeID", storeID);
@@ -44,12 +47,13 @@ export default function Total({ storeID }) {
     }
   }
 
-  async function getTotalYear() {
+  async function getMonthExpenses() {
     try {
       const response = await axios.get(
-        `${apiUrl}/api/admin/vendas/total-mes/${storeID}`
+        `${apiUrl}/api/despesas-por-mes/${AdminID}`
       );
-      setYear(response.data.totalGanho);
+      setExpenses(response.data.currentMonthExpenses);
+      setPreviousMonthExpenses(response.data.previousMonthExpenses)
     } catch (error) {
       console.error("Error fetching products:", error);
       setData([]);
@@ -61,7 +65,7 @@ export default function Total({ storeID }) {
       console.log("Fetching products com storeID:", storeID);
       getTotalDay();
       getTotalMonth();
-      getTotalYear();
+      getMonthExpenses();
     }
   }, [storeID]);
 
@@ -119,14 +123,28 @@ export default function Total({ storeID }) {
         <span className="featuredSub">Comparado ao ultimo mes</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Lucro do Ano</span>
+        <span className="featuredTitle">Despesas do mes</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">R$ {year}</span>
+          <span className="featuredMoney">R$ {expenses}</span>
           <span className="featuredMoneyRate">
-            +2.4 <ArrowUpwardIcon className="featuredIcon" />
-          </span>
+              {expenses === 0 ? (
+                <>N/A {/* Exibe "N/A" quando o lucro do dia é zero */}</>
+              ) : month > previousMonthExpenses? (
+                <>
+                  R$ {previousMonthExpenses}{" "}
+                  {/* Limita a 5 caracteres */}
+                  <ArrowUpwardIcon className="featuredIcon" />
+                </>
+              ) : (
+                <>
+                  R$ {previousMonthExpenses}{" "}
+                  {/* Limita a 5 caracteres */}
+                  <ArrowDownwardIcon className="featuredIcon negative" />
+                </>
+              )}
+            </span>
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">Comparado ao ultimo mes</span>
       </div>
     </div>
   );
