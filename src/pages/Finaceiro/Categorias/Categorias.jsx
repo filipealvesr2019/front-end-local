@@ -9,78 +9,74 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
-import CriarCategoriasModal from './CriarDespesaModal/CriarCategoriasModal'
-import { useConfig } from "../../../../context/ConfigContext";
-import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 import axios from "axios";
-
-export default function Categorias() {
-
+import { Link } from "react-router-dom";
+import { useConfig } from "../../../../context/ConfigContext";
+import CriarCategoriasModal from "./CriarCategoriasModal/CriarCategoriasModal";
+import styles from "./Categorias.module.css";
+export default function Receitas() {
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
 
   const { apiUrl } = useConfig();
   const [data, setData] = useState([]);
 
   // console.log("adminEccommerceID", adminEccommerceID)
-  async function getCategorias() {
+  async function getCategories() {
     try {
-      const response = await axios.get(`${apiUrl}/api/despesas/${AdminID}`);
+      const response = await axios.get(`${apiUrl}/api/categories/${AdminID}`);
       setData(response.data || []);
-      console.log("getCategorias", response.data);
+      console.log("getCategories", response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
       setData([]);
     }
   }
   useEffect(() => {
-    getCategorias();
+    getCategories();
   }, []);
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   return (
     <>
-    <CriarCategoriasModal />
-      <TableContainer
-        style={{
-          border: "1px solid #edf2f7",
-          borderRadius: "10px",
-        }}
-      >
-        <Table variant="simple">
-          <TableCaption>Imperial to metric conversion factors</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-          </Tbody>
-          <Tfoot>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Tfoot>
-        </Table>
-      </TableContainer>
+      <CriarCategoriasModal />
+      {data.length > 0 ? (
+        <TableContainer
+          style={{
+            border: "1px solid #edf2f7",
+            borderRadius: "10px",
+          }}
+        >
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+              <Th>Nome da Categoria</Th>
+              <Th>Tipo</Th>
+              
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data.map((revenue) => (
+                <Tr key={revenue._id}>
+                  <Td>{revenue.name}</Td>
+                  <Td>{revenue.type}</Td>
+                 
+                
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <p>No products available</p>
+      )}
     </>
   );
 }

@@ -112,9 +112,13 @@ export default function InitialFocus() {
                     Selecione uma categoria
                   </option>
                   {categories.map((category) => (
-                    <option key={category._id} value={category._id}>
+                   <>
+                       {category.type === "despesa" &&  <option key={category._id} value={category._id}>
                       {category.name}
                     </option>
+                    }
+                   
+                   </>
                   ))}
                 </select>
               </form>
