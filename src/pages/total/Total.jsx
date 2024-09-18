@@ -75,7 +75,7 @@ export default function Total({ storeID }) {
           <span className="featuredMoneyRate">
             {day === 0 ? (
               <>N/A {/* Exibe "N/A" quando o lucro do dia é zero */}</>
-            ) : dayProfitChange >= 0 ? (
+            ) : day >  dayProfitChange  ? (
               <>
                 R${dayProfitChange}{" "}
                 {/* Mantém a substring */}
@@ -98,9 +98,9 @@ export default function Total({ storeID }) {
           <span className="featuredMoney">R$ {month}</span>
           <span className="featuredMoneyRate">
             <span className="featuredMoneyRate">
-              {day === 0 ? (
+              {month === 0 ? (
                 <>N/A {/* Exibe "N/A" quando o lucro do dia é zero */}</>
-              ) : monthProfitChange >= 0 ? (
+              ) : month > monthProfitChange? (
                 <>
                   R$ {monthProfitChange}{" "}
                   {/* Limita a 5 caracteres */}
