@@ -66,7 +66,7 @@ export default function Receitas() {
 
   async function getReceitasTudo() {
     try {
-      const response = await axios.get(`${apiUrl}/api/receitas/mes/${AdminID}`);
+      const response = await axios.get(`${apiUrl}/api/receitas/tudo/${AdminID}`);
       setTudo(response.data || []);
     } catch (error) {
       console.error("Error fetching receipts:", error);
@@ -97,7 +97,7 @@ export default function Receitas() {
     try {
       await axios.put(`${apiUrl}/api/transactions/status/${AdminID}/${selectedRevenue._id}`, { status: newStatus });
       // Atualize a lista de receitas após a alteração
-      await getReceitas();
+      await getReceitasMes();
       onClose();
     } catch (error) {
       console.error("Error updating status:", error);
