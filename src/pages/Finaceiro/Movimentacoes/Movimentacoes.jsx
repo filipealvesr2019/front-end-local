@@ -12,7 +12,7 @@ import {
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Select } from "@chakra-ui/react";
 import { useConfig } from "../../../../context/ConfigContext";
 import styles from "./Movimentacoes.module.css";
 export default function Receitas() {
@@ -20,20 +20,70 @@ export default function Receitas() {
 
   const { apiUrl } = useConfig();
   const [data, setData] = useState([]);
+  const [mes, setMes] = useState([]);
+  const [dia, setDia] = useState([]);
+  const [tudo, setTudo] = useState([]);
+
+  const [totalReceitas, setTotalReceitas] = useState([]);
+  const [value, setValue] = useState("mes"); // Estado para armazenar o valor selecionado
+  // console.log("adminEccommerceID", adminEccommerceID)
+  async function getMovimentacoesMes() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/transactions/mes/${AdminID}`
+      );
+      setMes(response.data || []);
+      console.log("getMovimentacoesMes", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
+
+  async function getMovimentacoesDia() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/transactions/dia/${AdminID}`
+      );
+      setDia(response.data || []);
+      console.log("getMovimentacoesDia", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
+
+  async function getMovimentacoesTudo() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/transactions/tudo/${AdminID}`
+      );
+      setTudo(response.data || []);
+      console.log("getMovimentacoesDia", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
 
   // console.log("adminEccommerceID", adminEccommerceID)
-  async function getReceitas() {
+  async function getTotalReceitas() {
     try {
-      const response = await axios.get(`${apiUrl}/api/transactions/mes/${AdminID}`);
-      setData(response.data || []);
-      console.log("transactions", response.data);
+      const response = await axios.get(
+        `${apiUrl}/api/receitas/mensais/${AdminID}`
+      );
+      setTotalReceitas(response.data[0].totalReceitas || []);
+      console.log("getTotalReceitas", response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
       setData([]);
     }
   }
   useEffect(() => {
-    getReceitas();
+    getMovimentacoesMes();
+    getMovimentacoesDia();
+    getMovimentacoesTudo();
+    getTotalReceitas();
   }, []);
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
@@ -42,56 +92,183 @@ export default function Receitas() {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
+  const handleSelectChange = (e) => {
+    setValue(e.target.value);
+  };
 
+  const handleChangeTable = () => {
+    switch (value) {
+      case "dia":
+        return (
+          <>
+            {dia.length > 0 ? (
+              <TableContainer
+                style={{
+                  border: "1px solid #edf2f7",
+                  borderRadius: "10px",
+                }}
+              >
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Tipo</Th>
+
+                      <Th>Descrição</Th>
+                      <Th>Vencimento</Th>
+                      <Th>Status</Th>
+
+                      <Th isNumeric>Valor R$</Th>
+                      <Th>Categoria</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {dia.map((revenue) => (
+                      <Tr key={revenue._id}>
+                        <Td className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>{revenue.type}</Td>
+                        <Td>{revenue.description}</Td>
+                        <Td>{formatDate(revenue.createdAt)}</Td>
+                        <Td
+                          className={
+                            revenue.status === "RECEIVED"
+                              ? styles.received
+                              : styles.pending
+                          }
+                        >
+                          {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
+                        </Td>
+                        <Td isNumeric>R${revenue.amount}</Td>
+
+                        <Td>{revenue.categoryName}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <p>No products available</p>
+            )}
+          </>
+        );
+
+      case "mes":
+        return (
+          <>
+            {mes.length > 0 ? (
+              <TableContainer
+                style={{
+                  border: "1px solid #edf2f7",
+                  borderRadius: "10px",
+                }}
+              >
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Tipo</Th>
+
+                      <Th>Descrição</Th>
+                      <Th>Vencimento</Th>
+                      <Th>Status</Th>
+
+                      <Th isNumeric>Valor R$</Th>
+                      <Th>Categoria</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {mes.map((revenue) => (
+                      <Tr key={revenue._id}>
+                        <Td className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>{revenue.type}</Td>
+                        <Td>{revenue.description}</Td>
+                        <Td>{formatDate(revenue.createdAt)}</Td>
+                        <Td
+                          className={
+                            revenue.status === "RECEIVED"
+                              ? styles.received
+                              : styles.pending
+                          }
+                        >
+                          {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
+                        </Td>
+                        <Td isNumeric>R${revenue.amount}</Td>
+
+                        <Td>{revenue.categoryName}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <p>No products available</p>
+            )}
+          </>
+        );
+      case "tudo":
+        return (
+          <>
+            {tudo.length > 0 ? (
+              <TableContainer
+                style={{
+                  border: "1px solid #edf2f7",
+                  borderRadius: "10px",
+                }}
+              >
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Tipo</Th>
+
+                      <Th>Descrição</Th>
+                      <Th>Vencimento</Th>
+                      <Th>Status</Th>
+
+                      <Th isNumeric>Valor R$</Th>
+                      <Th>Categoria</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {tudo.map((revenue) => (
+                      <Tr key={revenue._id}>
+                        <Td className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>{revenue.type}</Td>
+                        <Td>{revenue.description}</Td>
+                        <Td>{formatDate(revenue.createdAt)}</Td>
+                        <Td
+                          className={
+                            revenue.status === "RECEIVED"
+                              ? styles.received
+                              : styles.pending
+                          }
+                        >
+                          {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
+                        </Td>
+                        <Td isNumeric>R${revenue.amount}</Td>
+
+                        <Td>{revenue.categoryName}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <p>No products available</p>
+            )}
+          </>
+        );
+    }
+  };
   return (
     <>
-
-      {data.length > 0 ? (
-        <TableContainer
-          style={{
-            border: "1px solid #edf2f7",
-            borderRadius: "10px",
-          }}
-        >
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-              <Th>Tipo</Th>
-
-                <Th>Descrição</Th>
-                <Th>Vencimento</Th>
-                <Th>Status</Th>
-
-                <Th isNumeric>Valor R$</Th>
-                <Th>Categoria</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {data.map((revenue) => (
-                <Tr key={revenue._id}>
-                   <Td>{revenue.type}</Td>
-                  <Td>{revenue.description}</Td>
-                  <Td>{formatDate(revenue.createdAt)}</Td>
-                  <Td
-                    className={
-                      revenue.status === "RECEIVED"
-                        ? styles.received
-                        : styles.pending
-                    }
-                  >
-                    {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
-                  </Td>
-                  <Td isNumeric>R${revenue.amount}</Td>
-
-                  <Td>{revenue.categoryName}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <p>No products available</p>
-      )}
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        Total Receitas: {totalReceitas}{" "}
+        <Select placeholder="Selecione um Periodo" onChange={handleSelectChange}>
+          <option value="dia">Hoje</option>
+          <option value="mes">Este Mês</option>
+          <option value="tudo">Tudo</option>
+        </Select>
+      </div>
+      <div>{handleChangeTable()}</div>
     </>
   );
 }

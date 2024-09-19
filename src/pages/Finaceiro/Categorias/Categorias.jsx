@@ -66,7 +66,7 @@ export default function Receitas() {
               {data.map((revenue) => (
                 <Tr key={revenue._id}>
                   <Td>{revenue.name}</Td>
-                  <Td>{revenue.type}</Td>
+                  <Td className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>{revenue.type}</Td>
                  
                 
                 </Tr>
