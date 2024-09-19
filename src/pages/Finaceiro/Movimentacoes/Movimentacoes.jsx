@@ -25,6 +25,10 @@ export default function Receitas() {
   const [tudo, setTudo] = useState([]);
 
   const [totalReceitas, setTotalReceitas] = useState([]);
+  const [totalDespesas, setTotalDespesas] = useState([]);
+  const [diferenca, setdiferenca] = useState([]);
+
+  
   const [value, setValue] = useState("mes"); // Estado para armazenar o valor selecionado
   // console.log("adminEccommerceID", adminEccommerceID)
   async function getMovimentacoesMes() {
@@ -66,6 +70,9 @@ export default function Receitas() {
     }
   }
 
+
+  
+
   // console.log("adminEccommerceID", adminEccommerceID)
   async function getTotalReceitas() {
     try {
@@ -79,11 +86,42 @@ export default function Receitas() {
       setData([]);
     }
   }
+
+
+   // console.log("adminEccommerceID", adminEccommerceID)
+   async function getTotalDespesas() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/despesas/mensais/${AdminID}`
+      );
+      setTotalDespesas(response.data[0].totalDespesas || []);
+      console.log("getTotalReceitas", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
+
+     // console.log("adminEccommerceID", adminEccommerceID)
+     async function getDiferenca() {
+      try {
+        const response = await axios.get(
+          `${apiUrl}/api/diferenca/mensal/${AdminID}`
+        );
+        setdiferenca(response.data[0].diferenca || []);
+        console.log("getDiferenca", response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setData([]);
+      }
+    }
   useEffect(() => {
     getMovimentacoesMes();
     getMovimentacoesDia();
     getMovimentacoesTudo();
     getTotalReceitas();
+    getTotalDespesas();
+    getDiferenca();
   }, []);
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
@@ -153,6 +191,7 @@ export default function Receitas() {
       case "mes":
         return (
           <>
+
             {mes.length > 0 ? (
               <TableContainer
                 style={{
@@ -254,14 +293,50 @@ export default function Receitas() {
         );
     }
   };
+
+
+
+
+
+
+
+
+
+  const handleTotalChange = () => {
+    switch (value) {
+      case "dia":
+        return (
+          <>
+       
+          </>
+        );
+
+      case "mes":
+        return (
+          <>
+          Total Despesas: {totalDespesas}
+                  Total Receitas: {totalReceitas}{" "}
+                  Diferença no período: {diferenca}
+          </>
+        );
+      case "tudo":
+        return (
+          <>
+           
+          </>
+        );
+    }
+  };
   return (
     <>
+  <div>
+    {handleTotalChange()}
+  </div>
       <div
         style={{
           display: "flex",
         }}
       >
-        Total Receitas: {totalReceitas}{" "}
         <Select placeholder="Selecione um Periodo" onChange={handleSelectChange}>
           <option value="dia">Hoje</option>
           <option value="mes">Este Mês</option>
