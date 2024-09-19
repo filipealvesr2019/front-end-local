@@ -48,7 +48,7 @@ export default function Receitas() {
       setMes(response.data || []);
     } catch (error) {
       console.error("Error fetching receipts:", error);
-      setData([]);
+      setMes([]);
     }
   }
 
@@ -58,12 +58,25 @@ export default function Receitas() {
       setDia(response.data || []);
     } catch (error) {
       console.error("Error fetching receipts:", error);
-      setData([]);
+      setDia([]);
+    }
+  }
+
+
+
+  async function getReceitasTudo() {
+    try {
+      const response = await axios.get(`${apiUrl}/api/receitas/mes/${AdminID}`);
+      setTudo(response.data || []);
+    } catch (error) {
+      console.error("Error fetching receipts:", error);
+      setTudo([]);
     }
   }
   useEffect(() => {
     getReceitasMes();
     getReceitasDia();
+    getReceitasTudo();
   }, []);
 
   const formatDate = (isoDate) => {
@@ -203,52 +216,48 @@ export default function Receitas() {
       case "tudo":
         return (
           <>
-            {/* {tudo.length > 0 ? (
-              <TableContainer
-                style={{
-                  border: "1px solid #edf2f7",
-                  borderRadius: "10px",
-                }}
-              >
-                <Table variant="simple">
-                  <Thead>
-                    <Tr>
-                      <Th>Tipo</Th>
-
-                      <Th>Descrição</Th>
-                      <Th>Vencimento</Th>
-                      <Th>Status</Th>
-
-                      <Th isNumeric>Valor R$</Th>
-                      <Th>Categoria</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {tudo.map((revenue) => (
-                      <Tr key={revenue._id}>
-                        <Td className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>{revenue.type}</Td>
-                        <Td>{revenue.description}</Td>
-                        <Td>{formatDate(revenue.createdAt)}</Td>
-                        <Td
-                          className={
-                            revenue.status === "RECEIVED"
-                              ? styles.received
-                              : styles.pending
-                          }
-                        >
-                          {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
-                        </Td>
-                        <Td isNumeric className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>R${revenue.amount}</Td>
-
-                        <Td>{revenue.categoryName}</Td>
-                      </Tr>
-                    ))}
-                  </Tbody>
-                </Table>
-              </TableContainer>
-            ) : (
-              <p>No products available</p>
-            )} */}
+             {tudo.length > 0 ? (
+        <TableContainer
+          style={{
+            border: "1px solid #edf2f7",
+            borderRadius: "10px",
+          }}
+        >
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>Descrição</Th>
+                <Th>Vencimento</Th>
+                <Th>Status</Th>
+                <Th isNumeric>Valor R$</Th>
+                <Th>Categoria</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {tudo.map((revenue) => (
+                <Tr key={revenue._id}>
+                  <Td>{revenue.description}</Td>
+                  <Td>{formatDate(revenue.createdAt)}</Td>
+                  <Td
+                    className={
+                      revenue.status === "RECEIVED"
+                        ? styles.received
+                        : styles.pending
+                    }
+                    onClick={() => openStatusModal(revenue)}
+                  >
+                    {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
+                  </Td>
+                  <Td isNumeric className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>R${revenue.amount}</Td>
+                  <Td>{revenue.categoryName}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <p>No receipts available</p>
+      )}
           </>
         );
     }
