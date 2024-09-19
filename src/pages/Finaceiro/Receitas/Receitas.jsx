@@ -41,7 +41,11 @@ export default function Receitas() {
   const [value, setValue] = useState("mes"); // Estado para armazenar o valor selecionado
 
   const { apiUrl } = useConfig();
-
+  const fetchReceitas = async () => {
+    await getReceitasMes();
+    await getReceitasDia();
+    await getReceitasTudo();
+  };
   async function getReceitasMes() {
     try {
       const response = await axios.get(`${apiUrl}/api/receitas/mes/${AdminID}`);
@@ -315,7 +319,7 @@ export default function Receitas() {
           <option value="tudo">Tudo</option>
         </Select>
       </div>
-      <CriarReceitaModal />
+      <CriarReceitaModal  onSuccess={fetchReceitas}/>
       <div>
       {handleChangeTable()}
   </div>

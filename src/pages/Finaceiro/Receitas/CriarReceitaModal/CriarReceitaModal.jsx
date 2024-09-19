@@ -17,7 +17,7 @@ import {
 import Cookies from "js-cookie"; // Certifique-se de importar isso
 import { useConfig } from "../../../../../context/ConfigContext";
 
-export default function InitialFocus() {
+export default function InitialFocus({ onSuccess }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -30,7 +30,6 @@ export default function InitialFocus() {
     description: "",
     amount: "",
     category: "",
-    
   });
 
   const [categories, setCategories] = useState([]);
@@ -62,6 +61,8 @@ export default function InitialFocus() {
 
     try {
       const response = await axios.post(`${apiUrl}/api/receitas`, formData);
+      onSuccess();  // Chama a função passada como prop para atualizar a lista
+
       alert(response.data.message);
     } catch (error) {
       console.error("Erro ao criar receita:", error);

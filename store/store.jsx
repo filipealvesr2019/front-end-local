@@ -30,7 +30,10 @@ export const authTokenAtom = atom(Cookies.get('token') || null);
 
 // Átomo para armazenar o usuário
 export const authAtom = atom(null);
+// receitasAtom.js
 
+
+export const receitasAtom = atom([]);
 // Átomo para atualizar o estado de autenticação
 export const updateAuthAtom = atom(
   (get) => get(authAtom),
