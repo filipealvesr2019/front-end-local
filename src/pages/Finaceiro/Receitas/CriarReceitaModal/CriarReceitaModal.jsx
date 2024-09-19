@@ -30,6 +30,7 @@ export default function InitialFocus() {
     description: "",
     amount: "",
     category: "",
+    
   });
 
   const [categories, setCategories] = useState([]);
