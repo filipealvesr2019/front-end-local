@@ -19,7 +19,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
@@ -34,7 +34,7 @@ export default function Receitas() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState([]);
   const [selectedRevenue, setSelectedRevenue] = useState(null);
-  const [newStatus, setNewStatus] = useState('');
+  const [newStatus, setNewStatus] = useState("");
   const [mes, setMes] = useState([]);
   const [dia, setDia] = useState([]);
   const [tudo, setTudo] = useState([]);
@@ -46,6 +46,7 @@ export default function Receitas() {
     await getReceitasDia();
     await getReceitasTudo();
   };
+
   async function getReceitasMes() {
     try {
       const response = await axios.get(`${apiUrl}/api/receitas/mes/${AdminID}`);
@@ -66,11 +67,11 @@ export default function Receitas() {
     }
   }
 
-
-
   async function getReceitasTudo() {
     try {
-      const response = await axios.get(`${apiUrl}/api/receitas/tudo/${AdminID}`);
+      const response = await axios.get(
+        `${apiUrl}/api/receitas/tudo/${AdminID}`
+      );
       setTudo(response.data || []);
     } catch (error) {
       console.error("Error fetching receipts:", error);
@@ -93,13 +94,16 @@ export default function Receitas() {
 
   const openStatusModal = (revenue) => {
     setSelectedRevenue(revenue);
-    setNewStatus(revenue.status === 'PENDING' ? 'RECEIVED' : 'PENDING');
+    setNewStatus(revenue.status === "PENDING" ? "RECEIVED" : "PENDING");
     onOpen();
   };
 
   const handleStatusChange = async () => {
     try {
-      await axios.put(`${apiUrl}/api/transactions/status/${AdminID}/${selectedRevenue._id}`, { status: newStatus });
+      await axios.put(
+        `${apiUrl}/api/transactions/status/${AdminID}/${selectedRevenue._id}`,
+        { status: newStatus }
+      );
       // Atualize a lista de receitas após a alteração
       await getReceitasMes();
       onClose();
@@ -108,221 +112,214 @@ export default function Receitas() {
     }
   };
 
-
-
-
-
-
-
-
-
-
-
-
-
   const handleChangeTable = () => {
     switch (value) {
       case "dia":
         return (
           <>
-         {dia.length > 0 ? (
-        <TableContainer
-          style={{
-            border: "1px solid #edf2f7",
-            borderRadius: "10px",
-          }}
-        >
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th>Descrição</Th>
-                <Th>Vencimento</Th>
-                <Th>Status</Th>
-                <Th isNumeric>Valor R$</Th>
-                <Th>Categoria</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {dia.map((revenue) => (
-                <Tr key={revenue._id}>
-                  <Td>{revenue.description}</Td>
-                  <Td>{formatDate(revenue.createdAt)}</Td>
-                  <Td
-                    className={
-                      revenue.status === "RECEIVED"
-                        ? styles.received
-                        : styles.pending
-                    }
-                    onClick={() => openStatusModal(revenue)}
-                  >
-                    {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
-                  </Td>
-                  <Td isNumeric className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>R${revenue.amount}</Td>
-                  <Td>{revenue.categoryName}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <p>No receipts available</p>
-      )}
+            {dia.length > 0 ? (
+              <TableContainer
+                style={{
+                  border: "1px solid #edf2f7",
+                  borderRadius: "10px",
+                }}
+              >
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Descrição</Th>
+                      <Th>Vencimento</Th>
+                      <Th>Status</Th>
+                      <Th isNumeric>Valor R$</Th>
+                      <Th>Categoria</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {dia.map((revenue) => (
+                      <Tr key={revenue._id}>
+                        <Td>{revenue.description}</Td>
+                        <Td>{formatDate(revenue.createdAt)}</Td>
+                        <Td
+                          className={
+                            revenue.status === "RECEIVED"
+                              ? styles.received
+                              : styles.pending
+                          }
+                          onClick={() => openStatusModal(revenue)}
+                        >
+                          {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
+                        </Td>
+                        <Td
+                          isNumeric
+                          className={
+                            revenue.type === "despesa"
+                              ? styles.typeDespesa
+                              : styles.typeReceita
+                          }
+                        >
+                          R${revenue.amount}
+                        </Td>
+                        <Td>{revenue.categoryName}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <p>No receipts available</p>
+            )}
           </>
         );
 
       case "mes":
         return (
           <>
-{mes.length > 0 ? (
-        <TableContainer
-          style={{
-            border: "1px solid #edf2f7",
-            borderRadius: "10px",
-          }}
-        >
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th>Descrição</Th>
-                <Th>Vencimento</Th>
-                <Th>Status</Th>
-                <Th isNumeric>Valor R$</Th>
-                <Th>Categoria</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {mes.map((revenue) => (
-                <Tr key={revenue._id}>
-                  <Td>{revenue.description}</Td>
-                  <Td>{formatDate(revenue.createdAt)}</Td>
-                  <Td
-                    className={
-                      revenue.status === "RECEIVED"
-                        ? styles.received
-                        : styles.pending
-                    }
-                    onClick={() => openStatusModal(revenue)}
-                  >
-                    {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
-                  </Td>
-                  <Td isNumeric className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>R${revenue.amount}</Td>
-                  <Td>{revenue.categoryName}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <p>No receipts available</p>
-      )}
+            {mes.length > 0 ? (
+              <TableContainer
+                style={{
+                  border: "1px solid #edf2f7",
+                  borderRadius: "10px",
+                }}
+              >
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Descrição</Th>
+                      <Th>Vencimento</Th>
+                      <Th>Status</Th>
+                      <Th isNumeric>Valor R$</Th>
+                      <Th>Categoria</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {mes.map((revenue) => (
+                      <Tr key={revenue._id}>
+                        <Td>{revenue.description}</Td>
+                        <Td>{formatDate(revenue.createdAt)}</Td>
+                        <Td
+                          className={
+                            revenue.status === "RECEIVED"
+                              ? styles.received
+                              : styles.pending
+                          }
+                          onClick={() => openStatusModal(revenue)}
+                        >
+                          {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
+                        </Td>
+                        <Td
+                          isNumeric
+                          className={
+                            revenue.type === "despesa"
+                              ? styles.typeDespesa
+                              : styles.typeReceita
+                          }
+                        >
+                          R${revenue.amount}
+                        </Td>
+                        <Td>{revenue.categoryName}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <p>No receipts available</p>
+            )}
           </>
         );
       case "tudo":
         return (
           <>
-             {tudo.length > 0 ? (
-        <TableContainer
-          style={{
-            border: "1px solid #edf2f7",
-            borderRadius: "10px",
-          }}
-        >
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th>Descrição</Th>
-                <Th>Vencimento</Th>
-                <Th>Status</Th>
-                <Th isNumeric>Valor R$</Th>
-                <Th>Categoria</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {tudo.map((revenue) => (
-                <Tr key={revenue._id}>
-                  <Td>{revenue.description}</Td>
-                  <Td>{formatDate(revenue.createdAt)}</Td>
-                  <Td
-                    className={
-                      revenue.status === "RECEIVED"
-                        ? styles.received
-                        : styles.pending
-                    }
-                    onClick={() => openStatusModal(revenue)}
-                  >
-                    {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
-                  </Td>
-                  <Td isNumeric className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>R${revenue.amount}</Td>
-                  <Td>{revenue.categoryName}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <p>No receipts available</p>
-      )}
+            {tudo.length > 0 ? (
+              <TableContainer
+                style={{
+                  border: "1px solid #edf2f7",
+                  borderRadius: "10px",
+                }}
+              >
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Descrição</Th>
+                      <Th>Vencimento</Th>
+                      <Th>Status</Th>
+                      <Th isNumeric>Valor R$</Th>
+                      <Th>Categoria</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {tudo.map((revenue) => (
+                      <Tr key={revenue._id}>
+                        <Td>{revenue.description}</Td>
+                        <Td>{formatDate(revenue.createdAt)}</Td>
+                        <Td
+                          className={
+                            revenue.status === "RECEIVED"
+                              ? styles.received
+                              : styles.pending
+                          }
+                          onClick={() => openStatusModal(revenue)}
+                        >
+                          {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
+                        </Td>
+                        <Td
+                          isNumeric
+                          className={
+                            revenue.type === "despesa"
+                              ? styles.typeDespesa
+                              : styles.typeReceita
+                          }
+                        >
+                          R${revenue.amount}
+                        </Td>
+                        <Td>{revenue.categoryName}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <p>No receipts available</p>
+            )}
           </>
         );
     }
   };
-
-
-
-
 
   const handleSelectChange = (e) => {
     setValue(e.target.value);
   };
 
-
-
   const handleTotalChange = () => {
     switch (value) {
       case "dia":
-        return (
-          <>
-            {/* Total Despesas: {totalDespesasDia}
-                  Total Receitas: {totalReceitasDia}{" "}
-                  Diferença no período: {diferencaDia} */}
-          </>
-        );
+        return <></>;
 
       case "mes":
-        return (
-          <>
-          {/* Total Despesas: {totalDespesasMes}
-                  Total Receitas: {totalReceitasMes}{" "}
-                  Diferença no período: {diferencaMes} */}
-          </>
-        );
+        return <></>;
       case "tudo":
-        return (
-          <>
-           
-          </>
-        );
+        return <></>;
     }
   };
 
   return (
     <>
-
-<div
+      <div
         style={{
           display: "flex",
         }}
       >
-        <Select placeholder="Selecione um Periodo" onChange={handleSelectChange}>
+        <Select
+          placeholder="Selecione um Periodo"
+          onChange={handleSelectChange}
+        >
           <option value="dia">Hoje</option>
           <option value="mes">Este Mês</option>
           <option value="tudo">Tudo</option>
         </Select>
       </div>
-      <CriarReceitaModal  onSuccess={fetchReceitas}/>
-      <div>
-      {handleChangeTable()}
-  </div>
+      <CriarReceitaModal onSuccess={fetchReceitas} />
+      <div>{handleChangeTable()}</div>
 
       {/* Modal para confirmar a alteração de status */}
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
@@ -331,10 +328,13 @@ export default function Receitas() {
           <ModalHeader>Alterar Status</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <p>Tem certeza que deseja marcar esta receita como <b>{newStatus === 'RECEIVED' ? "paga" : "pendente"}</b>?</p>
+            <p>
+              Tem certeza que deseja marcar esta receita como{" "}
+              <b>{newStatus === "RECEIVED" ? "paga" : "pendente"}</b>?
+            </p>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={handleStatusChange}>
+            <Button colorScheme="blue" mr={3} onClick={handleStatusChange}>
               Salvar
             </Button>
             <Button onClick={onClose}>Cancelar</Button>
