@@ -226,7 +226,7 @@ export default function Receitas() {
                         >
                           {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
                         </Td>
-                        <Td isNumeric>R${revenue.amount}</Td>
+                        <Td isNumeric className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>R${revenue.amount}</Td>
 
                         <Td>{revenue.categoryName}</Td>
                       </Tr>
@@ -279,7 +279,7 @@ export default function Receitas() {
                         >
                           {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
                         </Td>
-                        <Td isNumeric>R${revenue.amount}</Td>
+                        <Td isNumeric className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>R${revenue.amount}</Td>
 
                         <Td>{revenue.categoryName}</Td>
                       </Tr>
@@ -330,7 +330,7 @@ export default function Receitas() {
                         >
                           {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
                         </Td>
-                        <Td isNumeric>R${revenue.amount}</Td>
+                        <Td isNumeric className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>R${revenue.amount}</Td>
 
                         <Td>{revenue.categoryName}</Td>
                       </Tr>

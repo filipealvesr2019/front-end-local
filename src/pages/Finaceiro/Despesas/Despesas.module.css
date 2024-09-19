@@ -11,3 +11,13 @@
   width: 10vw;
   cursor: pointer;
 }
+
+
+.typeReceita{
+  color: #239B22;
+  font-weight: 600;
+}
+.typeDespesa{
+  color: #c0392b;
+  font-weight: 600;
+}

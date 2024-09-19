@@ -96,7 +96,7 @@ export default function Despesas() {
                 <Th>Vencimento</Th>
                 <Th>Status</Th>
 
-                <Th isNumeric>Total</Th>
+                <Th isNumeric>Valor R$</Th>
                 <Th>Categoria</Th>
               </Tr>
             </Thead>
@@ -116,7 +116,7 @@ export default function Despesas() {
                   >
                     {revenue.status === "RECEIVED" ? "PAGO" : "PENDENTE"}
                   </Td>
-                  <Td isNumeric>R${revenue.amount}</Td>
+                  <Td isNumeric className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>R${revenue.amount}</Td>
 
                   <Td>{revenue.categoryName}</Td>
                 </Tr>
