@@ -24,10 +24,12 @@ export default function Receitas() {
   const [dia, setDia] = useState([]);
   const [tudo, setTudo] = useState([]);
 
-  const [totalReceitas, setTotalReceitas] = useState([]);
-  const [totalDespesas, setTotalDespesas] = useState([]);
-  const [diferenca, setdiferenca] = useState([]);
-
+  const [totalReceitasMes, setTotalReceitasMes] = useState([]);
+  const [totalDespesasMes, setTotalDespesasMes] = useState([]);
+  const [diferencaMes, setdiferencaMes] = useState([]);
+  const [totalReceitasDia, setTotalReceitasDia] = useState([]);
+  const [totalDespesasDia, setTotalDespesasDia] = useState([]);
+  const [diferencaDia, setdiferencaDia] = useState([]);
   
   const [value, setValue] = useState("mes"); // Estado para armazenar o valor selecionado
   // console.log("adminEccommerceID", adminEccommerceID)
@@ -74,12 +76,12 @@ export default function Receitas() {
   
 
   // console.log("adminEccommerceID", adminEccommerceID)
-  async function getTotalReceitas() {
+  async function getTotalReceitasMes() {
     try {
       const response = await axios.get(
         `${apiUrl}/api/receitas/mensais/${AdminID}`
       );
-      setTotalReceitas(response.data[0].totalReceitas || []);
+      setTotalReceitasMes(response.data[0].totalReceitas || []);
       console.log("getTotalReceitas", response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -89,12 +91,12 @@ export default function Receitas() {
 
 
    // console.log("adminEccommerceID", adminEccommerceID)
-   async function getTotalDespesas() {
+   async function getTotalDespesasMes() {
     try {
       const response = await axios.get(
         `${apiUrl}/api/despesas/mensais/${AdminID}`
       );
-      setTotalDespesas(response.data[0].totalDespesas || []);
+      setTotalDespesasMes(response.data[0].totalDespesas || []);
       console.log("getTotalReceitas", response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -103,13 +105,60 @@ export default function Receitas() {
   }
 
      // console.log("adminEccommerceID", adminEccommerceID)
-     async function getDiferenca() {
+     async function getDiferencaMes() {
       try {
         const response = await axios.get(
           `${apiUrl}/api/diferenca/mensal/${AdminID}`
         );
-        setdiferenca(response.data[0].diferenca || []);
+        setdiferencaMes(response.data[0].diferenca || []);
         console.log("getDiferenca", response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setData([]);
+      }
+    }
+
+
+
+
+
+     // console.log("adminEccommerceID", adminEccommerceID)
+  async function getTotalReceitasDia() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/receitas/dia/${AdminID}`
+      );
+      setTotalReceitasDia(response.data.totalReceitas || []);
+      console.log("setTotalReceitasDia", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
+
+
+   // console.log("adminEccommerceID", adminEccommerceID)
+   async function getTotalDespesasDia() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/despesas/dia/${AdminID}`
+      );
+      setTotalDespesasDia(response.data.totalDespesas || []);
+      console.log("getTotalReceitas", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
+
+     // console.log("adminEccommerceID", adminEccommerceID)
+     async function getDiferencaDia() {
+      try {
+        const response = await axios.get(
+          `${apiUrl}/api/diferenca/dia/${AdminID}`
+        );
+        setdiferencaDia(response.data.diferenca || []);
+        console.log("getDiferencaDia", response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
         setData([]);
@@ -119,9 +168,12 @@ export default function Receitas() {
     getMovimentacoesMes();
     getMovimentacoesDia();
     getMovimentacoesTudo();
-    getTotalReceitas();
-    getTotalDespesas();
-    getDiferenca();
+    getTotalReceitasMes();
+    getTotalDespesasMes();
+    getDiferencaMes();
+    getTotalReceitasDia();
+    getTotalDespesasDia();
+    getDiferencaDia();
   }, []);
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
@@ -307,16 +359,18 @@ export default function Receitas() {
       case "dia":
         return (
           <>
-       
+            Total Despesas: {totalDespesasDia}
+                  Total Receitas: {totalReceitasDia}{" "}
+                  Diferença no período: {diferencaDia}
           </>
         );
 
       case "mes":
         return (
           <>
-          Total Despesas: {totalDespesas}
-                  Total Receitas: {totalReceitas}{" "}
-                  Diferença no período: {diferenca}
+          Total Despesas: {totalDespesasMes}
+                  Total Receitas: {totalReceitasMes}{" "}
+                  Diferença no período: {diferencaMes}
           </>
         );
       case "tudo":
