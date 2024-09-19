@@ -42,7 +42,7 @@ export default function Receitas() {
 
   const { apiUrl } = useConfig();
 
-  async function getReceitas() {
+  async function getReceitasMes() {
     try {
       const response = await axios.get(`${apiUrl}/api/receitas/mes/${AdminID}`);
       setMes(response.data || []);
@@ -53,7 +53,7 @@ export default function Receitas() {
   }
 
   useEffect(() => {
-    getReceitas();
+    getReceitasMes();
   }, []);
 
   const formatDate = (isoDate) => {
