@@ -29,7 +29,7 @@ import axios from "axios";
 import { Select } from "@chakra-ui/react";
 
 import styles from "./Despesas.module.css";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 export default function Despesas() {
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
   const [selectedExpense, setSelectedExpense] = useState(null);
@@ -38,8 +38,16 @@ export default function Despesas() {
   const [deleteExpense, setDeleteExpense] = useState(null);
 
   // Use duas instâncias do useDisclosure
-  const { isOpen: isStatusModalOpen, onOpen: onOpenStatusModal, onClose: onCloseStatusModal } = useDisclosure();
-  const { isOpen: isDeleteModalOpen, onOpen: onOpenDeleteModal, onClose: onCloseDeleteModal } = useDisclosure();
+  const {
+    isOpen: isStatusModalOpen,
+    onOpen: onOpenStatusModal,
+    onClose: onCloseStatusModal,
+  } = useDisclosure();
+  const {
+    isOpen: isDeleteModalOpen,
+    onOpen: onOpenDeleteModal,
+    onClose: onCloseDeleteModal,
+  } = useDisclosure();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [mes, setMes] = useState([]);
@@ -69,7 +77,9 @@ export default function Despesas() {
   // console.log("adminEccommerceID", adminEccommerceID)
   async function getDespesasDia() {
     try {
-      const response = await axios.get(`${apiUrl}/api/despesas-do-dia/${AdminID}`);
+      const response = await axios.get(
+        `${apiUrl}/api/despesas-do-dia/${AdminID}`
+      );
       setDia(response.data.despesas || []);
       console.log("Dia", response.data);
     } catch (error) {
@@ -128,7 +138,6 @@ export default function Despesas() {
     }
   };
 
-
   const handleDeleteExpense = async () => {
     try {
       await axios.delete(
@@ -165,8 +174,6 @@ export default function Despesas() {
                       <Th isNumeric>Valor R$</Th>
                       <Th>Categoria</Th>
                       <Th>Excluir</Th>
-
-                      
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -195,11 +202,17 @@ export default function Despesas() {
                           R${revenue.amount}
                         </Td>
                         <Td>{revenue.categoryName}</Td>
-                        <Td style={{
-                          color:"#C0392B"
-                        }} onClick={() => openDeleteModal(revenue)}><DeleteIcon /></Td>
+                        <Td
+                          style={{
+                            color: "#C0392B",
+                            cursor:"pointer"
 
-                        
+                          }}
+                          onClick={() => openDeleteModal(revenue)}
+                          
+                        >
+                          <DeleteIcon />
+                        </Td>
                       </Tr>
                     ))}
                   </Tbody>
@@ -231,7 +244,6 @@ export default function Despesas() {
                       <Th isNumeric>Valor R$</Th>
                       <Th>Categoria</Th>
                       <Th>Excluir</Th>
-
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -261,19 +273,22 @@ export default function Despesas() {
                         </Td>
 
                         <Td>{revenue.categoryName}</Td>
-                        <Td style={{
-                          color:"#C0392B"
-                        }}
-                        onClick={() => openDeleteModal(revenue)}
-                        ><DeleteIcon /></Td>
+                        <Td
+                          style={{
+                            color: "#C0392B",
+                            cursor:"pointer"
 
-                        
+                          }}
+                          onClick={() => openDeleteModal(revenue)}
+                          
+                        >
+                          <DeleteIcon />
+                        </Td>
                       </Tr>
                     ))}
                   </Tbody>
                 </Table>
               </TableContainer>
-              
             ) : (
               <p>No products available</p>
             )}
@@ -298,7 +313,6 @@ export default function Despesas() {
                       <Th isNumeric>Valor R$</Th>
                       <Th>Categoria</Th>
                       <Th>Excluir</Th>
-
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -327,12 +341,15 @@ export default function Despesas() {
                           R${revenue.amount}
                         </Td>
                         <Td>{revenue.categoryName}</Td>
-                        <Td style={{
-                          color:"#C0392B"
-                        }}
-                        onClick={() => openDeleteModal(revenue)}
-                        ><DeleteIcon /></Td>
-
+                        <Td
+                          style={{
+                            color: "#C0392B",
+                            cursor:"pointer"
+                          }}
+                          onClick={() => openDeleteModal(revenue)}
+                        >
+                          <DeleteIcon />
+                        </Td>
                       </Tr>
                     ))}
                   </Tbody>
@@ -380,25 +397,38 @@ export default function Despesas() {
       <CriarDespesaModal onSuccess={fetchDespesas} />
 
       <div>{handleChangeTable()}</div>
-      
+
       {/* Modal para confirmar a alteração de status */}
-      <Modal closeOnOverlayClick={false} isOpen={isStatusModalOpen} onClose={onCloseStatusModal}>
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isStatusModalOpen}
+        onClose={onCloseStatusModal}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Alterar Status</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <p>Tem certeza que deseja marcar esta despesa como <b>{newStatus === "RECEIVED" ? "paga" : "pendente"}</b>?</p>
+            <p>
+              Tem certeza que deseja marcar esta despesa como{" "}
+              <b>{newStatus === "RECEIVED" ? "paga" : "pendente"}</b>?
+            </p>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleStatusChange}>Salvar</Button>
+            <Button colorScheme="blue" mr={3} onClick={handleStatusChange}>
+              Salvar
+            </Button>
             <Button onClick={onCloseStatusModal}>Cancelar</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
       {/* Modal para confirmar a exclusão de despesa */}
-      <Modal closeOnOverlayClick={false} isOpen={isDeleteModalOpen} onClose={onCloseDeleteModal}>
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isDeleteModalOpen}
+        onClose={onCloseDeleteModal}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Excluir Despesa</ModalHeader>
@@ -407,7 +437,9 @@ export default function Despesas() {
             <p>Tem certeza que deseja excluir essa despesa?</p>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleDeleteExpense}>Salvar</Button>
+            <Button colorScheme="blue" mr={3} onClick={handleDeleteExpense}>
+              Salvar
+            </Button>
             <Button onClick={onCloseDeleteModal}>Cancelar</Button>
           </ModalFooter>
         </ModalContent>

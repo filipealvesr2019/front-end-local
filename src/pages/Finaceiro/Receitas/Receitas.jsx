@@ -27,7 +27,9 @@ import axios from "axios";
 import { useConfig } from "../../../../context/ConfigContext";
 import CriarReceitaModal from "./CriarReceitaModal/CriarReceitaModal";
 import styles from "./Receitas.module.css";
+
 import { Select } from "@chakra-ui/react";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Receitas() {
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
@@ -39,6 +41,19 @@ export default function Receitas() {
   const [dia, setDia] = useState([]);
   const [tudo, setTudo] = useState([]);
   const [value, setValue] = useState("mes"); // Estado para armazenar o valor selecionado
+  const [deleteRevenue, setDeleteRevenue ] = useState(null);
+
+  // Use duas instâncias do useDisclosure
+  const {
+    isOpen: isStatusModalOpen,
+    onOpen: onOpenStatusModal,
+    onClose: onCloseStatusModal,
+  } = useDisclosure();
+  const {
+    isOpen: isDeleteModalOpen,
+    onOpen: onOpenDeleteModal,
+    onClose: onCloseDeleteModal,
+  } = useDisclosure();
 
   const { apiUrl } = useConfig();
   const fetchReceitas = async () => {
@@ -95,7 +110,12 @@ export default function Receitas() {
   const openStatusModal = (revenue) => {
     setSelectedRevenue(revenue);
     setNewStatus(revenue.status === "PENDING" ? "RECEIVED" : "PENDING");
-    onOpen();
+    onOpenStatusModal();
+  };
+
+  const openDeleteModal = (revenue) => {
+    setDeleteRevenue(revenue);
+    onOpenDeleteModal();
   };
 
   const handleStatusChange = async () => {
@@ -112,6 +132,22 @@ export default function Receitas() {
     }
   };
 
+
+  
+  const handleDeleteRevenue = async () => {
+    try {
+      await axios.delete(
+        `${apiUrl}/api/receitas/${AdminID}/${deleteRevenue._id}`
+      );
+      // Atualize a lista de receitas após a alteração
+      await getReceitasMes();
+      await getReceitasDia();
+      await getReceitasTudo();
+      onClose();
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
   const handleChangeTable = () => {
     switch (value) {
       case "dia":
@@ -132,6 +168,8 @@ export default function Receitas() {
                       <Th>Status</Th>
                       <Th isNumeric>Valor R$</Th>
                       <Th>Categoria</Th>
+                      <Th>Excluir</Th>
+
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -160,6 +198,11 @@ export default function Receitas() {
                           R${revenue.amount}
                         </Td>
                         <Td>{revenue.categoryName}</Td>
+                        <Td  style={{
+                            color: "#C0392B",
+                            cursor:"pointer"
+                          }} onClick={() => openDeleteModal(revenue)}><DeleteIcon /></Td>
+
                       </Tr>
                     ))}
                   </Tbody>
@@ -189,6 +232,8 @@ export default function Receitas() {
                       <Th>Status</Th>
                       <Th isNumeric>Valor R$</Th>
                       <Th>Categoria</Th>
+                      <Th>Excluir</Th>
+
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -217,6 +262,11 @@ export default function Receitas() {
                           R${revenue.amount}
                         </Td>
                         <Td>{revenue.categoryName}</Td>
+                        <Td   style={{
+                            color: "#C0392B",
+                            cursor:"pointer"
+                          }} onClick={() => openDeleteModal(revenue)}><DeleteIcon /></Td>
+
                       </Tr>
                     ))}
                   </Tbody>
@@ -245,6 +295,8 @@ export default function Receitas() {
                       <Th>Status</Th>
                       <Th isNumeric>Valor R$</Th>
                       <Th>Categoria</Th>
+                      <Th>Excluir</Th>
+
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -273,6 +325,11 @@ export default function Receitas() {
                           R${revenue.amount}
                         </Td>
                         <Td>{revenue.categoryName}</Td>
+                        <Td  style={{
+                            color: "#C0392B",
+                            cursor:"pointer"
+                          }} onClick={() => openDeleteModal(revenue)}><DeleteIcon /></Td>
+
                       </Tr>
                     ))}
                   </Tbody>
@@ -322,7 +379,11 @@ export default function Receitas() {
       <div>{handleChangeTable()}</div>
 
       {/* Modal para confirmar a alteração de status */}
-      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isStatusModalOpen}
+        onClose={onCloseStatusModal}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Alterar Status</ModalHeader>
@@ -337,7 +398,29 @@ export default function Receitas() {
             <Button colorScheme="blue" mr={3} onClick={handleStatusChange}>
               Salvar
             </Button>
-            <Button onClick={onClose}>Cancelar</Button>
+            <Button onClick={onCloseStatusModal}>Cancelar</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* Modal para confirmar a exclusão de despesa */}
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isDeleteModalOpen}
+        onClose={onCloseDeleteModal}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Excluir Receita</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <p>Tem certeza que deseja excluir essa receita?</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={handleDeleteRevenue}>
+              Salvar
+            </Button>
+            <Button onClick={onCloseDeleteModal}>Cancelar</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
