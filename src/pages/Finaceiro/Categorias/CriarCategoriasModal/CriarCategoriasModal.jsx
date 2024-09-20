@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { useConfig } from "../../../../../context/ConfigContext";
 import axios from "axios";
-export default function InitialFocus() {
+export default function InitialFocus({onSuccess}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -43,6 +43,7 @@ export default function InitialFocus() {
     try {
       const response = await axios.post(`${apiUrl}/api/categories`, formData);
       alert(response.data.message);
+      onSuccess()
     } catch (error) {
       console.error("Error creating product:", error);
       alert("Erro ao criar categoria.");

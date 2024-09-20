@@ -8,6 +8,7 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
@@ -16,11 +17,39 @@ import { Link } from "react-router-dom";
 import { useConfig } from "../../../../context/ConfigContext";
 import CriarCategoriasModal from "./CriarCategoriasModal/CriarCategoriasModal";
 import styles from "./Categorias.module.css";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+} from "@chakra-ui/react";
 export default function Receitas() {
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
 
   const { apiUrl } = useConfig();
   const [data, setData] = useState([]);
+  const fetchReceitas = async () => {
+    getCategories();
+
+  };
+
+
+  const [deleteCategory, setDeleteCategory] = useState(null);
+
+  const openDeleteModal = (revenue) => {
+    setDeleteCategory(revenue);
+    onOpenDeleteModal();
+  };
+  const {
+    isOpen: isDeleteModalOpen,
+    onOpen: onOpenDeleteModal,
+    onClose: onCloseDeleteModal,
+  } = useDisclosure();
 
   // console.log("adminEccommerceID", adminEccommerceID)
   async function getCategories() {
@@ -36,17 +65,23 @@ export default function Receitas() {
   useEffect(() => {
     getCategories();
   }, []);
-  const formatDate = (isoDate) => {
-    const date = new Date(isoDate);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
 
+  const handleDeleteCategory = async () => {
+    try {
+      await axios.delete(
+        `${apiUrl}/api/categorias/${AdminID}/${deleteCategory._id}`
+      );
+      // Atualize a lista de receitas após a alteração
+      await getCategories();
+    
+      onClose();
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
   return (
     <>
-      <CriarCategoriasModal />
+      <CriarCategoriasModal  onSuccess={fetchReceitas}/>
       {data.length > 0 ? (
         <TableContainer
           style={{
@@ -59,7 +94,8 @@ export default function Receitas() {
               <Tr>
               <Th>Nome da Categoria</Th>
               <Th>Tipo</Th>
-              
+              <Th>Excluir</Th>
+
               </Tr>
             </Thead>
             <Tbody>
@@ -68,7 +104,15 @@ export default function Receitas() {
                   <Td>{revenue.name}</Td>
                   <Td className={revenue.type === "despesa" ? styles.typeDespesa : styles.typeReceita}>{revenue.type}</Td>
                  
-                
+                  <Td
+                          style={{
+                            color: "#C0392B",
+                            cursor:"pointer"
+                          }}
+                          onClick={() => openDeleteModal(revenue)}
+                        >
+                          <DeleteIcon />
+                        </Td>
                 </Tr>
               ))}
             </Tbody>
@@ -77,6 +121,27 @@ export default function Receitas() {
       ) : (
         <p>No products available</p>
       )}
+       {/* Modal para confirmar a exclusão de despesa */}
+       <Modal
+        closeOnOverlayClick={false}
+        isOpen={isDeleteModalOpen}
+        onClose={onCloseDeleteModal}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Excluir Categoria</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <p>Tem certeza que deseja excluir essa Categoria?</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={handleDeleteCategory}>
+              Salvar
+            </Button>
+            <Button onClick={onCloseDeleteModal}>Cancelar</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
