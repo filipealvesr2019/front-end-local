@@ -44,6 +44,7 @@ export default function Receitas() {
   const [deleteRevenue, setDeleteRevenue ] = useState(null);
   const [receitasAReceberMes, setReceitasAReceberMes] = useState([]);
   const [receitasRecebidasMes, setReceitasRecebidasMes] = useState([]);
+  const [receitasRecebidasMesAnterior, setReceitasRecebidasMesAnterior] = useState([]);
 
 
   
@@ -130,12 +131,29 @@ export default function Receitas() {
           setData([]);
         }
       }
+
+
+      
+      // console.log("adminEccommerceID", adminEccommerceID)
+      async function getTotalReceitasRecebidasMesAnterior() {
+        try {
+          const response = await axios.get(
+            `${apiUrl}/api/receitas-recebidas/mes/${AdminID}`
+          );
+          setReceitasRecebidasMesAnterior(response.data.totalReceitas || []);
+          console.log("setTotalReceitasDia", response.data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+          setData([]);
+        }
+      }
   useEffect(() => {
     getReceitasMes();
     getReceitasDia();
     getReceitasTudo();
     getTotalReceitasAReceberMes()
     getTotalReceitasRecebidasMes()
+    getTotalReceitasRecebidasMesAnterior()
   }, []);
 
   const formatDate = (isoDate) => {
@@ -395,8 +413,9 @@ export default function Receitas() {
 
       case "mes":
         return <>
-        {receitasAReceberMes} -
-        Receitas recebidas: {receitasRecebidasMes}
+         A receber R$: {receitasAReceberMes} -
+        Receitas recebidas: {receitasRecebidasMes} -
+        Saldo mês anterior{receitasRecebidasMesAnterior}
         </>;
       case "tudo":
         return <></>;
@@ -406,7 +425,7 @@ export default function Receitas() {
   return (
     <>
     <div>
-    A receber R$: {handleTotalChange()}
+   {handleTotalChange()}
 </div>
       <div
         style={{
