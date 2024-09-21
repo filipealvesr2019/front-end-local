@@ -414,8 +414,10 @@ export default function Receitas() {
       case "mes":
         return <>
          A receber R$: {receitasAReceberMes} -
-        Receitas recebidas: {receitasRecebidasMes} -
-        Saldo mês anterior{receitasRecebidasMesAnterior}
+        Receitas recebidas  R$: {receitasRecebidasMes} -
+        Saldo mês anterior R$:{receitasRecebidasMesAnterior} -
+        Saldo mês atual R$ : {receitasRecebidasMes}
+
         </>;
       case "tudo":
         return <></>;
