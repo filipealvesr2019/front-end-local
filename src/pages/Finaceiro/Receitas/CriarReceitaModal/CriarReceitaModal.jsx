@@ -14,8 +14,10 @@ import {
   Input,
   useDisclosure,
 } from "@chakra-ui/react";
+import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie"; // Certifique-se de importar isso
 import { useConfig } from "../../../../../context/ConfigContext";
+import DatePicker from "react-datepicker";  // Importando o DatePicker
 
 export default function InitialFocus({ onSuccess }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -30,6 +32,8 @@ export default function InitialFocus({ onSuccess }) {
     description: "",
     amount: "",
     category: "",
+    paymentDate: new Date(),  // Inicializa o campo paymentDate com a data atual
+
   });
 
   const [categories, setCategories] = useState([]);
@@ -53,6 +57,13 @@ export default function InitialFocus({ onSuccess }) {
     setFormData({
       ...formData,
       [name]: value,
+    });
+  };
+  // Função para lidar com a mudança de data
+  const handleDateChange = (date) => {
+    setFormData({
+      ...formData,
+      paymentDate: date,
     });
   };
 
@@ -126,7 +137,16 @@ export default function InitialFocus({ onSuccess }) {
                 </select>
 
               </form>
+
+              <FormLabel>Data de Vencimento</FormLabel>
+              <DatePicker
+                selected={formData.paymentDate}
+                onChange={handleDateChange}
+                dateFormat="dd/MM/yyyy"
+              />
+      
             </FormControl>
+            
           </ModalBody>
 
           <ModalFooter>
