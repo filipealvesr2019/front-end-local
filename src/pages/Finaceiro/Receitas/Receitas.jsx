@@ -176,7 +176,7 @@ export default function Receitas() {
                     {dia.map((revenue) => (
                       <Tr key={revenue._id}>
                         <Td>{revenue.description}</Td>
-                        <Td>{formatDate(revenue.createdAt)}</Td>
+                        <Td>{formatDate(revenue.paymentDate)}</Td>
                         <Td
                           className={
                             revenue.status === "RECEIVED"
@@ -240,7 +240,7 @@ export default function Receitas() {
                     {mes.map((revenue) => (
                       <Tr key={revenue._id}>
                         <Td>{revenue.description}</Td>
-                        <Td>{formatDate(revenue.createdAt)}</Td>
+                        <Td>{formatDate(revenue.paymentDate)}</Td>
                         <Td
                           className={
                             revenue.status === "RECEIVED"
@@ -303,7 +303,7 @@ export default function Receitas() {
                     {tudo.map((revenue) => (
                       <Tr key={revenue._id}>
                         <Td>{revenue.description}</Td>
-                        <Td>{formatDate(revenue.createdAt)}</Td>
+                        <Td>{formatDate(revenue.paymentDate)}</Td>
                         <Td
                           className={
                             revenue.status === "RECEIVED"
