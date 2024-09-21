@@ -20,7 +20,6 @@ import {
   useDisclosure,
   Button,
 } from "@chakra-ui/react";
-
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -29,7 +28,7 @@ import CriarReceitaModal from "./CriarReceitaModal/CriarReceitaModal";
 import styles from "./Receitas.module.css";
 
 import { Select } from "@chakra-ui/react";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Receitas() {
   const AdminID = Cookies.get("AdminID"); // Obtenha o ID do cliente do cookie
@@ -41,13 +40,13 @@ export default function Receitas() {
   const [dia, setDia] = useState([]);
   const [tudo, setTudo] = useState([]);
   const [value, setValue] = useState("mes"); // Estado para armazenar o valor selecionado
-  const [deleteRevenue, setDeleteRevenue ] = useState(null);
+  const [deleteRevenue, setDeleteRevenue] = useState(null);
   const [receitasAReceberMes, setReceitasAReceberMes] = useState([]);
   const [receitasRecebidasMes, setReceitasRecebidasMes] = useState([]);
-  const [receitasRecebidasMesAnterior, setReceitasRecebidasMesAnterior] = useState([]);
+  const [receitasRecebidasMesAnterior, setReceitasRecebidasMesAnterior] =
+    useState([]);
+  const [receitasVencidasMes, setReceitasVencidasMes] = useState([]);
 
-
-  
   // Use duas instâncias do useDisclosure
   const {
     isOpen: isStatusModalOpen,
@@ -61,8 +60,6 @@ export default function Receitas() {
   } = useDisclosure();
 
   const { apiUrl } = useConfig();
-
-
 
   const fetchReceitas = async () => {
     await getReceitasMes();
@@ -102,58 +99,69 @@ export default function Receitas() {
     }
   }
 
-
-  
-     // console.log("adminEccommerceID", adminEccommerceID)
-     async function getTotalReceitasAReceberMes() {
-      try {
-        const response = await axios.get(
-          `${apiUrl}/api/receitas-a-receber/mes/${AdminID}`
-        );
-        setReceitasAReceberMes(response.data.totalReceitas || []);
-        console.log("setTotalReceitasDia", response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setData([]);
-      }
+  // console.log("adminEccommerceID", adminEccommerceID)
+  async function getTotalReceitasAReceberMes() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/receitas-a-receber/mes/${AdminID}`
+      );
+      setReceitasAReceberMes(response.data.totalReceitas || []);
+      console.log("setTotalReceitasDia", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
     }
+  }
 
-      // console.log("adminEccommerceID", adminEccommerceID)
-      async function getTotalReceitasRecebidasMes() {
-        try {
-          const response = await axios.get(
-            `${apiUrl}/api/receitas-recebidas/mes/${AdminID}`
-          );
-          setReceitasRecebidasMes(response.data.totalReceitas || []);
-          console.log("setTotalReceitasDia", response.data);
-        } catch (error) {
-          console.error("Error fetching products:", error);
-          setData([]);
-        }
-      }
+  // console.log("adminEccommerceID", adminEccommerceID)
+  async function getTotalReceitasRecebidasMes() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/receitas-recebidas/mes/${AdminID}`
+      );
+      setReceitasRecebidasMes(response.data.totalReceitas || []);
+      console.log("setTotalReceitasDia", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
 
+  // console.log("adminEccommerceID", adminEccommerceID)
+  async function getTotalReceitasRecebidasMesAnterior() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/receitas-recebidas/mes/${AdminID}`
+      );
+      setReceitasRecebidasMesAnterior(response.data.totalReceitas || []);
+      console.log("setTotalReceitasDia", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
 
-      
-      // console.log("adminEccommerceID", adminEccommerceID)
-      async function getTotalReceitasRecebidasMesAnterior() {
-        try {
-          const response = await axios.get(
-            `${apiUrl}/api/receitas-recebidas/mes/${AdminID}`
-          );
-          setReceitasRecebidasMesAnterior(response.data.totalReceitas || []);
-          console.log("setTotalReceitasDia", response.data);
-        } catch (error) {
-          console.error("Error fetching products:", error);
-          setData([]);
-        }
-      }
+  // console.log("adminEccommerceID", adminEccommerceID)
+  async function getTotalReceitasVencidasMes() {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/receitas-vencidas/mes-atual/${AdminID}`
+      );
+      setReceitasVencidasMes(response.data.totalReceitasVencidas || []);
+      console.log("setTotalReceitasDia", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]);
+    }
+  }
   useEffect(() => {
     getReceitasMes();
     getReceitasDia();
     getReceitasTudo();
-    getTotalReceitasAReceberMes()
-    getTotalReceitasRecebidasMes()
-    getTotalReceitasRecebidasMesAnterior()
+    getTotalReceitasAReceberMes();
+    getTotalReceitasRecebidasMes();
+    getTotalReceitasRecebidasMesAnterior();
+    getTotalReceitasVencidasMes();
   }, []);
 
   const formatDate = (isoDate) => {
@@ -183,16 +191,16 @@ export default function Receitas() {
       );
       // Atualize a lista de receitas após a alteração
       await getReceitasMes();
+      await getTotalReceitasRecebidasMesAnterior();
       await getTotalReceitasAReceberMes();
       await getTotalReceitasRecebidasMes();
+      await getTotalReceitasVencidasMes();
       onClose();
     } catch (error) {
       console.error("Error updating status:", error);
     }
   };
 
-
-  
   const handleDeleteRevenue = async () => {
     try {
       await axios.delete(
@@ -228,7 +236,6 @@ export default function Receitas() {
                       <Th isNumeric>Valor R$</Th>
                       <Th>Categoria</Th>
                       <Th>Excluir</Th>
-
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -257,11 +264,15 @@ export default function Receitas() {
                           R${revenue.amount}
                         </Td>
                         <Td>{revenue.categoryName}</Td>
-                        <Td  style={{
+                        <Td
+                          style={{
                             color: "#C0392B",
-                            cursor:"pointer"
-                          }} onClick={() => openDeleteModal(revenue)}><DeleteIcon /></Td>
-
+                            cursor: "pointer",
+                          }}
+                          onClick={() => openDeleteModal(revenue)}
+                        >
+                          <DeleteIcon />
+                        </Td>
                       </Tr>
                     ))}
                   </Tbody>
@@ -292,7 +303,6 @@ export default function Receitas() {
                       <Th isNumeric>Valor R$</Th>
                       <Th>Categoria</Th>
                       <Th>Excluir</Th>
-
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -321,11 +331,15 @@ export default function Receitas() {
                           R${revenue.amount}
                         </Td>
                         <Td>{revenue.categoryName}</Td>
-                        <Td   style={{
+                        <Td
+                          style={{
                             color: "#C0392B",
-                            cursor:"pointer"
-                          }} onClick={() => openDeleteModal(revenue)}><DeleteIcon /></Td>
-
+                            cursor: "pointer",
+                          }}
+                          onClick={() => openDeleteModal(revenue)}
+                        >
+                          <DeleteIcon />
+                        </Td>
                       </Tr>
                     ))}
                   </Tbody>
@@ -355,7 +369,6 @@ export default function Receitas() {
                       <Th isNumeric>Valor R$</Th>
                       <Th>Categoria</Th>
                       <Th>Excluir</Th>
-
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -384,11 +397,15 @@ export default function Receitas() {
                           R${revenue.amount}
                         </Td>
                         <Td>{revenue.categoryName}</Td>
-                        <Td  style={{
+                        <Td
+                          style={{
                             color: "#C0392B",
-                            cursor:"pointer"
-                          }} onClick={() => openDeleteModal(revenue)}><DeleteIcon /></Td>
-
+                            cursor: "pointer",
+                          }}
+                          onClick={() => openDeleteModal(revenue)}
+                        >
+                          <DeleteIcon />
+                        </Td>
                       </Tr>
                     ))}
                   </Tbody>
@@ -412,13 +429,49 @@ export default function Receitas() {
         return <></>;
 
       case "mes":
-        return <>
-         A receber R$: {receitasAReceberMes} -
-        Receitas recebidas  R$: {receitasRecebidasMes} -
-        Saldo mês anterior R$:{receitasRecebidasMesAnterior} -
-        Saldo mês atual R$ : {receitasRecebidasMes}
+        return (
+          <>
 
-        </>;
+            <div
+              style={{
+                border: "1px solid gray",
+              }}
+            >
+             A receber R$:{" "} {receitasAReceberMes} -
+            </div>
+
+            <div
+              style={{
+                border: "1px solid gray",
+              }}
+            >
+              Receitas recebidas R$: {receitasRecebidasMes} -
+            </div>
+            <div
+              style={{
+                border: "1px solid gray",
+              }}
+            >
+              Receitas vencidas R$: {receitasVencidasMes}
+            </div>
+            <div
+              style={{
+                border: "1px solid gray",
+              }}
+            >
+              {" "}
+              Saldo mês anterior R$:{receitasRecebidasMesAnterior} -
+            </div>
+            <div
+              style={{
+                border: "1px solid gray",
+              }}
+            >
+              {" "}
+              Saldo mês atual R$ : {receitasRecebidasMes}
+            </div>
+          </>
+        );
       case "tudo":
         return <></>;
     }
@@ -426,15 +479,12 @@ export default function Receitas() {
 
   return (
     <>
-    <div>
-   {handleTotalChange()}
-</div>
+      <div>{handleTotalChange()}</div>
       <div
         style={{
           display: "flex",
         }}
       >
-        
         <Select
           placeholder="Selecione um Periodo"
           onChange={handleSelectChange}
@@ -443,7 +493,6 @@ export default function Receitas() {
           <option value="mes">Este Mês</option>
           <option value="tudo">Tudo</option>
         </Select>
-        
       </div>
       <CriarReceitaModal onSuccess={fetchReceitas} />
       <div>{handleChangeTable()}</div>
