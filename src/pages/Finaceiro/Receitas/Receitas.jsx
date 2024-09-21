@@ -42,7 +42,11 @@ export default function Receitas() {
   const [tudo, setTudo] = useState([]);
   const [value, setValue] = useState("mes"); // Estado para armazenar o valor selecionado
   const [deleteRevenue, setDeleteRevenue ] = useState(null);
+  const [receitasAReceberMes, setReceitasAReceberMes] = useState([]);
+  const [receitasRecebidasMes, setReceitasRecebidasMes] = useState([]);
 
+
+  
   // Use duas instâncias do useDisclosure
   const {
     isOpen: isStatusModalOpen,
@@ -56,6 +60,9 @@ export default function Receitas() {
   } = useDisclosure();
 
   const { apiUrl } = useConfig();
+
+
+
   const fetchReceitas = async () => {
     await getReceitasMes();
     await getReceitasDia();
@@ -93,10 +100,42 @@ export default function Receitas() {
       setTudo([]);
     }
   }
+
+
+  
+     // console.log("adminEccommerceID", adminEccommerceID)
+     async function getTotalReceitasAReceberMes() {
+      try {
+        const response = await axios.get(
+          `${apiUrl}/api/receitas-a-receber/mes/${AdminID}`
+        );
+        setReceitasAReceberMes(response.data.totalReceitas || []);
+        console.log("setTotalReceitasDia", response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setData([]);
+      }
+    }
+
+      // console.log("adminEccommerceID", adminEccommerceID)
+      async function getTotalReceitasRecebidasMes() {
+        try {
+          const response = await axios.get(
+            `${apiUrl}/api/receitas-recebidas/mes/${AdminID}`
+          );
+          setReceitasRecebidasMes(response.data.totalReceitas || []);
+          console.log("setTotalReceitasDia", response.data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+          setData([]);
+        }
+      }
   useEffect(() => {
     getReceitasMes();
     getReceitasDia();
     getReceitasTudo();
+    getTotalReceitasAReceberMes()
+    getTotalReceitasRecebidasMes()
   }, []);
 
   const formatDate = (isoDate) => {
@@ -126,6 +165,8 @@ export default function Receitas() {
       );
       // Atualize a lista de receitas após a alteração
       await getReceitasMes();
+      await getTotalReceitasAReceberMes();
+      await getTotalReceitasRecebidasMes();
       onClose();
     } catch (error) {
       console.error("Error updating status:", error);
@@ -353,7 +394,10 @@ export default function Receitas() {
         return <></>;
 
       case "mes":
-        return <></>;
+        return <>
+        {receitasAReceberMes} -
+        Receitas recebidas: {receitasRecebidasMes}
+        </>;
       case "tudo":
         return <></>;
     }
@@ -361,11 +405,15 @@ export default function Receitas() {
 
   return (
     <>
+    <div>
+    A receber R$: {handleTotalChange()}
+</div>
       <div
         style={{
           display: "flex",
         }}
       >
+        
         <Select
           placeholder="Selecione um Periodo"
           onChange={handleSelectChange}
@@ -374,6 +422,7 @@ export default function Receitas() {
           <option value="mes">Este Mês</option>
           <option value="tudo">Tudo</option>
         </Select>
+        
       </div>
       <CriarReceitaModal onSuccess={fetchReceitas} />
       <div>{handleChangeTable()}</div>
