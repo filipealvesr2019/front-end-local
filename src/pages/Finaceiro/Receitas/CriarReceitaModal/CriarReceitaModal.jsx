@@ -33,6 +33,7 @@ export default function InitialFocus({ onSuccess }) {
     amount: "",
     category: "",
     paymentDate: new Date(), // Inicializa o campo paymentDate com a data atual
+    createdAt: new Date()
   });
 
   const [categories, setCategories] = useState([]);
@@ -59,12 +60,22 @@ export default function InitialFocus({ onSuccess }) {
     });
   };
   // Função para lidar com a mudança de data
-  const handleDateChange = (date) => {
+  const handlePaymentDateChange = (date) => {
     setFormData({
       ...formData,
       paymentDate: date,
+  
+
     });
   };
+ // Função para lidar com a mudança de data
+ const handleCreatedAtChange = (date) => {
+  setFormData({
+    ...formData,
+    createdAt: date,
+
+  });
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -141,10 +152,17 @@ export default function InitialFocus({ onSuccess }) {
               <FormLabel>Data de Vencimento</FormLabel>
               <DatePicker
                 selected={formData.paymentDate}
-                onChange={handleDateChange}
+                onChange={handlePaymentDateChange}
                 dateFormat="dd/MM/yyyy"
               />
             </FormControl>
+            <FormLabel>Data de Criação</FormLabel>
+              <DatePicker
+                selected={formData.createdAt}
+                onChange={handleCreatedAtChange}
+                dateFormat="dd/MM/yyyy"
+              />
+      
           </ModalBody>
 
           <ModalFooter>
