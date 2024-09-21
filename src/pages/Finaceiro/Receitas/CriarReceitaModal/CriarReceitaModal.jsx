@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import {
   Button,
   Modal,
@@ -17,7 +17,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie"; // Certifique-se de importar isso
 import { useConfig } from "../../../../../context/ConfigContext";
-import DatePicker from "react-datepicker";  // Importando o DatePicker
+import DatePicker from "react-datepicker"; // Importando o DatePicker
 
 export default function InitialFocus({ onSuccess }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,8 +32,7 @@ export default function InitialFocus({ onSuccess }) {
     description: "",
     amount: "",
     category: "",
-    paymentDate: new Date(),  // Inicializa o campo paymentDate com a data atual
-
+    paymentDate: new Date(), // Inicializa o campo paymentDate com a data atual
   });
 
   const [categories, setCategories] = useState([]);
@@ -72,7 +71,7 @@ export default function InitialFocus({ onSuccess }) {
 
     try {
       const response = await axios.post(`${apiUrl}/api/receitas`, formData);
-      onSuccess();  // Chama a função passada como prop para atualizar a lista
+      onSuccess(); // Chama a função passada como prop para atualizar a lista
 
       alert(response.data.message);
     } catch (error) {
@@ -107,9 +106,9 @@ export default function InitialFocus({ onSuccess }) {
                   value={formData.description}
                   required
                 />
-                
+
                 {/* Select de categorias */}
-               
+
                 <input
                   type="number"
                   name="amount"
@@ -118,24 +117,25 @@ export default function InitialFocus({ onSuccess }) {
                   value={formData.amount}
                   required
                 />
- <select
+                <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
                   required
                 >
-                  <option value="" disabled>Selecione uma categoria</option>
+                  <option value="" disabled>
+                    Selecione uma categoria
+                  </option>
                   {categories.map((category) => (
                     <>
-                    {category.type === "receita" &&  <option key={category._id} value={category._id}>
-                      {category.name}
-                    </option>
-                    }
-                   
+                      {category.type === "receita" && (
+                        <option key={category._id} value={category._id}>
+                          {category.name}
+                        </option>
+                      )}
                     </>
                   ))}
                 </select>
-
               </form>
 
               <FormLabel>Data de Vencimento</FormLabel>
@@ -144,9 +144,7 @@ export default function InitialFocus({ onSuccess }) {
                 onChange={handleDateChange}
                 dateFormat="dd/MM/yyyy"
               />
-      
             </FormControl>
-            
           </ModalBody>
 
           <ModalFooter>
