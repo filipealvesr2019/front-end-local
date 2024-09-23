@@ -16,12 +16,21 @@ export default function ProductDetails() {
   const UserID = Cookies.get("UserID"); // Obtenha o ID do cliente do cookie
   const navigate = useNavigate();
 
-  
+    // Função para formatar o subdomínio
+    const formatProductNameForURL = (str) => {
+      return str
+        .normalize("NFD") // Normaliza a string para decompor caracteres acentuados
+        .replace(/[\u0300-\u036f]/g, "") // Remove os diacríticos (acentos)
+        .toLowerCase() // Converte para letras minúsculas
+        .replace(/\s+/g, "-") // Substitui espaços por hífens
+        .replace(/[^\w\-]+/g, ""); // Remove caracteres não alfanuméricos (exceto hífens)
+    };
+
     // Aplicar a normalização ao subdomínio
 
   async function getProducts() {
     try {
-      const response = await axios.get(`${apiUrl}/api/product/${name}/${productId}`);
+      const response = await axios.get(`${apiUrl}/api/product/${formatProductNameForURL(name)}/${productId}`);
       setData(response.data);
       console.log(response.data);
     } catch (error) {
