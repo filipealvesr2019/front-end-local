@@ -61,7 +61,7 @@ const Root = () => (
       path="/user/reset-password/:token"
       element={<ResetPasswordPageUser />}
     />
-    <Route path="/user/product/:productId" element={<ProductDetails />} />
+    <Route path="/user/product/:name/:productId" element={<ProductDetails />} />
     <Route path="/admin/sales/:productId" element={<SalesDetails />} />
 
     <Route path="/qrcode" element={<PixQRCode />} />

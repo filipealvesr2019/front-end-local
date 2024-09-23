@@ -26,7 +26,6 @@ export default function InitialFocus() {
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Chave Pix</FormLabel>
            <CreateProducts />
             </FormControl>
           </ModalBody>

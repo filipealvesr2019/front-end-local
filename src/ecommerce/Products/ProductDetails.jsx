@@ -11,15 +11,17 @@ export default function ProductDetails() {
   const [selectedVariations, setSelectedVariations] = useState({});
   const [quantity, setQuantity] = useState(1); // Adicionado campo de quantidade
   const AdminID = Cookies.get("AdminID");
-  const { productId } = useParams();
+  const { productId,name } = useParams();
   const [message, setMessage] = useState('');
   const UserID = Cookies.get("UserID"); // Obtenha o ID do cliente do cookie
   const navigate = useNavigate();
 
+  
+    // Aplicar a normalização ao subdomínio
 
   async function getProducts() {
     try {
-      const response = await axios.get(`${apiUrl}/api/product/${productId}`);
+      const response = await axios.get(`${apiUrl}/api/product/${name}/${productId}`);
       setData(response.data);
       console.log(response.data);
     } catch (error) {

@@ -65,7 +65,7 @@ export default function InitialFocus({onSuccess}) {
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Chave Pix</FormLabel>
+   
               <form onSubmit={handleSubmit} style={{ marginTop: "5rem" }}>
                 <input
                   type="text"

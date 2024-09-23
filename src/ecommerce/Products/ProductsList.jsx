@@ -43,12 +43,21 @@ export default function Products() {
       setData([]); // Limpa os produtos se o storeID não estiver disponível
     }
   }, [ecommerceID, setEcommerceID]); // Dependência do ecommerceID
+  // Função para formatar o subdomínio
+  const formatProductNameForURL = (str) => {
+    return str
+      .normalize("NFD") // Normaliza a string para decompor caracteres acentuados
+      .replace(/[\u0300-\u036f]/g, "") // Remove os diacríticos (acentos)
+      .toLowerCase() // Converte para letras minúsculas
+      .replace(/\s+/g, "-") // Substitui espaços por hífens
+      .replace(/[^\w\-]+/g, ""); // Remove caracteres não alfanuméricos (exceto hífens)
+  };
 
   return (
     <div style={{ marginTop: "25rem" }}>
       {data.length > 0 ? (
         data.map((product) => (
-          <Link to={`/user/product/${product._id}`} key={product._id}>
+          <Link to={`/user/product/${formatProductNameForURL(product.name)}/${product._id}`} key={product._id}>
             <div style={{ marginTop: "10rem" }}>
               {product.name}
               <img src={product.imageUrl} alt={product.name} style={{ width: "15vw" }} />
