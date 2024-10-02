@@ -32,9 +32,11 @@ import PixQRCode from "./ecommerce/Payments/PixQRCode.jsx";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import SalesDetails from "./pages/Sales/SalesDetails.jsx";
 import { AdminProvider } from "./ecommerce/context/AdminContext.jsx";
+import { HelmetProvider } from "react-helmet-async";
 
 
 const theme = createTheme();
+const helmetContext = {};
 
 const Root = () => (
   <Routes>
@@ -72,8 +74,8 @@ const Root = () => (
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     
-
-     <ThemeProvider theme={theme}>
+    <HelmetProvider context={helmetContext}>
+    <ThemeProvider theme={theme}>
      <ConfigProvider>
       <AdminAuthProvider >
         <UserAuthProvider>
@@ -86,6 +88,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </AdminAuthProvider >
     </ConfigProvider>
      </ThemeProvider>
+</HelmetProvider>
+    
   
 
 

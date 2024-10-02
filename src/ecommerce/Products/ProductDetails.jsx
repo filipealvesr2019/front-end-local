@@ -32,7 +32,8 @@ export default function ProductDetails() {
     try {
       const response = await axios.get(`${apiUrl}/api/product/${formatProductNameForURL(name)}/${productId}`);
       setData(response.data);
-      console.log(response.data);
+
+      console.log("resposata da api", response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
       setData(null);
